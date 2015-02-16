@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="kommdCalendar">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kommd-Calendar</title>
+    <base href="/">
+    <link href="/assets/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="components/style/bootstrap.min.css">
+	<link rel="stylesheet" href="app/main/main.css">
+    <link rel="stylesheet" href="components/header/header.css">
+</head>
+<body class="{{location}}">
+
+<div class="container" ng-view ng-class="{fullscreen: fullscreen}">
+</div>
+
+
+<!-- Lib files(angular, jquery etc.) -->
+<script src="components/lib/angular/angular.js"></script>
+<script src="components/lib/angular-cookies/angular-cookies.js"></script>
+<script src="components/lib/angular-resource/angular-resource.js"></script>
+<script src="components/lib/angular-route/angular-route.js"></script>
+<script src="components/lib/angular-i18n/angular-locale_no.js"></script>
+<script src="components/lib/bootstrap/ui-bootstrap-tpls-0.6.0.min.js"></script>
+
+<!-- The app module with router -->
+<script src="/app/app.js"></script>
+
+<!-- Controllers -->
+<script src="app/main/main.controller.js"></script>
+<script src="app/main/main.js"></script>
+<script src="components/header/header.controller.js"></script>
+
+<!-- Modals -->
+
+
+<!-- Services -->
+<script src="components/services/auth.js"></script>
+
+</body>
+</html>
