@@ -6,17 +6,11 @@ module.exports = function() {
 
     nconf.defaults({file: 'server/config/environment/default.json'});
     switch (process.env.NODE_ENV) {
-        case 'test':
-            nconf.file({file: 'server/config/environment/test.json'});
+        case 'production':
+            nconf.file({file: 'server/config/environment/production.json'});
             break;
          case 'development':
             nconf.file({file: 'server/config/environment/development.json'});
-            break;
-        case 'abaoffice':
-            nconf.file({file: 'server/config/environment/office.json'});
-            break;
-        case 'labamba':
-            nconf.file({file: 'server/config/environment/labamba.json'});
             break;
         default:
             nconf.file({file: 'server/config/environment/development.json'});

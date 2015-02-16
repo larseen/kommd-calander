@@ -1,7 +1,6 @@
 {
-    "abakus_nerd_api_key": "689ee7683b8f28abf041a4df9c3a022679c58317",
-    "accessControl": {
-        "allowOrigin": "*",
-        "allowMethods": "GET,POST,PUT,DELETE,HEAD,OPTIONS,PATCH"
-    }
+	"db": {
+		"port": "somePort",
+		"ip": "someIp"
+	}
 }
