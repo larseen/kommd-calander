@@ -4,16 +4,25 @@
 var express = require('express');
 var Config = require('./config/environment'),
     nconf = new Config();
+var orm = require('orm');
     
 // Connect to database
-// TODO
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host     : 'localhost',
+    port     : '8889',
+    user     : 'root',
+    password : 'root',
+    database : 'bokdatabase',
+    charset  : 'utf8'
+  }
+});
 
+var bookshelf = require('bookshelf')(knex);
 
-// Passport configuration
-// TODO
-
-// Setup server
 var app = express();
+app.set('bookshelf', bookshelf);
 var server = require('http').createServer(app);
 require('./routes')(app);
 
