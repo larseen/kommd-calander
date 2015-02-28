@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="view.GroupsController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" >
    <children>
       <GridPane layoutX="306.0" layoutY="166.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -25,9 +25,9 @@
           <RowConstraints maxHeight="478.0" minHeight="10.0" prefHeight="451.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="createGroup" mnemonicParsing="false" onAction="#onCreateGroup" prefHeight="60.0" prefWidth="150.0" text="Create group" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button fx:id="addUser" mnemonicParsing="false" onAction="#onAddUser" prefHeight="60.0" prefWidth="150.0" text="Add user" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            <Button fx:id="removeUser" mnemonicParsing="false" onAction="#onRemoveUser" prefHeight="60.0" prefWidth="150.0" text="Remove user" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+            <Button fx:id="createGroup" mnemonicParsing="false" prefHeight="60.0" prefWidth="150.0" text="Create group" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="addUser" mnemonicParsing="false"  prefHeight="60.0" prefWidth="150.0" text="Add user" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <Button fx:id="removeUser" mnemonicParsing="false"  prefHeight="60.0" prefWidth="150.0" text="Remove user" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
             <ListView fx:id="groupList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ListView fx:id="userList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <GridPane GridPane.columnIndex="5" GridPane.rowIndex="1">

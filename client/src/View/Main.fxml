@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CoreController">
+<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <GridPane layoutX="206.0" layoutY="152.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -31,27 +31,27 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="home" mnemonicParsing="false" onAction="#onHome" prefHeight="111.0" prefWidth="145.0" style="-fx-background-color: #FFFFFF;" text="HOME">
+                  <Button fx:id="home" mnemonicParsing="false"  prefHeight="111.0" prefWidth="145.0" style="-fx-background-color: #FFFFFF;" text="HOME">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Button>
-                  <Button fx:id="calendar" mnemonicParsing="false" onAction="#onCalendar" prefHeight="105.0" prefWidth="136.0" style="-fx-background-color: #FFFFFF;" text="Calendar" GridPane.columnIndex="1">
+                  <Button fx:id="calendar" mnemonicParsing="false" prefHeight="105.0" prefWidth="136.0" style="-fx-background-color: #FFFFFF;" text="Calendar" GridPane.columnIndex="1">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="groups" mnemonicParsing="false" onAction="#onGroups" prefHeight="111.0" prefWidth="138.0" style="-fx-background-color: #FFFFFF;" text="Groups" GridPane.columnIndex="2">
+                  <Button fx:id="groups" mnemonicParsing="false"  prefHeight="111.0" prefWidth="138.0" style="-fx-background-color: #FFFFFF;" text="Groups" GridPane.columnIndex="2">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="rooms" mnemonicParsing="false" onAction="#onRooms" prefHeight="111.0" prefWidth="139.0" style="-fx-background-color: #FFFFFF;" text="Rooms" GridPane.columnIndex="3">
+                  <Button fx:id="rooms" mnemonicParsing="false" prefHeight="111.0" prefWidth="139.0" style="-fx-background-color: #FFFFFF;" text="Rooms" GridPane.columnIndex="3">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button fx:id="userMenu" mnemonicParsing="false" onAction="#onUserMenu" prefHeight="55.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="5">
+                  <Button fx:id="userMenu" mnemonicParsing="false"  prefHeight="55.0" prefWidth="33.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="5">
                      <graphic>
                         <ImageView fitHeight="41.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png');" />
                      </graphic>
