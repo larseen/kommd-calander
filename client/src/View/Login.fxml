@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
       <GridPane layoutX="110.0" layoutY="146.0" prefHeight="471.0" prefWidth="521.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -41,8 +41,8 @@
                   <Font size="20.0" />
                </font>
             </TextField>
-            <Button fx:id="register" mnemonicParsing="false" prefHeight="6.0" prefWidth="145.0" text="Register new user" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Button fx:id="settings" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <Button fx:id="register" mnemonicParsing="false" onAction="#onRegister" prefHeight="6.0" prefWidth="145.0" text="Register new user" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettings" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png');" />
                </graphic>
@@ -60,14 +60,14 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="login" mnemonicParsing="false" prefHeight="48.0" prefWidth="152.0" text="Log in" />
+                  <Button fx:id="login" mnemonicParsing="false" onAction="#onLogin" prefHeight="48.0" prefWidth="152.0" text="Log in" />
                   <CheckBox fx:id="keepLoggedIn" mnemonicParsing="false" prefHeight="16.0" prefWidth="148.0" text="Keep me logged in" GridPane.columnIndex="2">
                      <font>
                         <Font size="13.0" />
                      </font></CheckBox>
                </children>
             </GridPane>
-            <Button fx:id="help" mnemonicParsing="false"  GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <Button fx:id="help" mnemonicParsing="false" onAction="#onHelp" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="10.0" top="10.0" />
                </GridPane.margin>

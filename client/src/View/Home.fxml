@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" >
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.HomeController">
    <children>
       <GridPane layoutX="319.0" layoutY="158.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -63,7 +63,7 @@
                   <ListView fx:id="requests" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" />
                </children>
             </GridPane>
-            <Button fx:id="createEvent" mnemonicParsing="false"  prefHeight="60.0" prefWidth="201.0" text="Create event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="createEvent" mnemonicParsing="false" onAction="#onCreate" prefHeight="60.0" prefWidth="201.0" text="Create event" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="28.0" />
                </font>
