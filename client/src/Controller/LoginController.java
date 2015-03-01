@@ -42,8 +42,13 @@ public class LoginController implements Initializable {
     }    
 
     @FXML
-    private void onRegister(ActionEvent event) {
+    private void onRegister(ActionEvent event) throws Exception{
     	// TODO Register
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Register.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Register");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
@@ -54,7 +59,6 @@ public class LoginController implements Initializable {
     @FXML
     private void onLogin(ActionEvent event) throws Exception{
     	// TODO Login
-        System.out.println("login");
         ((Node)event.getSource()).getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Main.fxml"));
         Stage stage = new Stage();
