@@ -25,52 +25,6 @@ public class Appointment {
         this.admin = admin;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public LocalTime getFrom() {
-        return from;
-    }
-
-    public void setFrom(LocalTime from) {
-        this.from = from;
-    }
-
-    public LocalTime getTo() {
-        return to;
-    }
-
-    public void setTo(LocalTime to) {
-        this.to = to;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public User getAdmin() {
-        return admin;
-    }
 
 }
