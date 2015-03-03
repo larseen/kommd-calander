@@ -16,9 +16,15 @@ module.exports = function(app) {
 	app.put('/api/users/:userID', User.changePassword);
 	app.delete('/api/users/:userID', User.deleteUser);
 
+	var Session = require('./api/session.controller')(app)
+	app.post('/api/session', Session.login);
+	app.delete('/api/session', Session.logout);
+
+
 	// All other routes should return a 404
 	app.route('/*')
 	.get(middleware.setUserCookie, function(req, res) {
+		console.log(req);
 		res.send(404).end();
 	});
 

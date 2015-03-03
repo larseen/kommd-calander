@@ -23,12 +23,18 @@ var knex = require('knex')({
 
 var bookshelf = require('bookshelf')(knex);
 
+
 var app = express();
-  app.use(bodyParser.json());
-  app.use(methodOverride());
 app.set('bookshelf', bookshelf);
+
+// Passport configuration
+var passport = require('./config/passport')(app);
+
+
 var server = require('http').createServer(app);
+require('./config/express')(app);
 require('./routes')(app);
+
 
 
 
