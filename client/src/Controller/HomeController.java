@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Models.Appointment;
+import Models.Notification;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,62 +41,79 @@ public class HomeController implements Initializable {
 	@FXML
 	private Button createEvent;
 
-	private ArrayList<?> list = new ArrayList<>();
-
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO Initialize
-		// init date
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		dateDisplay.setText(sdf.format(date));
+		setTime();
 
 		// ask server for appointments
-		ArrayList<String> time = new ArrayList<String>();
+		ArrayList<String> appointmentList = new ArrayList<String>();
 
 		// testdata for appointments
-		time.add("17.30");
-		time.add("17.45");
-		time.add("18.00");
+		appointmentList.add("14:15: Meet your parents at R2010");
+		appointmentList.add("15:10: Meet employee at S11");
+		appointmentList.add("19:20: Yoga at Super Zen");
 
-		// fill the appointment of the day list
-		ObservableList obListTime = FXCollections.observableList(time);
-		appointments.getItems().clear();
-		appointments.setItems(obListTime);
+		fillAppointments(appointmentList);
+		
+		// list with notifications
+		ArrayList<Notification> notificationsList = new ArrayList<Notification>();
+		notificationsList.add(new Notification(12, "1 Some text"));
+		notificationsList.add(new Notification(13, "2 Some other text"));
+		notificationsList.add(new Notification(14, "3 Some other text"));
 
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("../View/Notification.fxml");
-		list.add("../View/Notification.fxml");
-		list.add("../View/Notification.fxml");
-		list.add("../View/Notification.fxml");
-
-		for (String v : list) {
-			showView(v);
-
-		}
-
-	
-
-	}
-
-	private void showView(String view) {
-		try {
-			notifications.setOrientation(Orientation.VERTICAL);
-			Parent root = FXMLLoader.load(getClass().getResource(view));
-			// notifications.getChildren().removeAll(notifications.getChildren());
-			notifications.getChildren().addAll(root);
-
-			// Parent root = FXMLLoader.load(getClass().getResource(view));
-			// notifications.getChildren().removeAll(notifications.getChildren());
-			// notifications.getChildren().addAll(root);
-
-		} catch (Exception e) {
-
-		}
+		fillNotifications(notificationsList);
 	}
 
 	@FXML
 	private void onCreate(ActionEvent event) {
 		// TODO CreateEvent
+	}
+	
+	private void setTime(){
+		//set date
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		dateDisplay.setText(sdf.format(date));
+	}
+
+	private void fillNotifications(ArrayList<Notification> notificationsList) {
+		notifications.setOrientation(Orientation.VERTICAL);
+		
+		// list for controllers
+				ArrayList<NotificationController> notificationControllers = new ArrayList<NotificationController>();
+
+				for (Notification notification : notificationsList) {
+					try {
+						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+								"../View/Notification.fxml"));
+						Parent root = fxmlLoader.load();
+						NotificationController notificationController = fxmlLoader
+								.getController();
+						notificationController.setData(notification);
+						System.out.println(notification.getText());
+
+						notificationControllers.add(notificationController);
+
+						notifications.getChildren().addAll(root);
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+
+	}
+
+	private void fillAppointments(ArrayList<String> appointmentList) {
+		// fill the appointment of the day list
+		ObservableList obListTime = FXCollections.observableList(appointmentList);
+		appointments.getItems().clear();
+		appointments.setItems(obListTime);
+	}
+
+	private void fillRequests() {
+		// TODO requests
+
 	}
 }
