@@ -11,7 +11,10 @@
     "body-parser": "*",
     "knex": "*",
     "mysql": "*",
-    "bookshelf": "*"
+    "bookshelf": "*",
+    "bluebird":   "*",
+    "passport":   "*",
+    "crypto":   "*"
   },
   "scripts": {
       "start": "nodemon server/app.js",
