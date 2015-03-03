@@ -8,18 +8,13 @@ var middleware = require('./config/middleware')
 
 module.exports = function(app) {
 
-	var bookController = require('./api/book.controller')(app)
-	app.get('/api/books', bookController.getBooks);
-	app.get('/api/books/:bookId', bookController.getBook);
-
-
-	/*
-
-	var appointmentController = require('./api/appointment.controller')(app)
-	app.get('/api/appointments', appointmentController.getappointments);
-	app.get('/api/books/:bookId', bookController.getBook);
-
-	*/
+	var User = require('./api/user.controller')(app)
+	app.get('/api/users', User.getUsers);
+	app.get('/api/users/:userID', User.getUser);
+	app.post('/api/users', User.createUser);
+	app.post('/api/users/:userID', User.updateUser);
+	app.put('/api/users/:userID', User.changePassword);
+	app.delete('/api/users/:userID', User.deleteUser);
 
 	// All other routes should return a 404
 	app.route('/*')
