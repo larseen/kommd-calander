@@ -1,6 +1,7 @@
 package Controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+
+import javax.management.Notification;
 
 public class MainController implements Initializable {
     @FXML
@@ -37,16 +40,19 @@ public class MainController implements Initializable {
         showView("../View/Home.fxml");
     }    
 
-    private void showView(String view){
+    private Initializable showView(String view){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(view));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
+            Parent root = fxmlLoader.load();
+            Initializable display_controller = fxmlLoader.getController();
             displayView.getChildren().removeAll(displayView.getChildren());
             displayView.getChildren().addAll(root);
-
+            return display_controller;
         }
         catch (Exception e){
-
+            System.out.println(e);
         }
+        return null;
     }
 
     @FXML
@@ -58,7 +64,10 @@ public class MainController implements Initializable {
     @FXML
     private void onCalendar(ActionEvent event) {
     	//TODO Calendar
-        showView("../View/Calendar.fxml");
+
+            CalendarController display_controller =(CalendarController) showView("../View/Calendar.fxml");
+            //display_controller.wr("test1234");
+
     }
 
     @FXML
