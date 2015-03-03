@@ -65,7 +65,21 @@ module.exports = function(app){
 		    		Salt: salt,
 		    		PasswordHash: cryptoMethods.encryptPassword(password, salt)
 		    	}).save()
-		  })
+		}),
+
+		newPassword: Promise.method(function(user, newPassword) {
+		    if (!newPassword) throw new Error('enter a new password');
+		    var salt = cryptoMethods.makeSalt()
+		    return user.save
+		    	({
+		    		Salt: salt,
+		    		PasswordHash: cryptoMethods.encryptPassword(newPassword, salt)
+		    	})
+		}),
+
+		authenticate:  Promise.method(function(passwordPlaintext, salt, hashedPassword) {
+		    return cryptoMethods.encryptPassword(passwordPlaintext, salt) === hashedPassword;
+		})
 
 
 	});
