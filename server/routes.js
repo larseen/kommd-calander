@@ -16,6 +16,13 @@ module.exports = function(app) {
 	app.put('/api/users/:userID', User.changePassword);
 	app.delete('/api/users/:userID', User.deleteUser);
 
+	var Group = require('./api/group.controller')(app)
+	app.get('/api/groups', Group.getGroups);
+	app.get('/api/groups/:groupID', Group.getGroup);
+	app.post('/api/groups', Group.createGroup);
+	app.post('/api/groups/:groupID', Group.updateGroup);
+	app.delete('/api/groups/:groupID', Group.deleteGroup);
+
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);
 	app.delete('/api/session', Session.logout);
