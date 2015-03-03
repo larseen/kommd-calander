@@ -48,7 +48,8 @@ module.exports = function(app){
 
     var User = bookshelf.Model.extend(
     {
-	  tableName: 'User',
+    	idAttribute: 'UserID',
+	  	tableName: 'User'
 	},
 	{
 

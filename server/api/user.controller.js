@@ -36,13 +36,9 @@ module.exports = function(app){
                 });
             },
             updateUser : function(req, res){
-                console.log(req.params.userID);
-                console.log(req.body);
-                User.forge({UserID: req.params.userID})
-                .fetch({require: true})
+                new User({UserID: req.params.userID}).fetch()
                 .then(function(user){
                     if(!user) return res.json(400, {error: 'no user not found'});
-                    console.log(user)
                     user.save({
                         Navn: req.body.name || user.get('Navn'), 
                         Phone: req.body.phone || user.get('Phone'), 
@@ -50,13 +46,14 @@ module.exports = function(app){
                         Email: req.body.email || user.get('Email')
                     })
                     .then(function(updateUser){
-                        console.log(updateUser);
                         res.send(updateUser.toJSON());
                     })
                     .catch(function(err){
-                        console.log(err);
                         return res.send(500, {error:err.toString()});
                     });
+                })
+                .catch(function(err){
+                    return res.send(500, {error:err.toString()});
                 });
             },
             changePassword : function(req, res){
