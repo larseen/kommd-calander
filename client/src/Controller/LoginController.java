@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
         ((Node)event.getSource()).getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Main.fxml"));
         Stage stage = new Stage();
-        stage.setTitle("Login");
+        stage.setTitle("KOMMD");
         stage.setScene(new Scene(root));
         stage.show();
     }
