@@ -14,7 +14,10 @@
     "bookshelf": "*",
     "bluebird":   "*",
     "passport":   "*",
-    "crypto":   "*"
+    "passport-local":   "*",
+    "crypto":   "*",
+    "cookie-parser": "*",
+    "express-session": "*"
   },
   "scripts": {
       "start": "nodemon server/app.js",

@@ -77,9 +77,13 @@ module.exports = function(app){
 		    	})
 		}),
 
-		authenticate:  Promise.method(function(passwordPlaintext, salt, hashedPassword) {
-		    return cryptoMethods.encryptPassword(passwordPlaintext, salt) === hashedPassword;
-		})
+		authenticate:  function(passwordPlaintext, salt, hashedPassword) {
+			if(cryptoMethods.encryptPassword(passwordPlaintext, salt)===(hashedPassword)) {
+				return true;
+			}else{
+				return false;
+			}
+		}
 
 
 	});
