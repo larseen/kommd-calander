@@ -38,19 +38,25 @@ module.exports = function(app){
             updateUser : function(req, res){
                 console.log(req.params.userID);
                 console.log(req.body);
-                new User({UserID: req.params.userID}).fetch()
-                  .then(function(user) {
+                User.forge({UserID: req.params.userID})
+                .fetch({require: true})
+                .then(function(user){
                     if(!user) return res.json(400, {error: 'no user not found'});
-                    if(req.body.name) user.save({Navn: req.body.name});
-                    if(req.body.title) user.save({Title: req.body.title});
-                    if(req.body.phone) user.save({Phone: req.body.phone});
-                    if(req.body.email) user.save({Email: req.body.email});
-                    console.log(user);
-                    res.send(user.toJSON());
-                })
-                .catch(function(err){
-                    console.log(err);
-                    return res.send(500, {error:err.toString()});
+                    console.log(user)
+                    user.save({
+                        Navn: req.body.name || user.get('Navn'), 
+                        Phone: req.body.phone || user.get('Phone'), 
+                        Title: req.body.title || user.get('Title'), 
+                        Email: req.body.email || user.get('Email')
+                    })
+                    .then(function(updateUser){
+                        console.log(updateUser);
+                        res.send(updateUser.toJSON());
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                        return res.send(500, {error:err.toString()});
+                    });
                 });
             },
             changePassword : function(req, res){
