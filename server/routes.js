@@ -23,6 +23,13 @@ module.exports = function(app) {
 	app.post('/api/groups/:groupID', Group.updateGroup);
 	app.delete('/api/groups/:groupID', Group.deleteGroup);
 
+	var Room = require('./api/room.controller')(app)
+	app.get('/api/rooms', Room.getRooms);
+	app.get('/api/rooms/:roomID', Room.getRoom);
+	app.post('/api/rooms', Room.createRoom);
+	app.post('/api/rooms/:roomID', Room.updateRoom);
+	app.delete('/api/rooms/:roomID', Room.deleteRoom);
+
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);
 	app.delete('/api/session', Session.logout);
