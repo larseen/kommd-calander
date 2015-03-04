@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import Models.Appointment;
 import Models.Notification;
+import Models.Request;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 public class HomeController implements Initializable {
 	@FXML
@@ -33,23 +35,22 @@ public class HomeController implements Initializable {
 	@FXML
 	private Label dateDisplay;
 	@FXML
-	private FlowPane notifications;
+	private VBox notifications;
 	@FXML
 	private ListView<String> appointments;
 	@FXML
-	private FlowPane requests;
+	private VBox requests;
 	@FXML
 	private Button createEvent;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO Initialize
 		setTime();
 
 		// ask server for appointments
 		ArrayList<String> appointmentList = new ArrayList<String>();
 
-		// testdata for appointments
+		// list with appointments
 		appointmentList.add("14:15: Meet your parents at R2010");
 		appointmentList.add("15:10: Meet employee at S11");
 		appointmentList.add("19:20: Yoga at Super Zen");
@@ -61,8 +62,31 @@ public class HomeController implements Initializable {
 		notificationsList.add(new Notification(12, "1 Some text"));
 		notificationsList.add(new Notification(13, "2 Some other text"));
 		notificationsList.add(new Notification(14, "3 Some other text"));
+		notificationsList.add(new Notification(14, "4 Some other text"));
+		notificationsList.add(new Notification(14, "5 Some other text"));
+		notificationsList.add(new Notification(14, "6 Some other text"));
+		notificationsList.add(new Notification(14, "7 Some other text"));
+		notificationsList.add(new Notification(14, "8 Some other text"));
+		notificationsList.add(new Notification(14, "9 Some other text"));
+		notificationsList.add(new Notification(14, "10 Some other text"));
+		notificationsList.add(new Notification(14, "11 Some other text"));
+		notificationsList.add(new Notification(14, "12 Some other text"));
+		notificationsList.add(new Notification(14, "13 Some other text"));
+		notificationsList.add(new Notification(14, "14 Some other text"));
+		notificationsList.add(new Notification(14, "15 Some other text"));
+		notificationsList.add(new Notification(14, "16 Some other text"));
+		notificationsList.add(new Notification(14, "17 Some other text"));
+		notificationsList.add(new Notification(14, "18 Some other text"));
 
 		fillNotifications(notificationsList);
+		
+		//list with requests
+		ArrayList<Request> requestList = new ArrayList<Request>();
+		requestList.add(new Request(1,"Invited to BestGroupEver!","group"));
+		requestList.add(new Request(1,"Invited to BoringMeeting!","appointment"));
+		requestList.add(new Request(1,"Invited to SomeGroup!","group"));
+		
+		fillRequests(requestList);
 	}
 
 	@FXML
@@ -78,7 +102,7 @@ public class HomeController implements Initializable {
 	}
 
 	private void fillNotifications(ArrayList<Notification> notificationsList) {
-		notifications.setOrientation(Orientation.VERTICAL);
+		//notifications.setOrientation(Orientation.VERTICAL);
 		
 		// list for controllers
 				ArrayList<NotificationController> notificationControllers = new ArrayList<NotificationController>();
@@ -112,8 +136,26 @@ public class HomeController implements Initializable {
 		appointments.setItems(obListTime);
 	}
 
-	private void fillRequests() {
-		// TODO requests
+	private void fillRequests(ArrayList<Request> requestList) {
+		
+		// list for controllers
+		ArrayList<RequestController> requestControllers = new ArrayList<RequestController>();
 
+		for (Request request : requestList) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+						"../View/Request.fxml"));
+				Parent root = fxmlLoader.load();
+				RequestController requestController = fxmlLoader
+						.getController();
+				requestController.setData(request);
+				System.out.println(request.getText());
+
+				requestControllers.add(requestController);
+				requests.getChildren().addAll(root);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

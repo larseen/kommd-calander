@@ -22,7 +22,10 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Button fx:id="seenBtn" mnemonicParsing="false" onAction="#onSeen" text="X" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="seenBtn" mnemonicParsing="false" onAction="#onSeen" text="X" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
          </children>
       </GridPane>
    </children>
