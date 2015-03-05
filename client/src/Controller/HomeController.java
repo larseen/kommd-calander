@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -114,8 +115,7 @@ public class HomeController implements Initializable {
 						Parent root = fxmlLoader.load();
 						NotificationController notificationController = fxmlLoader
 								.getController();
-						notificationController.setData(notification);
-						System.out.println(notification.getText());
+						notificationController.setData(notification, this);
 
 						notificationControllers.add(notificationController);
 
@@ -136,6 +136,17 @@ public class HomeController implements Initializable {
 		appointments.setItems(obListTime);
 	}
 
+	public void removeNotification(AnchorPane notification){
+		notifications.getChildren().remove(notification);
+		this.redrawNotifications();
+	}
+
+	private void redrawNotifications(){
+		ArrayList tmpNotifications = new ArrayList(this.notifications.getChildren());
+		notifications.getChildren().removeAll(notifications.getChildren());
+		notifications.getChildren().addAll(tmpNotifications);
+	}
+
 	private void fillRequests(ArrayList<Request> requestList) {
 		
 		// list for controllers
@@ -149,7 +160,6 @@ public class HomeController implements Initializable {
 				RequestController requestController = fxmlLoader
 						.getController();
 				requestController.setData(request);
-				System.out.println(request.getText());
 
 				requestControllers.add(requestController);
 				requests.getChildren().addAll(root);

@@ -57,8 +57,6 @@ public class Model {
 
             @Override
             public ClientResponse handle(ClientRequest request) throws ClientHandlerException {
-                System.out.println(Model.getCookies());
-                System.out.println("cookie handling");
                 if (getCookies() != null) {
                     request.getHeaders().put("Cookie", getCookies());
                 }
@@ -66,7 +64,6 @@ public class Model {
                 if (response.getCookies() != null) {
                     // simple addAll just for illustration (should probably check for duplicates and expired cookies)
                     addCookie(response.getCookies());
-                    System.out.println("cookie :" + response.getCookies());
                 }
                 return response;
             }
@@ -77,12 +74,8 @@ public class Model {
         if( cookies == null){
             initCookies();
         }
-
-
-
         WebResource webResource = client.resource(url + api_url);
         ClientResponse response = webResource.accept("application/json").type("application/json").get(ClientResponse.class);
-        System.out.println(response);
         return Model.getResponseAsJSON(response.getEntity(String.class));
     }
 
@@ -93,14 +86,15 @@ public class Model {
             obj = new JSONObject(response);
         }
         catch (Exception e){
+            System.out.println(e);
             try {
                 obj = new JSONObject();
                 obj.put("users", new JSONArray(response));
             }
             catch (Exception f){
                 System.out.println(f);
+                System.out.println(response);
             }
-            System.out.println(e);
         }
         return obj;
     }

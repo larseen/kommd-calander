@@ -19,10 +19,6 @@ public class Login extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         Model.setURL("http://api.larsen.so");
-        JSONObject data =  Model.post("/api/session", "{\"email\":\"larsen@me.com\",\"password\":\"larsen\"}");
-        System.out.println(data);
-        data =  Model.get("/api/users");
-        System.out.println(data);
     }
 
     public static void main(String[] args) {

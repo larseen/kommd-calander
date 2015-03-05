@@ -60,14 +60,10 @@ public class LoginController implements Initializable {
     	// TODO Login
 
 
-        if( authorized() ){
+        if( User.login("larsen@me.com", "larsen") == true ){ /*User.login(username.getText(), password.getText()) */
             ((Node)event.getSource()).getScene().getWindow().hide();
             login();
-
-            User.get("");
         }
-
-        User.get("");
 
 
     }
@@ -80,12 +76,7 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
-    private boolean authorized(){
-        MainController.setCurrentUser(new User());
-        if( username.getText().equals(password.getText())) return true;
-        return false;
-        //return User.login("laren@me.com","larsen");
-    }
+
 
     @FXML
     private void onHelp(ActionEvent event) {
