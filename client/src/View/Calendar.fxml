@@ -7,18 +7,769 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalendarController">
+<AnchorPane fx:id="root" minHeight="200" minWidth="400" stylesheets="@../../static/css/calendar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalendarController">
    <children>
-      <TabPane layoutX="244.0" layoutY="117.0" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="609.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Day">
             <content>
-              <AnchorPane id="calendarDay" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane id="calendarDay" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <GridPane>
+                                 <children>
+                                    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane>
+                                             <children>
+                                                <GridPane prefHeight="58.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="Day" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <VBox styleClass="fake_head">
+                                                               <children>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label text="00:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="01:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="02:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="03:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="04:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="05:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="06:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="07:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="08:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="09:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="10:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="11:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="12:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="13:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="14:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="15:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="16:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="17:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="18:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="19:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="20:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="21:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="22:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="23:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                               </children>
+                                                            </VBox>
+                                                            <AnchorPane fx:id="day_col" styleClass="fake_cell_everlasting" GridPane.columnIndex="1" />
+                                                         </children>
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="100" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints percentHeight="10" />
+                                    <RowConstraints percentHeight="90" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </StackPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Week">
             <content>
-              <AnchorPane id="calendarWeek" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane id="calendarWeek" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints percentWidth="100" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints percentHeight="10" />
+                                  <RowConstraints percentHeight="90" />
+                                </rowConstraints>
+                                 <children>
+                                    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane>
+                                             <children>
+                                                <GridPane prefHeight="58.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <GridPane GridPane.columnIndex="1">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="13.5" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="13.5" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints percentHeight="100" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label id="week_tue_label" text="Thu" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+                                                            <Label id="week__wed_label" text="Wen" GridPane.columnIndex="2" GridPane.valignment="TOP" />
+                                                            <Label id="week_thu_label" text="Thu" GridPane.columnIndex="3" GridPane.valignment="TOP" />
+                                                            <Label id="week_fri_label" text="Fri" GridPane.columnIndex="4" GridPane.valignment="TOP" />
+                                                            <Label id="week_sat_label" text="Sat" GridPane.columnIndex="5" GridPane.valignment="TOP" />
+                                                            <Label id="week_sun_label" text="Sun" GridPane.columnIndex="6" GridPane.valignment="TOP" />
+                                                            <Label id="week_tue_label" text="Mon" GridPane.valignment="TOP" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <content>
+                                              <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <VBox styleClass="fake_head">
+                                                               <children>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label text="00:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="01:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="02:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="03:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="04:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="05:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="06:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="07:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="08:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="09:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="10:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="11:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="12:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="13:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="14:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="15:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="16:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="17:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="18:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="19:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="20:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="21:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="22:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane>
+                                                                     <children>
+                                                                        <Label prefHeight="30.0" text="23:00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                           <padding>
+                                                                              <Insets left="5.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </Pane>
+                                                               </children>
+                                                            </VBox>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="14" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints percentHeight="100" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <AnchorPane fx:id="week_mon_col" styleClass="fake_cell" />
+                                                                  <AnchorPane fx:id="week_tue_col" styleClass="fake_cell" GridPane.columnIndex="1" />
+                                                                  <AnchorPane fx:id="week_wed_col" styleClass="fake_cell" GridPane.columnIndex="2" />
+                                                                  <AnchorPane fx:id="week_thu_col" styleClass="fake_cell" GridPane.columnIndex="3" />
+                                                                  <AnchorPane fx:id="week_fri_col" styleClass="fake_cell" GridPane.columnIndex="4" />
+                                                                  <AnchorPane fx:id="week_sat_col" styleClass="fake_cell" GridPane.columnIndex="5" />
+                                                                  <AnchorPane fx:id="week_sun_col" styleClass="fake_cell" GridPane.columnIndex="6" />
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
             </content>
           </Tab>
             <Tab text="Month">

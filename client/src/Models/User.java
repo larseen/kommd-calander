@@ -1,40 +1,24 @@
 package Models;
 
-public class User {
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+import java.util.*;
+
+public class User extends Model{
     private Integer id;
     private String name;
     private String email;
     private String phone;
 
     public User(){
-
+        super();
     }
 
-    public Integer getId() {
-        return id;
+    public static boolean login(String email, String password){
+        return true;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

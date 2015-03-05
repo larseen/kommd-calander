@@ -1,6 +1,13 @@
 package Models;
 
+import Controller.CalendarController;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Dag Frode on 02.03.2015.
@@ -8,14 +15,15 @@ import java.time.LocalTime;
 public class Appointment {
 
     private Integer id;
-    private LocalTime from;
-    private LocalTime to;
+    private Calendar from;
+    private Calendar to;
     private String description;
     private String location;
     private Room room;
     private User admin;
 
-    public Appointment(Integer id, LocalTime from, LocalTime to, String description, String location, Room room, User admin) {
+
+    public Appointment(Integer id, Calendar from, Calendar to, String description, String location, Room room, User admin) {
         this.id = id;
         this.from = from;
         this.to = to;
@@ -25,52 +33,15 @@ public class Appointment {
         this.admin = admin;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getLengthInMinutes(){
+        return (to.get(Calendar.HOUR_OF_DAY) - from.get(Calendar.HOUR_OF_DAY)) * 60 + to.get(Calendar.MINUTE) - from.get(Calendar.MINUTE);
     }
 
-    public LocalTime getFrom() {
-        return from;
+    public Integer getStartTimeInMinutes(){
+        return from.get(Calendar.HOUR_OF_DAY) * 60 + from.get(Calendar.MINUTE);
     }
 
-    public void setFrom(LocalTime from) {
-        this.from = from;
-    }
-
-    public LocalTime getTo() {
-        return to;
-    }
-
-    public void setTo(LocalTime to) {
-        this.to = to;
-    }
-
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public User getAdmin() {
-        return admin;
-    }
-
 }

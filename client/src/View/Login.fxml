@@ -41,7 +41,6 @@
                   <Font size="20.0" />
                </font>
             </TextField>
-            <Button fx:id="register" mnemonicParsing="false" onAction="#onRegister" prefHeight="6.0" prefWidth="145.0" text="Register new user" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettings" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png');" />
