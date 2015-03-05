@@ -3,6 +3,8 @@ package Controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,9 +32,12 @@ public class MainController implements Initializable {
     @FXML
     private Button userMenu;
     @FXML
-    private Label currentUser;
+    private Label currentUserLabel;
     @FXML
     private Pane displayView;
+
+
+    private static User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,6 +50,7 @@ public class MainController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
             Parent root = fxmlLoader.load();
             Initializable display_controller = fxmlLoader.getController();
+
             displayView.getChildren().removeAll(displayView.getChildren());
             displayView.getChildren().addAll(root);
             return display_controller;
@@ -85,5 +91,12 @@ public class MainController implements Initializable {
     private void onUserMenu(ActionEvent event) {
     	//TODO UserMenu
     }
-    
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        MainController.currentUser = currentUser;
+    }
 }

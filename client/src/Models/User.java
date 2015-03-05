@@ -13,7 +13,7 @@ public class User extends Model{
     private String phone;
 
     public User(){
-
+        super();
     }
 
     public static boolean login(String email, String password){

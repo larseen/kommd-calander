@@ -1,8 +1,7 @@
 package Controller;
 
-import Models.Appointment;
-import Models.Room;
-import Models.User;
+import Models.*;
+import Models.Calendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -10,25 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
-import java.time.LocalTime;
 import java.util.*;
 
-import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.geometry.HPos;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.URL;
 
@@ -44,9 +29,15 @@ public class CalendarController implements Initializable {
     @FXML
     private Pane week_mon_col;
     @FXML
+    private Pane day_col;
+    @FXML
     private AnchorPane root;
 
     private AnchorPane ap;
+
+    private AppointmentController dayController;
+
+    private ArrayList<AppointmentController> week;
 
     ArrayList<AppointmentController> appointmentControllers;
 
@@ -61,8 +52,11 @@ public class CalendarController implements Initializable {
 
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,14,00,00), new GregorianCalendar(2015,03,03,16,45,00), "Møte", "der", new Room(), new User()));
-        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,19,00,00), "Møte", "der", new Room(), new User()));
+        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte", "der", new Room(), new User()));
+        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte", "der", new Room(), new User()));
 
+        Models.Calendar calendar = new Calendar(appointments);
+        appointments = calendar.getDaysAppointments();
         appointmentControllers = new ArrayList<AppointmentController>();
 
         for( Appointment appointment : appointments ){

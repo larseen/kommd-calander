@@ -1,10 +1,8 @@
 package Controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import Models.Model;
 import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,8 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class LoginController implements Initializable {
     @FXML
@@ -46,7 +42,6 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO Initialize
         //ArrayList<User> users = User.getUsers();
-        Model.setURL("https://api.twitter.com/1.1/users/show.json");
     }    
 
 
@@ -63,19 +58,33 @@ public class LoginController implements Initializable {
     @FXML
     private void onLogin(ActionEvent event) throws Exception{
     	// TODO Login
-        if( authorized() ){
 
+
+        if( authorized() ){
+            ((Node)event.getSource()).getScene().getWindow().hide();
+            login();
+
+            User.get("");
         }
-        ((Node)event.getSource()).getScene().getWindow().hide();
+
+        User.get("");
+
+
+    }
+
+    private void login() throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../View/Main.fxml"));
         Stage stage = new Stage();
-        stage.setTitle("KOMMD");
+        stage.setTitle("KVOMMD");
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     private boolean authorized(){
-        return User.login("laren@me.com","larsen");
+        MainController.setCurrentUser(new User());
+        if( username.getText().equals(password.getText())) return true;
+        return false;
+        //return User.login("laren@me.com","larsen");
     }
 
     @FXML

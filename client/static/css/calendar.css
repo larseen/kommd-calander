@@ -5,3 +5,7 @@
 .fake_head{
     -fx-background-image: url('../../static/img/calendar_line_head.png');
 }
+
+.fake_cell_everlasting{
+    -fx-background-image: url('../../static/img/calendar_line.png');
+}

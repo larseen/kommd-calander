@@ -67,7 +67,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="currentUser" prefHeight="21.0" prefWidth="81.0" text="currentUser" GridPane.columnIndex="1" />
+                              <Label fx:id="currentUserLabel" prefHeight="21.0" prefWidth="81.0" text="currentUser" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children>
