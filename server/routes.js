@@ -30,6 +30,26 @@ module.exports = function(app) {
 	app.post('/api/rooms/:roomID', Room.updateRoom);
 	app.delete('/api/rooms/:roomID', Room.deleteRoom);
 
+	var Appointment = require('./api/appointment.controller')(app)
+	app.get('/api/appointments', Appointment.getAppointments);
+	app.get('/api/appointments/:appoinmentID', Appointment.getAppointment);
+	app.get('/api/appointments/:userID', Appointment.getUserAppointments);
+	app.post('/api/appointments', Appointment.createAppointment);
+	app.post('/api/appointments/:appoinmentID', Appointment.updateAppointment);
+	app.delete('/api/appointments/:appoinmentID', Appointment.deleteAppointment);
+
+	var Notification = require('./api/notification.controller')(app)
+	app.get('/api/notifications', Notification.getAppointments);
+	app.get('/api/notifications/:notificationID', Notification.getNotification);
+	app.get('/api/notifications/:userID', Notification.getUserNotifications);
+	app.post('/api/notifications/:appoinmentID', Notification.updateAppointment);
+
+	var Invitation = require('./api/invitation.controller')(app)
+	app.get('/api/invitations', Invitation.getInvitations);
+	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
+	app.get('/api/invitations/:userID', Invitation.getUserInvitations);
+	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);
+
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);
 	app.delete('/api/session', Session.logout);
