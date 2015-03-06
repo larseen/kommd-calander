@@ -8,7 +8,16 @@
     "ejs": "*",
     "nodemon": "*",
     "method-override": "*",
-    "body-parser": "*"
+    "body-parser": "*",
+    "knex": "*",
+    "mysql": "*",
+    "bookshelf": "*",
+    "bluebird":   "*",
+    "passport":   "*",
+    "passport-local":   "*",
+    "crypto":   "*",
+    "cookie-parser": "*",
+    "express-session": "*"
   },
   "scripts": {
       "start": "nodemon server/app.js",
