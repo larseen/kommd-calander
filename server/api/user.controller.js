@@ -7,12 +7,7 @@ module.exports = function(app){
 
     return {
             getUsers : function(req, res){
-<<<<<<< HEAD
-		console.log('users');
-                new User().fetchAll({columns: ['UserID', 'Navn', 'Title', 'Phone', 'Email']})
-=======
                 new User().fetchAll({columns: ['UserID', 'Name', 'Title', 'Phone', 'Email']})
->>>>>>> 469ab312b41f7196178952f89f700368648fc8ab
                 .then(function(users) {
                     if(!users) return res.json(400, {error: 'no users not found'});
                     res.send(users.toJSON());
