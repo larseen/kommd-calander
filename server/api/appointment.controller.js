@@ -4,7 +4,7 @@
 module.exports = function(app){
 
     var Appointment = require('../models/appointment.model')(app);
-
+    console.log("update");
     return {
             getAppointments: function(req, res){
                 new Appointment().fetchAll()
