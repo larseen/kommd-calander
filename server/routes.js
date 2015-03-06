@@ -29,7 +29,7 @@ module.exports = function(app) {
 	app.post('/api/rooms', Room.createRoom);
 	app.post('/api/rooms/:roomID', Room.updateRoom);
 	app.delete('/api/rooms/:roomID', Room.deleteRoom);
-
+/*
 	var Appointment = require('./api/appointment.controller')(app)
 	app.get('/api/appointments', Appointment.getAppointments);
 	app.get('/api/appointments/:appoinmentID', Appointment.getAppointment);
@@ -48,7 +48,7 @@ module.exports = function(app) {
 	app.get('/api/invitations', Invitation.getInvitations);
 	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
 	app.get('/api/invitations/:userID', Invitation.getUserInvitations);
-	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);
+	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);*/
 
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);
