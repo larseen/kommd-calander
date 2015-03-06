@@ -85,6 +85,7 @@ public class MainController implements Initializable {
     @FXML
     private void onRooms(ActionEvent event) {
     	//TODO Rooms
+    	showView("../View/Rooms.fxml");
     }
 
     @FXML

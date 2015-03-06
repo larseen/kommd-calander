@@ -1,0 +1,46 @@
+package Controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import Models.Room;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+
+public class RoomController implements Initializable {
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private Button delete;
+    @FXML
+    private Label name;
+    
+    private int id;
+    private String roomName;
+    private RoomsController roomsController;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    	name.setText(this.roomName);
+    }    
+
+    @FXML
+    private void onDelete(ActionEvent event) {
+    	root.getChildren().clear();
+    	
+    	//TODO DELETE room from DB
+    	
+    }
+    
+    public void setData(Room room){
+    	this.id = room.getId();
+    	this.roomName = room.getName();
+    	this.roomsController = room.getRoomsController();
+    }
+    
+}
