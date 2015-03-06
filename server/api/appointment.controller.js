@@ -26,6 +26,16 @@ module.exports = function(app){
                     return res.send(500, {error:err.toString()});
                 });
             },
+            getAppointmentInInterval: function(req, res){
+                new Appointment({'AppointmentID': req.params.appointmentID}).fetch()
+                .then(function(appointment) {
+                    if(!appointment) return res.json(400, {error: 'appointment not found'})
+                    res.send(appointment.toJSON());
+                })
+                .catch(function(err){
+                    return res.send(500, {error:err.toString()});
+                });
+            },
             createAppointment: function(req, res){
 				Appointment.forge({
 					Name: req.body.name,
