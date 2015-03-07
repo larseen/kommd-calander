@@ -34,12 +34,13 @@ public class RoomController implements Initializable {
     	root.getChildren().clear();
     	
     	//TODO DELETE room from DB
-    	
+    	System.out.println(id);
     }
     
     public void setData(Room room){
     	this.id = room.getId();
     	this.roomName = room.getName();
+    	name.setText(this.roomName);
     	this.roomsController = room.getRoomsController();
     }
     

@@ -71,11 +71,19 @@ public class RoomsController implements Initializable {
 
 	@FXML
     private void onCreate(ActionEvent event) {
-    	root.getChildren().clear();
     	
-    	//ADD room in DB
+    	String nameField = name.getText();
+    	int sizeField = Integer.parseInt(size.getText());
+    	String locationField = location.getText();
+    	String descriptionField = description.getText();
     	
-    	//Refreshes rooms view
+    	//send it to DB
+    	System.out.println(nameField);
+    	System.out.println(sizeField);
+    	System.out.println(locationField);
+    	System.out.println(descriptionField);
+    	
+    	//Refreshes the rooms view
     	
     }
     
