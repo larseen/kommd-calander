@@ -1,9 +1,13 @@
 package Controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import Models.Model;
+import Models.Room;
 import Models.User;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class LoginController implements Initializable {
+public class LoginController  extends Application implements Initializable  {
     @FXML
     private AnchorPane root;
     @FXML
@@ -39,9 +43,21 @@ public class LoginController implements Initializable {
     private Label errorMsg;
 
     @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+        Model.setURL("http://api.larsen.so");
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO Initialize
-        //ArrayList<User> users = User.getUsers();
     }    
 
 
@@ -60,14 +76,17 @@ public class LoginController implements Initializable {
     	// TODO Login
 
 
-        if( authorized() ){
+        if( User.login("larsen@me.com", "test") == true ){ /*User.login(username.getText(), password.getText()) */
             ((Node)event.getSource()).getScene().getWindow().hide();
             login();
-
-            User.get("");
         }
+        //ArrayList<User> users = User.getUsers();
+        Room room = Room.getRoomById(7);
+        room.delete();
+        ArrayList<Room> rooms = Room.getRooms();
 
-        User.get("");
+
+
 
 
     }
@@ -80,12 +99,7 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
-    private boolean authorized(){
-        MainController.setCurrentUser(new User());
-        if( username.getText().equals(password.getText())) return true;
-        return false;
-        //return User.login("laren@me.com","larsen");
-    }
+
 
     @FXML
     private void onHelp(ActionEvent event) {

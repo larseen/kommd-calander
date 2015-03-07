@@ -38,7 +38,6 @@ public class AppointmentController implements Initializable {
 
     private void init(){
         appointmentContainer.setStyle("-fx-background-color: white;");
-        System.out.println("t" + this.getLayoutY());
         appointmentContainer.setLayoutY(this.getLayoutY());
         appointmentContainer.setPrefHeight(this.getHeight());
         appointmentLabel.setText(appointment.getDescription());
