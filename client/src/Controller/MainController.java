@@ -98,6 +98,8 @@ public class MainController implements Initializable {
     }
 
     public static void setCurrentUser(User currentUser) {
+        System.out.println("Current user set:");
+        System.out.println(currentUser);
         MainController.currentUser = currentUser;
     }
 }

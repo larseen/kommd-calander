@@ -67,7 +67,11 @@
                   <ListView fx:id="appointments" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                   <ScrollPane prefHeight="371.0" prefViewportHeight="371.0" prefViewportWidth="194.0" prefWidth="225.0">
                      <content>
-                        <VBox fx:id="notifications" prefHeight="577.0" prefWidth="177.0" />
+                        <AnchorPane>
+                           <children>
+                              <VBox fx:id="notifications" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                      </content>
                   </ScrollPane>
                   <ScrollPane prefViewportHeight="371.0" prefViewportWidth="198.0" GridPane.columnIndex="4">

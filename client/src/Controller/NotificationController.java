@@ -20,6 +20,8 @@ public class NotificationController implements Initializable {
     private Button seenBtn;
     
     private String desc;
+
+    private HomeController homeController;
     
     private int id;
     
@@ -32,14 +34,19 @@ public class NotificationController implements Initializable {
     @FXML
     private void onSeen(ActionEvent event) {
     	//TODO button
-    	root.getChildren().clear();
+    	homeController.removeNotification(root);
     	notifySeen();
     }
     
-    public void setData(Notification notification){
-    	this.desc = notification.getText();
-    	text.setText(this.desc);
+    public void setData(Notification notification, HomeController homeController){
+        this.homeController = homeController;
     	this.id = notification.getId();
+        this.setText(notification.getText());
+    }
+
+    private void setText(String desc){
+        this.desc = desc;
+        text.setText(desc);
     }
     
     private void notifySeen(){
