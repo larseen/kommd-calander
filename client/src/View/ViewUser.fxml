@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.ViewUserController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewUserController">
    <children>
       <GridPane layoutX="253.0" layoutY="200.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -55,17 +54,17 @@
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label fx:id="titleDisplay" prefHeight="60.0" prefWidth="388.0" textFill="#1fa42c" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label id="jobTitleLabel" fx:id="titleDisplay" prefHeight="60.0" prefWidth="388.0" textFill="#1fa42c" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label fx:id="emailDisplay" prefHeight="63.0" prefWidth="391.0" textFill="#1fa42c" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label id="emailLabel" fx:id="emailDisplay" prefHeight="63.0" prefWidth="391.0" textFill="#1fa42c" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label fx:id="phoneDisplay" prefHeight="49.0" prefWidth="375.0" textFill="#1fa42c" GridPane.columnIndex="1">
+                  <Label id="phoneLabel" fx:id="phoneDisplay" prefHeight="49.0" prefWidth="375.0" textFill="#1fa42c" GridPane.columnIndex="1">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -82,14 +81,24 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="viewCalendar" mnemonicParsing="false" onAction="#viewCalendar" prefHeight="63.0" prefWidth="229.0" text="View Calendar" GridPane.columnIndex="1">
+                  <Button fx:id="viewCalendar" mnemonicParsing="false" onAction="#viewCalendar" prefHeight="63.0" prefWidth="229.0" text="View Calendar">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="editUser" mnemonicParsing="false" onAction="#editUser" prefHeight="63.0" prefWidth="229.0" text="Edit User" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="newUser" mnemonicParsing="false" onAction="#newUser" prefHeight="63.0" prefWidth="229.0" text="New User" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Button>
                </children>
             </GridPane>
-            <Label fx:id="profileName" prefHeight="88.0" prefWidth="487.0" GridPane.halignment="CENTER">
+            <Label id="nameLabel" fx:id="profileName" prefHeight="88.0" prefWidth="487.0" GridPane.halignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>

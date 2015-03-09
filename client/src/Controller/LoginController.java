@@ -76,15 +76,10 @@ public class LoginController  extends Application implements Initializable  {
     	// TODO Login
 
 
-        if( User.login("larsen@me.com", "test") == true ){ /*User.login(username.getText(), password.getText()) */
+        if( User.login("dfs@live.no", "12345") == true ){ /*User.login(username.getText(), password.getText()) */
             ((Node)event.getSource()).getScene().getWindow().hide();
             login();
         }
-        //ArrayList<User> users = User.getUsers();
-        Room room = Room.getRoomById(7);
-        room.delete();
-        ArrayList<Room> rooms = Room.getRooms();
-
 
 
 
