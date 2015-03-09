@@ -57,6 +57,8 @@ public class MainController implements Initializable {
         }
         catch (Exception e){
             System.out.println(e);
+            System.out.println(e.getCause());
+            System.out.println(e.initCause(e));
         }
         return null;
     }
@@ -90,11 +92,14 @@ public class MainController implements Initializable {
 
     @FXML
     private void onUserMenu(ActionEvent event) {
-    	//TODO UserMenu
+        ViewUserController viewUserController = (ViewUserController) showView("../View/ViewUser.fxml");
+        viewUserController.setMainController( this );
     }
 
+
+
     public static User getCurrentUser() {
-        return currentUser;
+        return MainController.currentUser;
     }
 
     public static void setCurrentUser(User currentUser) {

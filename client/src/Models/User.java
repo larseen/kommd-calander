@@ -1,9 +1,7 @@
 package Models;
 
 import Controller.MainController;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+import javafx.fxml.Initializable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -51,6 +49,7 @@ public class User extends Model{
 
     public static User getUserById( Object userID ){
         JSONObject user = Model.get("/api/users/" + userID.toString());
+        System.out.println(user.toString());
         return User.JSONtoUser(user);
     }
 
@@ -79,6 +78,10 @@ public class User extends Model{
             System.out.println(e);
         }
         return null;
+    }
+
+    public boolean isPasswordCorrect( String password ){
+        return User.login(this.email, password);
     }
 
     public boolean save(){
@@ -112,6 +115,10 @@ public class User extends Model{
             System.out.println(e);
         }
         return json;
+    }
+
+    public Integer getId(){
+        return this.id;
     }
 
     public String getName() {
@@ -160,9 +167,17 @@ public class User extends Model{
         catch (Exception e){
             System.out.println("Problem with update password json");
         }
-        System.out.println(json.toString());
-        System.out.println(User.put("/api/users/" + this.id, json.toString()));
-        return true;
+        JSONObject json1 = User.put("/api/users/" + this.id, json.toString());
+        try {
+
+            if( json1.get("error") == null ){
+                return true;
+            }
+        }
+        catch (Exception e){
+
+        }
+        return false;
     }
 
     public boolean delete(){
