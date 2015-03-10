@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="root" minHeight="200" minWidth="400" stylesheets="@../../static/css/calendar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalendarController">
+<AnchorPane fx:id="root" minHeight="200" minWidth="400" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalendarController">
    <children>
       <TabPane prefHeight="609.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -780,4 +781,8 @@
         </tabs>
       </TabPane>
    </children>
+   <stylesheets>
+      <URL value="@../../client/static/css/calendar.css" />
+      <URL value="@../../static/css/calendar.css" />
+   </stylesheets>
 </AnchorPane>

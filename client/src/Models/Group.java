@@ -57,7 +57,7 @@ DELETE /api/groups/userID*/
 
 
     //GET /api/groups/groupID
-    public static Group getRoomById( Object groupID ){
+    public static Group getGroupById( Object groupID ){
         JSONObject group = Model.get("/api/groups/" + groupID.toString());
         return Group.JSONtoGroup(group);
     }
@@ -87,7 +87,7 @@ DELETE /api/groups/userID*/
 
 
     //GET /api/groups
-    public static ArrayList<Group> getRooms(){
+    public static ArrayList<Group> getGroups(){
         JSONObject response = Model.get("/api/groups");
         ArrayList<Group> groups = new ArrayList<Group>();
         try {
