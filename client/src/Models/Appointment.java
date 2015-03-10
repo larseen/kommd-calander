@@ -1,13 +1,8 @@
 package Models;
 
 import Controller.CalendarController;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
-import java.time.LocalTime;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Dag Frode on 02.03.2015.
