@@ -38,11 +38,11 @@ public class RoomsController implements Initializable {
         // TODO
     	
     	//fill rooms
-    	ArrayList<Room> roomList = new ArrayList<Room>();
-		roomList.add(new Room(1, "BeztRoom1!", 10, "Nordre gate", "Dette er et rom.", this));
-		roomList.add(new Room(2, "BeztRoom2!", 15, "Sørdre gate", "Dette er et rom.", this));
-		roomList.add(new Room(3, "BeztRoom3!", 19, "Midtre gate", "Dette er et rom.", this));
-		roomList.add(new Room(4, "BeztRoom4!", 4, "Midstrerste gate", "Dette er et rom.", this));
+    	ArrayList<Room> roomList = Room.getRooms();
+//		roomList.add(new Room(1, "BeztRoom1!", 10, "Nordre gate", "Dette er et rom.", this));
+//		roomList.add(new Room(2, "BeztRoom2!", 15, "Sørdre gate", "Dette er et rom.", this));
+//		roomList.add(new Room(3, "BeztRoom3!", 19, "Midtre gate", "Dette er et rom.", this));
+//		roomList.add(new Room(4, "BeztRoom4!", 4, "Midstrerste gate", "Dette er et rom.", this));
 		fillRooms(roomList);
     }    
 
@@ -77,11 +77,12 @@ public class RoomsController implements Initializable {
     	String locationField = location.getText();
     	String descriptionField = description.getText();
     	
-    	//send it to DB
-    	System.out.println(nameField);
-    	System.out.println(sizeField);
-    	System.out.println(locationField);
-    	System.out.println(descriptionField);
+    	Room room = new Room(nameField, sizeField, locationField, descriptionField);
+    	room.save();
+    	name.clear();
+    	size.clear();
+    	location.clear();
+    	description.clear();
     	
     	//Refreshes the rooms view
     	

@@ -22,15 +22,16 @@ public class RoomController implements Initializable {
     private int id;
     private String roomName;
     private RoomsController roomsController;
+    private Room room;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     	name.setText(this.roomName);
     }    
 
     @FXML
     private void onDelete(ActionEvent event) {
+    	room.delete();
     	root.getChildren().clear();
     	
     	//TODO DELETE room from DB
@@ -42,6 +43,7 @@ public class RoomController implements Initializable {
     	this.roomName = room.getName();
     	name.setText(this.roomName);
     	this.roomsController = room.getRoomsController();
+    	this.room = room;
     }
     
 }
