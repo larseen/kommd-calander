@@ -29,26 +29,36 @@ module.exports = function(app) {
 	app.post('/api/rooms', Room.createRoom);
 	app.post('/api/rooms/:roomID', Room.updateRoom);
 	app.delete('/api/rooms/:roomID', Room.deleteRoom);
-/*
+
+
 	var Appointment = require('./api/appointment.controller')(app)
 	app.get('/api/appointments', Appointment.getAppointments);
-	app.get('/api/appointments/:appoinmentID', Appointment.getAppointment);
-	app.get('/api/appointments/:userID', Appointment.getUserAppointments);
+	app.get('/api/appointments/:appointmentID', Appointment.getAppointment);
+	app.get('/api/appointments/user/:userID', Appointment.getUserAppointments);
+	app.post('/api/appointments/user', Appointment.addUsers);
+	app.put('/api/appointments/user', Appointment.removeUsers);
 	app.post('/api/appointments', Appointment.createAppointment);
-	app.post('/api/appointments/:appoinmentID', Appointment.updateAppointment);
-	app.delete('/api/appointments/:appoinmentID', Appointment.deleteAppointment);
-
+	app.post('/api/appointments/:appointmentID', Appointment.updateAppointment);
+	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);
+/*
 	var Notification = require('./api/notification.controller')(app)
 	app.get('/api/notifications', Notification.getAppointments);
 	app.get('/api/notifications/:notificationID', Notification.getNotification);
+	app.put('/api/notifications/:notificationID', Notification.updateNotification);
 	app.get('/api/notifications/:userID', Notification.getUserNotifications);
-	app.post('/api/notifications/:appoinmentID', Notification.updateAppointment);
+	app.get('/api/notifications/:groupID', Notification.getUserNotifications);
+
+/*
 
 	var Invitation = require('./api/invitation.controller')(app)
 	app.get('/api/invitations', Invitation.getInvitations);
 	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
 	app.get('/api/invitations/:userID', Invitation.getUserInvitations);
-	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);*/
+	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);
+
+*/
+
+
 
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);

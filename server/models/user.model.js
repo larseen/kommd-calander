@@ -6,6 +6,8 @@ module.exports = function(app){
     var bookshelf = app.get('bookshelf');
     var Promise  = require('bluebird');
     var crypto = require('crypto');
+    var UserAppointment = require('./userAppointment.model')(app);
+    var Appointment = require('./appointment.model')(app);
 
     /**
 	* crypto Methods
@@ -49,7 +51,10 @@ module.exports = function(app){
     var User = bookshelf.Model.extend(
     {
     	idAttribute: 'UserID',
-	  	tableName: 'User'
+	  	tableName: 'User',
+	  	appointments: function() {
+		    return this.belongsToMany(Appointment).through(UserAppointment);
+		  }
 	},
 	{
 

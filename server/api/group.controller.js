@@ -29,8 +29,7 @@ module.exports = function(app){
             createGroup : function(req, res){
                 Group.forge({
                     Name: req.body.name,
-                    Description: req.body.description,
-                    'Parent Group': req.body.parentGroup
+                    Description: req.body.description
                 }).save()
                 .then(function(group) {
                     res.send(group.toJSON());
@@ -45,8 +44,7 @@ module.exports = function(app){
                     if(!group) return res.json(400, {error: 'group not found'});
                     group.save({
                         Name: req.body.name || group.get('Name'), 
-                        Description: req.body.description || group.get('Description'), 
-                        'Parent Group': req.body.parent || group.get('Parent Group'), 
+                        Description: req.body.description || group.get('Description') 
                     })
                     .then(function(updategroup){
                         res.send(updategroup.toJSON());

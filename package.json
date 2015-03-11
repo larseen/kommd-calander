@@ -18,7 +18,8 @@
     "passport-local":   "*",
     "crypto":   "*",
     "cookie-parser": "*",
-    "express-session": "*"
+    "express-session": "*",
+    "async": "*"
   },
   "scripts": {
       "start": "nodemon server/app.js",
