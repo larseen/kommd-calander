@@ -57,9 +57,10 @@ module.exports = function(app){
                 });
             },
             changePassword : function(req, res){
+		console.log(req.body)
                 new User({UserID: req.params.userID}).fetch()
                 .then(function(user){
-                    if(User.authenticate(req.body.oldPassword, user.Salt, user.PasswordHash)){
+                    if(User.authenticate(req.body.oldPassword, user.get('Salt'), user.get('PasswordHash'))){
                         User.newPassword(user, req.body.newPassword)
                         .then(function(user){
                             res.send({UserID: user.get('UserID'), Name: user.get('Name'), Phone: user.get('Phone'), Title: user.get('Title'), Email: user.get('Email')});

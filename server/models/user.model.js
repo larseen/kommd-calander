@@ -58,7 +58,7 @@ module.exports = function(app){
 		    var salt = cryptoMethods.makeSalt()
 		    return this.forge
 		    	({
-		    		Navn: name,
+		    		Name: name,
 		    		Email: email.toLowerCase(),
 		    		Phone: phone,
 		    		Title: title,
