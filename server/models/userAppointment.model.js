@@ -4,13 +4,20 @@
 module.exports = function(app){
     
     var bookshelf = app.get('bookshelf');
+    var Appointment = require('./appointment.model')(app);
+    var User = require('./appointment.model')(app);
 
-    var Group = bookshelf.Model.extend(
+    var UserAppointment = bookshelf.Model.extend(
 	    {
-	    	idAttribute: 'GroupID',
-		  	tableName: 'Group'
+	    	tableName: 'User_invitedTo_Appointment',
+	    	AppointmentID: function() {
+			    return this.belongsTo(Appointment);
+			  },
+			UserID: function() {
+			    return this.belongsTo(User);
+			  }
 		});
 
-	return Group;
+	return UserAppointment;
 
 }

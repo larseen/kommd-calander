@@ -3,8 +3,11 @@
 */
 module.exports = function(app){
 
+    var async = require('async');
     var Appointment = require('../models/appointment.model')(app);
     var UserAppointment = require('../models/userAppointment.model')(app);
+    var User = require('../models/user.model')(app);
+
     console.log("update");
     return {
             getAppointments: function(req, res){
@@ -29,7 +32,56 @@ module.exports = function(app){
             },
             getUserAppointments: function(req, res){
                 console.log(req.params);
-                console.log(req.query);
+                new User({UserID: req.params.userID}).related('appointments').fetch()
+                    .then(function(appointments){
+                        if(!appointments) return res.json(400, {error: 'appointments not found'});
+                        res.send(appointments.toJSON());
+                    })
+            },
+            addUsers: function(req, res){
+                var response = [];
+                async.forEach(req.body.users, function (user, callback){ 
+                    UserAppointment.forge({
+                        Appointment_AppointmentID: req.body.appointment,
+                        User_UserID: user,
+                        ParticipantStatus: false,
+                        ViewStatus: false
+                    }).save()
+                    .then(function(userAppointment) {
+                        response.push(userAppointment.toJSON());
+                        callback();
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                        return res.send(500, {error:err.toString()});
+                    });
+                }, function(err) {
+                    if(err) return res.send(err);
+                    return res.send(response);
+                }); 
+            },
+            removeUsers: function(req, res){
+                var response = [];
+                async.forEach(req.body.users, function (user, callback){ 
+                    new UserAppointment().where({Appointment_AppointmentID: req.body.appointment, User_UserID: user}).fetch()
+                    .then(function(userAppointment) {
+                        if(!userAppointment) return res.json(400, {error: 'userAppointment not found'})
+                        userAppointment.destroy()
+                        .then(function(){
+                            callback()
+                        })
+                        .catch(function(err){
+                            return res.send(500, {error: err.toString()});
+                        });
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                        return res.send(500, {error:err.toString()});
+                    });
+                }, function(err) {
+                    if(err) return res.send(err);
+                    return res.send(200);
+                }); 
             },
             createAppointment: function(req, res){
 				Appointment.forge({
