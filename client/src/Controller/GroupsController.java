@@ -6,14 +6,22 @@ import java.util.ResourceBundle;
 
 import Interfaces.Controller;
 import Models.Group;
+import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 
 public class GroupsController implements Initializable, Controller {
     @FXML
@@ -34,12 +42,19 @@ public class GroupsController implements Initializable, Controller {
     private Label selectedUserTitle;
     @FXML
     private ListView<?> usersGroupsList;
+    @FXML
+    private GridPane userInfo;
 
     private ArrayList<Group> groups;
+    private Group activeGroup;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO Initialize
+        this.addUser.setVisible(false);
+        this.userList.setVisible(false);
+        this.userInfo.setVisible(false);
+        this.removeUser.setVisible(false);
         this.update();
     }
 
@@ -48,21 +63,37 @@ public class GroupsController implements Initializable, Controller {
         groups = Group.getGroups();
         groupList.getItems().removeAll(groupList.getItems());
         for( Group group : groups){
-            System.out.println(group.getName());
             groupList.getItems().add(group.getName().toString());
         }
     }
 
     @FXML
-    private void onCreateGroup(ActionEvent event) {
-    	//TODO CreateGroup
+    private void onCreateGroup(ActionEvent event) throws Exception{
+        EditGroupController editGroupController =(EditGroupController) showEditGroupDialog(new Group());
+    }
+
+    @FXML
+    private void onEditGroup(ActionEvent event) throws Exception{
+        if( activeGroup != null ) {
+            EditGroupController editGroupController = (EditGroupController) showEditGroupDialog(new Group());
+            editGroupController.setGroup(activeGroup);
+        }
+    }
+
+    @FXML
+    private void onDeleteGroup(ActionEvent event) throws Exception{
+        if( activeGroup != null ) {
+            this.activeGroup.delete();
+            this.update();
+        }
     }
 
     @FXML
     private void onMouseClicked(MouseEvent event){
-        System.out.println("clicked on " + groupList.getSelectionModel().getSelectedIndices());
-        Integer selectedIndex = Integer.parseInt(groupList.getSelectionModel().getSelectedIndices().toString());
-        Group selectedGroup = groups.get(selectedIndex);
+        Integer selectedIndex = Integer.parseInt(groupList.getSelectionModel().getSelectedIndices().get(0).toString());
+        this.activeGroup = groups.get(selectedIndex);
+        addUser.setVisible(true);
+        userList.setVisible(true);
     }
 
     @FXML
@@ -73,6 +104,20 @@ public class GroupsController implements Initializable, Controller {
     @FXML
     private void onRemoveUser(ActionEvent event) {
     	//TODO RemoveUser
+    }
+
+    private Controller showEditGroupDialog( Group group )throws Exception{
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EditGroup.fxml"));
+        Parent root = fxmlLoader.load();
+        EditGroupController editGroupController = fxmlLoader.getController();
+        editGroupController.setMainController(this);
+        editGroupController.setGroup(group);
+        Stage stage = new Stage();
+        stage.setTitle("Edit Group");
+        stage.setScene(new Scene(root));
+        stage.show();
+        return editGroupController;
     }
     
 }

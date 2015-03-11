@@ -25,10 +25,21 @@ public class AppointmentController implements Initializable {
 
     private Appointment appointment;
 
+    private Integer siblings = 0;
+    private Integer siblingNumber = 0;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void addSibling(){
+        this.siblings++;
+    }
+
+    public void addSiblingNumber(){
+        this.siblingNumber++;
     }
 
     public void setData( Appointment appointment){
@@ -40,7 +51,7 @@ public class AppointmentController implements Initializable {
         appointmentContainer.setStyle("-fx-background-color: white;");
         appointmentContainer.setLayoutY(this.getLayoutY());
         appointmentContainer.setPrefHeight(this.getHeight());
-        appointmentLabel.setText(appointment.getDescription());
+        appointmentLabel.setText(appointment.getTitle());
     }
 
 
@@ -70,10 +81,13 @@ public class AppointmentController implements Initializable {
     }
 
     public void setLayoutX(Double layoutX){
+
         appointmentContainer.setLayoutX(layoutX);
     }
 
     public void setWidth(Double width){
-        appointmentContainer.setPrefWidth(width);
+        Double siblingWidth = width / ( this.siblings + 1);
+        appointmentContainer.setPrefWidth(siblingWidth);
+        this.setLayoutX( siblingWidth * this.siblingNumber);
     }
 }

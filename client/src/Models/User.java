@@ -49,7 +49,6 @@ public class User extends Model{
 
     public static User getUserById( Object userID ){
         JSONObject user = Model.get("/api/users/" + userID.toString());
-        System.out.println(user.toString());
         return User.JSONtoUser(user);
     }
 
@@ -87,12 +86,12 @@ public class User extends Model{
     public boolean save(){
         JSONObject json = this.toJSON();
         if( this.id != null){
-            System.out.println("update");
-            System.out.println(User.post("/api/users/" + this.id, json.toString()));
+            //System.out.println("update");
+            User.post("/api/users/" + this.id, json.toString());
         }
         else {
-            System.out.println("create");
-            System.out.println(User.post("/api/users", json.toString()));
+           // System.out.println("create");
+           User.post("/api/users", json.toString());
         }
         return true;
     }

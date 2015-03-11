@@ -8,6 +8,7 @@ import Models.Model;
 import Models.Room;
 import Models.User;
 import javafx.application.Application;
+import javafx.application.Preloader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,7 @@ public class LoginController  extends Application implements Initializable  {
     	// TODO Login
 
 
-        if( User.login("dfs@live.no", "12345") == true ){ /*User.login(username.getText(), password.getText()) */
+        if( User.login("dfs@live.no", "12345")){ //User.login(username.getText(), password.getText())  == true ){  //User.login("dfs@live.no", "12345")
             ((Node)event.getSource()).getScene().getWindow().hide();
             login();
         }

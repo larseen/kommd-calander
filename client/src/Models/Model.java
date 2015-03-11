@@ -56,7 +56,7 @@ public class Model {
     }
 
     protected static JSONObject getResponseAsJSON(String response){
-        System.out.println(response);
+        //System.out.println(response);
         JSONObject obj = new JSONObject();
         try {
             obj = new JSONObject(response);
@@ -64,10 +64,10 @@ public class Model {
         catch (Exception e){
             //System.out.println(e);
             try {
-                System.out.println("JSONArray put in JSONObject response");
+                //System.out.println("JSONArray put in JSONObject response");
                 obj = new JSONObject();
                 obj.put("response", new JSONArray(response));
-                System.out.println(response);
+                //System.out.println(response);
             }
             catch (Exception f){
                 //System.out.println(f);
