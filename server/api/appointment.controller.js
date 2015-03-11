@@ -4,6 +4,7 @@
 module.exports = function(app){
 
     var Appointment = require('../models/appointment.model')(app);
+    var UserAppointment = require('../models/userAppointment.model')(app);
     console.log("update");
     return {
             getAppointments: function(req, res){
@@ -26,26 +27,20 @@ module.exports = function(app){
                     return res.send(500, {error:err.toString()});
                 });
             },
-            getAppointmentInInterval: function(req, res){
-                new Appointment({'AppointmentID': req.params.appointmentID}).fetch()
-                .then(function(appointment) {
-                    if(!appointment) return res.json(400, {error: 'appointment not found'})
-                    res.send(appointment.toJSON());
-                })
-                .catch(function(err){
-                    return res.send(500, {error:err.toString()});
-                });
+            getUserAppointments: function(req, res){
+                console.log(req.params);
+                console.log(req.query);
             },
             createAppointment: function(req, res){
 				Appointment.forge({
-					Name: req.body.name,
-					Location: req.body.location,
-					Participants: req.body.participants,
-					Title: req.body.title,
-					Description: req.body.description,
-					StartTime: req.body.starttime,
-					EndTime: req.body.endtime
-				})
+					Location: req.body.Location,
+					Title: req.body.Title,
+                    Room_RoomID: req.body.Room_RoomID,
+                    AppointmentAdmin: req.body.AppointmentAdmin,
+					Description: req.body.Description,
+					DateTimeFrom: req.body.DateTimeFrom,
+					DateTimeTo: req.body.DateTimeTo
+				}).save()
                 .then(function(appointment) {
                     res.send(appointment.toJSON());
 				})
@@ -54,22 +49,20 @@ module.exports = function(app){
                 });
             },
             updateAppointment: function(req, res){
-                console.log(req.params.appointmentID);
-                console.log(req.body);
                 new Appointment({appointmentID: req.params.appointmentID}).fetch()
-                  .then(function(appointmentID) {
+                  .then(function(appointment) {
                   if(!appointment) return res.json(400, {error: 'appointment not found'});
 					appointment.save({
-						Name: req.body.name || appointment.get('Name'),
-						Location: req.body.location || appointment.get('Location'),
-						Participants: req.body.participants || appointment.get('Participants'),
-						Title: req.body.title || appointment.get('Title'),
-						Description: req.body.description || appointment.get('Description'),
-						StartTime: req.body.starttime || appointment.get('StartTime'),
-						EndTime: req.body.endtime || appointment.get('EndTime')
+						Title: req.body.Title || appointment.get('Title'),
+						Location: req.body.Location || appointment.get('Location'),
+						Description: req.body.Description || appointment.get('Description'),
+						DateTimeFrom: req.body.DateTimeFrom || appointment.get('DateTimeFrom'),
+						DateTimeTo: req.body.DateTimeTo || appointment.get('DateTimeTo'),
+                        AppointmentAdmin: req.body.AppointmentAdmin || appointment.get('AppointmentAdmin'),
+                        Room_RoomID: req.body.Room_RoomID || appointment.get('Room_RoomID')
 					})
-					.then(function(updateappointment){
-						res.send(updateAppointment.toJSON())
+					.then(function(updatedAppointment){
+						res.send(updatedAppointment.toJSON())
 					})
 					.catch(function(err){
 						return res.send(500, {error: err.toString()});
