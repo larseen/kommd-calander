@@ -34,8 +34,16 @@ public class RoomController implements Initializable {
     	room.delete();
     	root.getChildren().clear();
     	
-    	//TODO DELETE room from DB
     	System.out.println(id);
+    	
+    	//UBER MESS, FIX!!
+    	try {
+			wait(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	room.getRoomsController().update();
     }
     
     public void setData(Room room){
