@@ -32,11 +32,13 @@ module.exports = function(app) {
 
 	var Appointment = require('./api/appointment.controller')(app)
 	app.get('/api/appointments', Appointment.getAppointments);
-	app.get('/api/appointments/:appoinmentID', Appointment.getAppointment);
-	app.get('/api/appointments/:userID', Appointment.getUserAppointments);
+	app.get('/api/appointments/:appointmentID', Appointment.getAppointment);
+	app.get('/api/appointments/user/:userID', Appointment.getUserAppointments);
 	app.post('/api/appointments', Appointment.createAppointment);
-	app.post('/api/appointments/:appoinmentID', Appointment.updateAppointment);
-	app.delete('/api/appointments/:appoinmentID', Appointment.deleteAppointment);
+	app.post('/api/appointments/:appointmentID', Appointment.updateAppointment);
+	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);
+
+/*	
 
 	var Notification = require('./api/notification.controller')(app)
 	app.get('/api/notifications', Notification.getAppointments);
@@ -49,6 +51,9 @@ module.exports = function(app) {
 	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
 	app.get('/api/invitations/:userID', Invitation.getUserInvitations);
 	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);
+
+
+*/
 
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);
