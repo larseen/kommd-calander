@@ -31,19 +31,14 @@ public class RoomController implements Initializable {
 
     @FXML
     private void onDelete(ActionEvent event) {
+    	RoomsController TempRc = room.getRoomsController();
     	room.delete();
     	root.getChildren().clear();
     	
     	System.out.println(id);
     	
     	//UBER MESS, FIX!!
-    	try {
-			wait(50);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	room.getRoomsController().update();
+    	TempRc.update();
     }
     
     public void setData(Room room){
