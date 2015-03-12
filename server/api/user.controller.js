@@ -24,7 +24,7 @@ module.exports = function(app){
                 })
                 .catch(function(err){
                     return res.send(500, {error: err.toString()});
-                });     
+                });
             },
             createUser : function(req, res){
                 User.create(req.body.Email, req.body.Password, req.body.Name, req.body.Phone, req.body.Title)

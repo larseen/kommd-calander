@@ -50,9 +50,9 @@ module.exports = function(app){
 
     var User = bookshelf.Model.extend(
     {
-    	idAttribute: 'UserID',
-	  	tableName: 'User',
-	  	appointments: function() {
+		idAttribute: 'UserID',
+		tableName: 'User',
+		appointments: function() {
 		    return this.belongsToMany(Appointment).through(UserAppointment);
 		  }
 	},

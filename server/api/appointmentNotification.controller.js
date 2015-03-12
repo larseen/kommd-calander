@@ -7,7 +7,7 @@ module.exports = function(app){
 			AppointmentNotification.forge({
 				Message: req.body.message,
 				Viewstatus: req.body.viewstatus,
-				Offset: req.body.offset
+				Alarmtime: req.body.alarmtime
 			}).save()
 			.then(function(notification) {
 				res.send(notification.toJSON());
@@ -35,7 +35,7 @@ module.exports = function(app){
 				appointmentNotificaiton.save({
 					Message: req.body.message || appointmentNotificaiton.get('Message'),
 					Viewstatus: req.body.viewstatus || appointmentNotificaiton.get('Viewstatus')
-					Offset: req.body.offset || appointmentNotification.get('Offset')
+					Alarmtime: req.body.alarmtime || appointmentNotification.get('Alarmtime')
 				})
 				.then(function(updatenotification) {
 					res.send(updateAppointmentNotification.toJSON())
