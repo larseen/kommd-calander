@@ -56,7 +56,10 @@ public class Model {
     }
 
     protected static JSONObject getResponseAsJSON(String response){
-        //System.out.println(response);
+        System.out.println("===============================================");
+        System.out.println("response");
+        System.out.println(response);
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         JSONObject obj = new JSONObject();
         try {
             obj = new JSONObject(response);
@@ -84,7 +87,10 @@ public class Model {
         if( Model.cookies == null){
             initCookies();
         }
-
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("post");
+        System.out.println(api_url);
+        System.out.println(data);
         WebResource webResource = client.resource(url + api_url);
         ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, data);
         return Model.getResponseAsJSON(response.getEntity(String.class));
@@ -94,6 +100,10 @@ public class Model {
         if( Model.cookies == null){
             initCookies();
         }
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("put");
+        System.out.println(api_url);
+        System.out.println(data);
 
         WebResource webResource = client.resource(url + api_url);
         ClientResponse response = webResource.accept("application/json").type("application/json").put(ClientResponse.class, data);
@@ -104,6 +114,9 @@ public class Model {
         if( Model.cookies == null){
             initCookies();
         }
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("delete");
+        System.out.println(api_url);
 
         WebResource webResource = client.resource(url + api_url);
         ClientResponse response = webResource.accept("application/json").type("application/json").delete(ClientResponse.class);
@@ -114,6 +127,9 @@ public class Model {
         if( cookies == null){
             initCookies();
         }
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("get");
+        System.out.println(api_url);
         WebResource webResource = client.resource(url + api_url);
         ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
         return Model.getResponseAsJSON(response.getEntity(String.class));

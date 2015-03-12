@@ -4,8 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:id="appointmentContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentController">
+<AnchorPane fx:id="appointmentContainer" onMouseClicked="#onClicked" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentController">
    <children>
       <Label fx:id="appointmentLabel" text="Label" />
    </children>

@@ -2,11 +2,14 @@ package Models;
 
 import Controller.AppointmentController;
 import Controller.MainController;
+import Interfaces.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -16,87 +19,108 @@ public class KVOMMDCalendar extends Model{
 
     private ArrayList<Appointment> appointments = new ArrayList<Appointment>();
     private ArrayList<AppointmentController> appointmentControllers = new ArrayList<AppointmentController>();
+    private ArrayList<AnchorPane> appointmentAnchorPanes = new ArrayList<AnchorPane>();
     private User user;
+    private Calendar calendar = new GregorianCalendar();
+    private Controller parentController;
 
-    public KVOMMDCalendar(User user){
-        this.appointments = appointments;
-    }
-
-    public ArrayList<AnchorPane> getDayAppointmentsByDate( ){
-
-        ArrayList<AnchorPane> dayAppointments = new ArrayList<AnchorPane>();
-
-        //appointments.add(new Appointment( new GregorianCalendar(2015,03,03,14,00,00), new GregorianCalendar(2015,03,03,16,45,00), "Møte", "bes", "der", new Room(), User.getUserById(62)));
-        //appointments.add(new Appointment( new GregorianCalendar(2015,03,03,16,50,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte 1 ", "bes", "der", new Room(), new User()));
-        //appointments.add(new Appointment( new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte 2 ", "bes", "der", new Room(), new User()));
-        //appointments.add(new Appointment( new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,19,00,00), "Møte 3", "bes", "der", new Room(), new User()));
-
-       // System.out.println(appointments.get(0).toJSON());
-        //System.out.println(appointments.get(0).save());
-        //appointments.get(0).inviteUser(MainController.getCurrentUser());
-        //ArrayList<Appointment> a = Appointment.getAppointmentsByUser(User.getUserById(62));
-        //System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        //System.out.println(a.get(0).toJSON());
-        //appointments.get(0).uinviteUser(User.getUserById(60));
-
-        //System.out.println(Appointment.getAppointmentsByUser(MainController.getCurrentUser()));
-
-        appointments.addAll(Appointment.getAppointmentsByUser(MainController.getCurrentUser()));
+    public KVOMMDCalendar(User user, Calendar calendar, Controller parentController){
+        this.parentController = parentController;
+        this.user = user;
+        if( calendar != null) this.calendar = calendar;
 
 
-        for( Appointment appointment : appointments ){
-            try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Appointment.fxml"));
-                AnchorPane root = fxmlLoader.load();
-                AppointmentController appointmentController = fxmlLoader.getController();
-                appointmentController.setData(appointment);
-                appointmentControllers.add(appointmentController);
+        ArrayList<Appointment> tmpAppointments = Appointment.getAppointmentsByUser(MainController.getCurrentUser());
 
 
-                dayAppointments.add(root);
+        for( Appointment appointment : tmpAppointments ){
+            Calendar date = appointment.getFrom();
+            if (
+                    date.get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
+                    date.get(Calendar.WEEK_OF_YEAR) == calendar.get(Calendar.WEEK_OF_YEAR)
+
+                    ) {
+                appointments.add(appointment);
+
+                try{
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Appointment.fxml"));
+                    AnchorPane root = fxmlLoader.load();
+                    AppointmentController appointmentController = fxmlLoader.getController();
+                    appointmentController.setData(appointment);
+                    System.out.println("print");
+                    appointmentControllers.add(appointmentController);
+                    appointmentController.setParentController(this.parentController);
+
+
+                    appointmentAnchorPanes.add(root);
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                    System.out.println(e.getMessage());
+                }
             }
-            catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        for( Integer i = 0; i < appointments.size(); i++){
-            for( Integer j = i+1; j < appointments.size(); j++){
-                if( appointments.get(i).isSiblings(appointments.get(j)) ){
-                    appointmentControllers.get(i).addSibling();
-                    appointmentControllers.get(j).addSibling();
-                    appointmentControllers.get(j).addSiblingNumber();
+            for (Integer i = 0; i < appointments.size(); i++) {
+                for (Integer j = i + 1; j < appointments.size(); j++) {
+                    if (appointments.get(i).isSiblings(appointments.get(j))) {
+                        appointmentControllers.get(i).addSibling();
+                        appointmentControllers.get(j).addSibling();
+                        appointmentControllers.get(j).addSiblingNumber();
+                    }
                 }
             }
         }
-        return dayAppointments;
     }
 
 
 
-    public void addAppointment(Appointment appointment){
-        this.appointments.add(appointment);
+    public ArrayList<AnchorPane> getMondayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.MONDAY);
     }
 
-    public ArrayList<Appointment> getDaysAppointments(){
-        //TODO
-        return appointments;
+    public ArrayList<AnchorPane> getDaysAppointmentsByDayOfWeek( Integer dayOfWeek ){
+
+        ArrayList<AnchorPane> ap = new ArrayList<AnchorPane>();
+        for( Integer i = 0; i < appointments.size(); i++ ){
+            if( appointments.get(i).getFrom().get(Calendar.DAY_OF_WEEK) == dayOfWeek){
+                ap.add(appointmentAnchorPanes.get(i));
+            }
+        }
+        return ap;
     }
 
-    public ArrayList<Appointment> getWeeksAppointments(){
-        //TODO
-        return appointments;
-    }
-
-    public ArrayList<Appointment> getMonthsAppointments(){
-        //TODO
-        return appointments;
-    }
-
-    public static KVOMMDCalendar getCalendarByUser(User user){
-
-        return new KVOMMDCalendar(null);
+    public ArrayList<AnchorPane> getTuesdayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.TUESDAY);
 
     }
+    public ArrayList<AnchorPane> getWednesdayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.WEDNESDAY);
+
+    }
+    public ArrayList<AnchorPane> getThursdayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.THURSDAY);
+
+    }
+
+    public void setParentController(Controller parentController) {
+        this.parentController = parentController;
+    }
+
+    public ArrayList<AnchorPane> getFridayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.FRIDAY);
+
+    }
+    public ArrayList<AnchorPane> getSaturdayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.SATURDAY);
+
+    }
+    public ArrayList<AnchorPane> getSundayAppointments(){
+        return  getDaysAppointmentsByDayOfWeek(Calendar.SUNDAY);
+
+    }
+
+
+
+
 
     public void redraw( Double dayWidth){
         for( AppointmentController appointmentController : this.appointmentControllers){

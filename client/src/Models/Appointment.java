@@ -16,38 +16,36 @@ import java.util.*;
 public class Appointment extends Model{
 
     private Integer id;
-    private Calendar from = new GregorianCalendar(TimeZone.getTimeZone("Europe/Oslo"));
-    private Calendar to = new GregorianCalendar(TimeZone.getTimeZone("Europe/Oslo"));
+    private Calendar from = new GregorianCalendar();
+    private Calendar to = new GregorianCalendar();
     private String description;
     private String location;
     private String title;
     private Room room;
     private User admin;
+    private Integer roomID;
+    private Integer adminID;
 
 
-    public Appointment( Calendar from, Calendar to,String title, String description, String location, Room room, User admin) {
+    public Appointment( Calendar from, Calendar to,String title, String description, String location, Integer roomID, Integer adminID) {
         this.from.setTime(from.getTime());
         this.to.setTime(to.getTime());
         this.title = title;
         this.description = description;
         this.location = location;
-        this.room = room;
-        this.admin = admin;
+        this.roomID = roomID;
+        this.adminID = adminID;
     }
 
-    public Appointment( Integer id, Calendar from, Calendar to, String title, String description, String location, Room room, User admin) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
+    public Appointment( Integer id, Calendar from, Calendar to, String title, String description, String location, Integer roomID, Integer adminID) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.room = room;
-        this.admin = admin;
-        System.out.println(dateFormat.format(from.getTime()));
-        System.out.println(to.getTime());
+        this.roomID = roomID;
+        this.adminID = adminID;
     }
 
     public Integer getLengthInMinutes(){
@@ -66,7 +64,10 @@ public class Appointment extends Model{
         Calendar af = appointment.getFrom();
         Calendar at = appointment.getTo();
         if(
+
+
                 (af.after(this.from) && at.before(this.to)) ||
+                        (af.equals(this.from) && at.equals(this.to)) ||
                         ( ( af.before(this.from) || af.equals(this.from) ) && ( at.after(this.from) || at.equals(this.from))) ||
                         ( ( af.before(this.to) || af.equals(this.to) ) && ( at.after(this.to) || at.equals(this.to)))
                 ){
@@ -79,9 +80,11 @@ public class Appointment extends Model{
         JSONObject json = this.toJSON();
         JSONObject response = new JSONObject();
         if( this.id != null){
+            System.out.println("update");
             response = Appointment.post("/api/appointments/" + this.id, json.toString());
         }
         else {
+            System.out.println("new");
             response = Appointment.post("/api/appointments", json.toString());
         }
         Appointment ap = Appointment.JSONtoAppointment(response);
@@ -93,12 +96,11 @@ public class Appointment extends Model{
     public JSONObject toJSON(){
         JSONObject json = new JSONObject();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
         try {
             if( this.title != null ) json.put("Title", this.title.toString());
             if( this.description != null ) json.put("Description", this.description.toString());
-            if( this.room != null && this.room.getId() != null ) json.put("Room_RoomID", this.room.getId().toString());
-            if( this.admin != null && this.admin.getId() != null) json.put("AppointmentAdmin", this.admin.getId().toString());
+            if( this.roomID != null  ) json.put("Room_RoomID", this.roomID.toString());
+            if( this.adminID != null ) json.put("AppointmentAdmin", this.adminID.toString());
             if( this.from != null ) json.put("DateTimeFrom", dateFormat.format(this.from.getTime()).toString());
             if( this.to != null ) json.put("DateTimeTo", dateFormat.format(this.to.getTime()).toString());
             if( this.location != null ) json.put("Location", this.location.toString());
@@ -112,30 +114,36 @@ public class Appointment extends Model{
     }
 
     private static Appointment JSONtoAppointment(JSONObject json){
-        System.out.println("json appointment");
-        System.out.println(json);
 
         //
         //public Appointment( Integer id, Calendar from, Calendar to, String title, String description, String location, Room room, User admin) {
 
-        Calendar cal = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
         //cal.setTime(dateFormat.parse("Mon Mar 14 16:02:37 GMT 2011"));// all done 2015-04-03T16:45:00.000Z
        try {
            Integer aID = Integer.parseInt(json.get("AppointmentID").toString());
-           Calendar aDTF = Calendar.getInstance(TimeZone.getTimeZone("Europe/Oslo"));
-           aDTF.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
-           aDTF.setTime(dateFormat.parse(json.get("DateTimeFrom").toString()));
-           Calendar aDTT = Calendar.getInstance(TimeZone.getTimeZone("Europe/Oslo"));
-           aDTF.setTimeZone(TimeZone.getTimeZone("Europe/Oslo"));
-           aDTF.setTime(dateFormat.parse(json.get("DateTimeTo").toString()));
+
+           Calendar aDTF = new GregorianCalendar();
+           Date from = dateFormat.parse(json.get("DateTimeFrom").toString());
+           aDTF.setTime(from);
+
+           Calendar aDTT = new GregorianCalendar();
+           Date to = dateFormat.parse(json.get("DateTimeTo").toString());
+           aDTT.setTime(to);
+
            String aTitle = json.get("Title").toString();
            String aDesc = json.get("Description").toString();
            String aLoc = json.get("Location").toString();
-           Room aRoom = null;
-           //Room aRoom = Room.getRoomById(Integer.parseInt(json.get("Room_RoomID").toString()));
-           User aAdmin = User.getUserById(Integer.parseInt(json.get("AppointmentAdmin").toString()));
+           Integer aRoomID = null;
+           if( json.has("Room_RoomID") && json.get("Room_RoomID").toString() != "null" ){
+               aRoomID = Integer.parseInt(json.get("Room_RoomID").toString());
+
+           }
+           Integer aAdminID = null;
+           if( json.get("AppointmentAdmin").toString() != "null" ){
+               aAdminID = Integer.parseInt(json.get("AppointmentAdmin").toString());
+
+           }
 
             Appointment appointment = new Appointment(
                     aID,
@@ -144,11 +152,10 @@ public class Appointment extends Model{
                     aTitle,
                     aDesc,
                     aLoc,
-                    aRoom,
-                    aAdmin
+                    aRoomID,
+                    aAdminID
                     );
-                    //Integer.parseInt(json.get("UserID").toString()),json.get("Name").toString(),json.get("Email").toString(),json.get("Phone").toString(),json.get("Title").toString());
-            return appointment;
+           return appointment;
          }
         catch (Exception e){
              System.out.println(e);
@@ -196,27 +203,44 @@ public class Appointment extends Model{
         }
         JSONObject json = new JSONObject();
         try {
-           // System.out.println(this.id);
-            json.put("appointmentId", this.id);
+            json.put("appointment", this.id);
             json.put("users", userIDs);
-            //System.out.println(Appointment.post("/api/appointments/user", json.toString()));
         }
         catch (Exception e){
             System.out.println("Could not convert to json");
             System.out.println(e);
         }
-       // {
-       //     "users": [32,34,43],
-        //    "appointment": 117
-       // }
-       // app.post('/api/appointments/user', Appointment.addUsers);
+       Appointment.post("/api/appointments/user", json.toString());
 
-        //app.put('/api/appointments/user', Appointment.removeUsers);
     }
 
+    public void uninviteUser( User user ){
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(user);
+        this.uninviteUser(users);
+    }
+
+    public void uninviteUser( ArrayList<User> users ){
+        ArrayList<Integer> userIDs = new ArrayList<Integer>();
+        for( User user : users ){
+            if( user.getId() != null)
+                userIDs.add(user.getId());
+        }
+        JSONObject json = new JSONObject();
+        try {
+            json.put("appointment", this.id);
+            json.put("users", userIDs);
+        }
+        catch (Exception e){
+            System.out.println("Could not convert to json");
+            System.out.println(e);
+        }
+        Appointment.put("/api/appointments/user", json.toString());
+
+    }
 
     public Calendar getTo(){
-        return from;
+        return to;
     }
 
     public Integer getId() {
@@ -228,10 +252,71 @@ public class Appointment extends Model{
     }
 
     public Room getRoom() {
+        if( room == null && roomID != null){
+            room = Room.getRoomById(roomID);
+        }
         return room;
     }
 
     public User getAdmin() {
+        if( admin == null && adminID != null){
+            admin = User.getUserById(adminID);
+        }
+
         return admin;
+    }
+
+    public boolean delete(){
+        Appointment.delete("/api/appointments/" + this.id);
+        return true;
+    }
+
+    public static Appointment getAppointmentById( Object appointmentID ){
+        JSONObject appointment = Appointment.get("/api/appointments/" + appointmentID.toString());
+        return Appointment.JSONtoAppointment(appointment);
+    }
+
+    public static ArrayList<Appointment> getAppointments(){
+        JSONObject response = Model.get("/api/appointments");
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        try {
+            JSONArray appointments_json = (JSONArray)response.get("response");
+            for(int i = 0 ; i < appointments_json.length(); i++ ){
+                JSONObject appointment =(JSONObject) appointments_json.get(i);
+                appointments.add(Appointment.JSONtoAppointment(appointment));
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return appointments;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public void setFrom(Calendar from) {
+        this.from = from;
+    }
+
+    public void setTo(Calendar to) {
+        this.to = to;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

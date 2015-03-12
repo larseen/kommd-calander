@@ -1,13 +1,18 @@
 package Controller;
 
+import Interfaces.Controller;
 import Models.Appointment;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 
@@ -15,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Dag Frode on 04.03.2015.
  */
-public class AppointmentController implements Initializable {
+public class AppointmentController implements Initializable, Controller {
 
     private static Integer hourHeight = 30;
     @FXML
@@ -27,6 +32,7 @@ public class AppointmentController implements Initializable {
 
     private Integer siblings = 0;
     private Integer siblingNumber = 0;
+    private Controller parentController;
 
 
     @Override
@@ -44,15 +50,9 @@ public class AppointmentController implements Initializable {
 
     public void setData( Appointment appointment){
         this.appointment = appointment;
-        this.init();
+        this.update();
     }
 
-    private void init(){
-        appointmentContainer.setStyle("-fx-background-color: white;");
-        appointmentContainer.setLayoutY(this.getLayoutY());
-        appointmentContainer.setPrefHeight(this.getHeight());
-        appointmentLabel.setText(appointment.getTitle());
-    }
 
 
     public void setColor(String color){
@@ -68,9 +68,8 @@ public class AppointmentController implements Initializable {
             height = (Double) Double.parseDouble(minutes.toString()) * AppointmentController.hourHeight / 60;
         }
         else {
-            height = 50.0;
+            height = 1.0*(AppointmentController.hourHeight / 2);
         }
-
         return height;
     }
 
@@ -81,13 +80,49 @@ public class AppointmentController implements Initializable {
     }
 
     public void setLayoutX(Double layoutX){
-
         appointmentContainer.setLayoutX(layoutX);
     }
 
     public void setWidth(Double width){
         Double siblingWidth = width / ( this.siblings + 1);
         appointmentContainer.setPrefWidth(siblingWidth);
+        appointmentContainer.setMaxWidth(siblingWidth);
         this.setLayoutX( siblingWidth * this.siblingNumber);
     }
+
+    @FXML
+    private void onClicked(MouseEvent mouseEvent)throws Exception{
+        if( mouseEvent.getClickCount() > 1){
+            showEditAppointmentDialog();
+        }
+    }
+
+    private Controller showEditAppointmentDialog(  )throws Exception{
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EditAppointment.fxml"));
+        Parent root = fxmlLoader.load();
+        EditAppointmentController editAppointmentController = fxmlLoader.getController();
+        editAppointmentController.setMainController(parentController);
+        editAppointmentController.setData(appointment);
+        Stage stage = new Stage();
+        stage.setTitle("Edit Appointment");
+        stage.setScene(new Scene(root));
+        stage.show();
+        return editAppointmentController;
+    }
+
+    public void setParentController( Controller parentController ){
+        this.parentController = parentController;
+    }
+
+    @Override
+    public void update() {
+
+        appointmentContainer.setStyle("-fx-background-color: white;");
+        appointmentContainer.setLayoutY(this.getLayoutY());
+        appointmentContainer.setPrefHeight(this.getHeight());
+        appointmentLabel.setText(appointment.getTitle());
+    }
+
+
 }

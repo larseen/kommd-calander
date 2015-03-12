@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import Interfaces.ManageUser;
 import Interfaces.Controller;
 import Models.Group;
 import Models.User;
@@ -16,14 +17,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-public class GroupsController implements Initializable, Controller {
+public class GroupsController implements Initializable, Controller, ManageUser {
     @FXML
     private AnchorPane root;
     @FXML
@@ -75,8 +75,7 @@ public class GroupsController implements Initializable, Controller {
     @FXML
     private void onEditGroup(ActionEvent event) throws Exception{
         if( activeGroup != null ) {
-            EditGroupController editGroupController = (EditGroupController) showEditGroupDialog(new Group());
-            editGroupController.setGroup(activeGroup);
+            EditGroupController editGroupController = (EditGroupController) showEditGroupDialog(activeGroup);
         }
     }
 
@@ -97,13 +96,26 @@ public class GroupsController implements Initializable, Controller {
     }
 
     @FXML
-    private void onAddUser(ActionEvent event) {
-    	//TODO AddUser
+    private void onAddUser(ActionEvent event)throws Exception {
+    	this.showManageUserDialog();
     }
 
     @FXML
     private void onRemoveUser(ActionEvent event) {
     	//TODO RemoveUser
+    }
+
+    private Controller showManageUserDialog(  )throws Exception{
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/ManageUser.fxml"));
+        Parent root = fxmlLoader.load();
+        ManageUserController manageUserController = fxmlLoader.getController();
+        manageUserController.setMainController(this);
+        Stage stage = new Stage();
+        stage.setTitle("Add User");
+        stage.setScene(new Scene(root));
+        stage.show();
+        return manageUserController;
     }
 
     private Controller showEditGroupDialog( Group group )throws Exception{
@@ -119,5 +131,22 @@ public class GroupsController implements Initializable, Controller {
         stage.show();
         return editGroupController;
     }
-    
+
+
+    @Override
+    public void addUser(User user) {
+        if( activeGroup != null){
+            activeGroup.addUser(user);
+        }
+        this.update();
+    }
+
+    @Override
+    public void removeUser(User user) {
+        if( activeGroup != null){
+            activeGroup.removeUser(user);
+        }
+        this.update();
+
+    }
 }
