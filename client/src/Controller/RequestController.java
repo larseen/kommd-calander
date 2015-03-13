@@ -3,6 +3,8 @@ package Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Models.Appointment;
+import Models.Invitation;
 import Models.Request;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,14 +23,12 @@ public class RequestController implements Initializable {
     @FXML
     private Button decline;
     
-    private int id;
-    private String desc;
-    private String requestType;
+    private Invitation invitation;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    	text.setText(this.desc);
+    	//text.setText(this.desc);
     }    
 
     @FXML
@@ -39,14 +39,14 @@ public class RequestController implements Initializable {
 
     @FXML
     private void onDecline(ActionEvent event) {
+    	this.invitation.decline();
     	System.out.println("Notify: Declined!");
     	root.getChildren().clear();
+    	
     }
     
-    public void setData(Request request){
-    	this.desc = request.getText();
-    	text.setText(this.desc);
-    	this.id = request.getId();
-    	this.requestType = request.getType();
+    public void setData(Invitation request){
+    	this.invitation = request;
+    	text.setText(Appointment.getAppointmentById(request.getAppointmentId()).getTitle());
     }
 }

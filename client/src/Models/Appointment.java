@@ -182,9 +182,9 @@ public class Appointment extends Model{
     public static ArrayList<Appointment> getAppointmentsByUser( User user ){
         //System.out.println("Getting user " + user.getId().toString());
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
-        JSONObject response = Appointment.get("/api/appointments/user/" + user.getId().toString());
+        JSONObject response = Appointment.get("/api/appointments/users/" + user.getId().toString());
         try {
-            JSONArray appointments_json = (JSONArray)response.get("response");
+            JSONArray appointments_json = (JSONArray)response.get("appointments");
             for(int i = 0 ; i < appointments_json.length(); i++ ){
                 JSONObject appointment =(JSONObject) appointments_json.get(i);
                 appointments.add(Appointment.JSONtoAppointment(appointment));
@@ -217,7 +217,7 @@ public class Appointment extends Model{
             System.out.println("Could not convert to json");
             System.out.println(e);
         }
-       Appointment.post("/api/appointments/user", json.toString());
+       Appointment.post("/api/appointments/users", json.toString());
 
     }
 
@@ -242,7 +242,7 @@ public class Appointment extends Model{
             System.out.println("Could not convert to json");
             System.out.println(e);
         }
-        Appointment.put("/api/appointments/user", json.toString());
+        Appointment.put("/api/appointments/users", json.toString());
 
     }
 
@@ -331,9 +331,9 @@ public class Appointment extends Model{
 	public static ArrayList<Appointment> getAppointmentsByCalendar(GregorianCalendar gc) {
 	        //System.out.println("Getting user " + user.getId().toString());
 	        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
-	        JSONObject response = Appointment.get("/api/appointments/user/" + MainController.getCurrentUser().getId().toString());
+	        JSONObject response = Appointment.get("/api/appointments/users/" + MainController.getCurrentUser().getId().toString());
 	        try {
-	            JSONArray appointments_json = (JSONArray)response.get("response");
+	            JSONArray appointments_json = (JSONArray)response.get("apointments");
 	            for(int i = 0 ; i < appointments_json.length(); i++ ){
 	                JSONObject appointment =(JSONObject) appointments_json.get(i);
 	                Appointment a = Appointment.JSONtoAppointment(appointment);
