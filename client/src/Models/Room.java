@@ -19,6 +19,13 @@ public class Room {
     public Room(){
     }
     
+    public Room(String name, int size, String location, String description){
+    	this.name = name;
+    	this.size = size;
+    	this.location = location;
+    	this.description = description;
+    }
+    
     public Room(int id, String name, int size, String location, String description, RoomsController roomsController){
     	this.id = id;
     	this.name = name;

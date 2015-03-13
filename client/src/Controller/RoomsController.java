@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import Interfaces.Controller;
 import Models.Notification;
 import Models.Room;
 import javafx.event.ActionEvent;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class RoomsController implements Initializable {
+public class RoomsController implements Initializable,Controller {
     @FXML
     private AnchorPane root;
     @FXML
@@ -35,17 +36,16 @@ public class RoomsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    	
-    	//fill rooms
-    	ArrayList<Room> roomList = new ArrayList<Room>();
-		roomList.add(new Room(1, "BeztRoom1!", 10, "Nordre gate", "Dette er et rom.", this));
-		roomList.add(new Room(2, "BeztRoom2!", 15, "Sørdre gate", "Dette er et rom.", this));
-		roomList.add(new Room(3, "BeztRoom3!", 19, "Midtre gate", "Dette er et rom.", this));
-		roomList.add(new Room(4, "BeztRoom4!", 4, "Midstrerste gate", "Dette er et rom.", this));
-		fillRooms(roomList);
+        update();
     }    
 
+    public void update(){
+    	//rooms.get.removeAll(groupList.getItems());
+    	rooms.getChildren().removeAll(rooms.getChildren());
+    	ArrayList<Room> roomList = Room.getRooms();
+    	fillRooms(roomList);
+    }
+    
     private void fillRooms(ArrayList<Room> roomList) {
     	// list for controllers
 		ArrayList<RoomController> roomControllers = new ArrayList<RoomController>();
@@ -77,14 +77,15 @@ public class RoomsController implements Initializable {
     	String locationField = location.getText();
     	String descriptionField = description.getText();
     	
-    	//send it to DB
-    	System.out.println(nameField);
-    	System.out.println(sizeField);
-    	System.out.println(locationField);
-    	System.out.println(descriptionField);
+    	Room room = new Room(nameField, sizeField, locationField, descriptionField);
+    	room.save();
+    	name.clear();
+    	size.clear();
+    	location.clear();
+    	description.clear();
     	
     	//Refreshes the rooms view
-    	
+    	update();
     }
     
     
