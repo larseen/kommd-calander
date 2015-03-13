@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserAppointment, UserAppointmentNotification){
+module.exports = function(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, User, UserAppointment, UserAppointmentNotification){
     
     var bookshelf = app.get('bookshelf');
     var Promise  = require('bluebird');
@@ -60,8 +60,9 @@ module.exports = function(app, Appointment, Group, AppointmentNotification, Grou
 			return this.belongsToMany(AppointmentNotification).through(UserAppointmentNotification);
 		},
 		groupNotifications: function() {
-			return this.belongsToMany(GroupNotifications);
-		}
+			return this.belongsToMany(GroupNotification).through(UserGroupNotification);
+		},
+
 	},
 	{
 

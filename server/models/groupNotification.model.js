@@ -4,13 +4,12 @@ module.exports = function(app){
 	var UserGroupNotification = require('./userGroupNotification.model')(app);
 
 	var GroupNotification = bookshelf.Model.extend(
-		{
-			idAttribute: 'GroupNotificationID',
-			tableName: 'GroupNotification',
-			user: function() {
-				return this.belongsToMany(UserGroupNotification);
-			}
-
+	{
+		idAttribute: 'GroupNotificationID',
+		tableName: 'GroupNotification',
+		users: function() {
+			return this.belongsToMany(User).through(UserGroupNotification);
+			},
 		});
 
 	return GroupNotification;
