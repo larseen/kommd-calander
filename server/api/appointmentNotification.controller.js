@@ -13,7 +13,7 @@ module.exports = function(app){
 				res.send(notification.toJSON());
 			})
 			.catch(function(err) {
-				return res.send(500, {error:err.toString()});
+				return res.send(500, {error: err.toString()});
 			});
 		},
 

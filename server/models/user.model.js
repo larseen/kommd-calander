@@ -7,7 +7,11 @@ module.exports = function(app){
     var Promise  = require('bluebird');
     var crypto = require('crypto');
     var UserAppointment = require('./userAppointment.model')(app);
+	var AppointmentNotification = require('./userAppointmentNotification.model')(app);
     var Appointment = require('./appointment.model')(app);
+    var Group = require('./group.model')(app);
+	var GroupNotifications = require('./groupNotificaiton.model')(app);
+    var UserGroup = require('./userGroup.model')(app);
 
     /**
 	* crypto Methods
@@ -54,7 +58,16 @@ module.exports = function(app){
 		tableName: 'User',
 		appointments: function() {
 		    return this.belongsToMany(Appointment).through(UserAppointment);
-		  }
+		},
+		groups: function() {
+		    return this.belongsToMany(Group).through(UserGroup);
+		}
+		appointmentNotifications: function() {
+			return this.belongsToMany(AppointmentNotification).through(UserAppointmentNotification);
+		}
+		groupNotifications: function() {
+			return this.belongsToMany(GroupNotifications);
+		}
 	},
 	{
 

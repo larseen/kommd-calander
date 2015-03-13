@@ -12,7 +12,8 @@ module.exports = function(app){
 		tableName: 'Appointment',
 		appointments: function() {
 			return this.belongsToMany(AppointmentNotification);
-		}
+		},
+
 	});
 
     return Appointment ;
