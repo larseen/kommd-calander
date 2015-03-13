@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -50,16 +51,7 @@ public class HomeController implements Initializable, Controller {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setTime();
-
-		// ask server for appointments
-		ArrayList<String> appointmentList = new ArrayList<String>();
-
-		// list with appointments
-		appointmentList.add("14:15: Meet your parents at R2010");
-		appointmentList.add("15:10: Meet employee at S11");
-		appointmentList.add("19:20: Yoga at Super Zen");
-
-		fillAppointments(appointmentList);
+		update();
 		
 		// list with notifications
 		ArrayList<Notification> notificationsList = new ArrayList<Notification>();
@@ -189,5 +181,14 @@ public class HomeController implements Initializable, Controller {
 	@Override
 	public void update() {
 
+		// ask server for appointments
+		ArrayList<String> appointmentList = new ArrayList<String>();
+		ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+		appointments = Appointment.getAppointmentsByCalendar(new GregorianCalendar());
+		// list with appointments
+		for(Appointment appointment : appointments){
+			appointmentList.add(appointment.toString());
+		}
+		fillAppointments(appointmentList);
 	}
 }
