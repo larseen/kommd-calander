@@ -3,7 +3,14 @@
 */
 module.exports = function(app){
 
-    var User = require('../models/user.model')(app);
+    var Appointment = require('../models/appointment.model')(app);
+    var Group = require('../models/group.model')(app);
+    var AppointmentNotification = require('../models/appointmentNotification.model')(app);
+    var GroupNotification = require('../models/groupNotification.model')(app);
+    var UserGroup = require('../models/userGroup.model')(app);
+    var UserAppointment = require('../models/userAppointment.model')(app);
+    var UserAppointmentNotification = require('../models/userAppointmentNotification.model')(app);
+    var User = require('../models/user.model')(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserAppointment, UserAppointmentNotification);
 
     return {
             getUsers : function(req, res){

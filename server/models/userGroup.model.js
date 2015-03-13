@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
+module.exports = function(app, User){
     
     var bookshelf = app.get('bookshelf');
 
