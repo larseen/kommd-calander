@@ -3,10 +3,11 @@
 */
 module.exports = function(app){
 
-    var Group = require('../models/group.model')(app);
+
+    var async = require('async');
     var User = require('../models/user.model')(app);
     var UserGroup = require('../models/userGroup.model')(app);
-    var async = require('async');
+    var Group = require('../models/group.model')(app, User, UserGroup);
 
     return {
             getGroups : function(req, res){
@@ -21,6 +22,19 @@ module.exports = function(app){
             },
             getGroup : function(req, res){
                 new Group({GroupID: req.params.groupID}).fetch()
+                .then(function(group) {
+                    if(!group) return res.json(400, {error: 'group not found'})
+                    res.send(group.toJSON());
+                })
+                .catch(function(err){
+                    return res.send(500, {error: err.toString()});
+                });     
+            },
+            getUsers : function(req, res){
+                console.log(req.params);
+                new Group({GroupID: req.params.groupID}).fetch({
+                    withRelated: ['users']
+                })
                 .then(function(group) {
                     if(!group) return res.json(400, {error: 'group not found'})
                     res.send(group.toJSON());

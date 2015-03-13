@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
+module.exports = function(app, User, UserAppointment){
 
     var bookshelf = app.get('bookshelf');
 	var AppointmentNotification = require('./appointmentNotification.model')(app);
@@ -13,7 +13,9 @@ module.exports = function(app){
 		appointments: function() {
 			return this.belongsToMany(AppointmentNotification);
 		},
-
+		users: function() {
+		    return this.belongsToMany(User).through(UserAppointment);
+		},
 	});
 
     return Appointment ;
