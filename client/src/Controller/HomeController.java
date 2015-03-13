@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 import Interfaces.Controller;
 import Models.Appointment;
+import Models.Invitation;
 import Models.Notification;
 import Models.Request;
 import javafx.collections.FXCollections;
@@ -76,13 +77,7 @@ public class HomeController implements Initializable, Controller {
 
 		fillNotifications(notificationsList);
 		
-		//list with requests
-		ArrayList<Request> requestList = new ArrayList<Request>();
-		requestList.add(new Request(1,"Invited to BestGroupEver!","group"));
-		requestList.add(new Request(1,"Invited to BoringMeeting!","appointment"));
-		requestList.add(new Request(1,"Invited to SomeGroup!","group"));
 		
-		fillRequests(requestList);
 	}
 
 	@FXML
@@ -156,12 +151,12 @@ public class HomeController implements Initializable, Controller {
 		notifications.getChildren().addAll(tmpNotifications);
 	}
 
-	private void fillRequests(ArrayList<Request> requestList) {
+	private void fillRequests(ArrayList<Invitation> requestList) {
 		
 		// list for controllers
 		ArrayList<RequestController> requestControllers = new ArrayList<RequestController>();
 
-		for (Request request : requestList) {
+		for (Invitation request : requestList) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
 						"../View/Request.fxml"));
@@ -190,5 +185,16 @@ public class HomeController implements Initializable, Controller {
 			appointmentList.add(appointment.toString());
 		}
 		fillAppointments(appointmentList);
+		ArrayList<Invitation> invitations = Invitation
+				.getInvitationsByUserId(MainController.getCurrentUser().getId());
+
+		// list with requests
+		ArrayList<Invitation> invitationList = new ArrayList<Invitation>();
+		for(Invitation invitation : invitations){
+			invitationList.add(invitation);
+			
+		}
+
+		fillRequests(invitationList);
 	}
 }

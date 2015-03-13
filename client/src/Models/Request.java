@@ -6,7 +6,7 @@ public class Request {
 	private String text;
 	private String requestType;
 	
-	public Request(int id, String text, String requestType){
+	public Request(Invitation invitation){
 		this.id = id;
 		this.text = text;
 		this.requestType = requestType;
