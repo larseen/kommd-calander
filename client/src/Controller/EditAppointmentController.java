@@ -90,11 +90,23 @@ public class EditAppointmentController implements Initializable, Controller, Man
         appointment.setAdmin(MainController.getCurrentUser());
         appointment.getFrom().set(Calendar.HOUR_OF_DAY, Integer.parseInt(fromHour.getText()));
         appointment.getFrom().set(Calendar.MINUTE, Integer.parseInt(fromMin.getText()));
+
         appointment.getTo().set(Calendar.HOUR_OF_DAY, Integer.parseInt(toHour.getText()));
         appointment.getTo().set(Calendar.MINUTE, Integer.parseInt(toMin.getText()));
-        System.out.println(appointment.getTo());
+
+        appointment.getFrom().set(Calendar.DAY_OF_MONTH, date.getValue().getDayOfMonth());
+        appointment.getFrom().set(Calendar.YEAR, date.getValue().getYear());
+        appointment.getFrom().set(Calendar.MONTH, (date.getValue().getMonth().getValue()-1));
+
+        appointment.getTo().set(Calendar.DAY_OF_MONTH, date.getValue().getDayOfMonth());
+        appointment.getTo().set(Calendar.YEAR, date.getValue().getYear());
+        appointment.getTo().set(Calendar.MONTH, (date.getValue().getMonth().getValue()-1));
+
+
+        if( appointment.getId() == null){
+            appointment.setAdmin(MainController.getCurrentUser());
+        }
         appointment.save();
-        appointment.inviteUser(MainController.getCurrentUser());
         parentController.update();
 
         ((Node) event.getSource()).getScene().getWindow().hide();

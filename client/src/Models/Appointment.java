@@ -1,6 +1,7 @@
 package Models;
 
 import Controller.CalendarController;
+import Controller.MainController;
 import javafx.scene.control.DatePicker;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,7 +27,10 @@ public class Appointment extends Model{
     private Integer roomID;
     private Integer adminID;
 
+    public Appointment(){
 
+
+    }
     public Appointment( Calendar from, Calendar to,String title, String description, String location, Integer roomID, Integer adminID) {
         this.from.setTime(from.getTime());
         this.to.setTime(to.getTime());
@@ -86,9 +90,10 @@ public class Appointment extends Model{
         else {
             System.out.println("new");
             response = Appointment.post("/api/appointments", json.toString());
+            Appointment ap = Appointment.JSONtoAppointment(response);
+            this.id = ap.getId();
+            this.inviteUser(MainController.getCurrentUser());
         }
-        Appointment ap = Appointment.JSONtoAppointment(response);
-        this.id = ap.getId();
         return true;
 
     }
@@ -133,7 +138,8 @@ public class Appointment extends Model{
 
            String aTitle = json.get("Title").toString();
            String aDesc = json.get("Description").toString();
-           String aLoc = json.get("Location").toString();
+           String aLoc = "";
+           if( json.has("Location"))  aLoc = json.get("Location").toString();
            Integer aRoomID = null;
            if( json.has("Room_RoomID") && json.get("Room_RoomID").toString() != "null" ){
                aRoomID = Integer.parseInt(json.get("Room_RoomID").toString());
@@ -293,7 +299,9 @@ public class Appointment extends Model{
     }
 
     public void setAdmin(User admin) {
+
         this.admin = admin;
+        this.adminID = admin.getId();
     }
 
     public void setFrom(Calendar from) {
