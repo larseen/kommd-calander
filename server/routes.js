@@ -19,7 +19,10 @@ module.exports = function(app) {
 	var Group = require('./api/group.controller')(app)
 	app.get('/api/groups', Group.getGroups);
 	app.get('/api/groups/:groupID', Group.getGroup);
+	app.get('/api/groups/user/:userID', Group.getUserGroups);
 	app.post('/api/groups', Group.createGroup);
+	app.post('/api/groups/user', Group.addUsers);
+	app.put('/api/groups/user', Group.removeUsers);
 	app.post('/api/groups/:groupID', Group.updateGroup);
 	app.delete('/api/groups/:groupID', Group.deleteGroup);
 
@@ -40,7 +43,9 @@ module.exports = function(app) {
 	app.post('/api/appointments', Appointment.createAppointment);
 	app.post('/api/appointments/:appointmentID', Appointment.updateAppointment);
 	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);
+
 /*
+
 	var Notification = require('./api/notification.controller')(app)
 	app.get('/api/notifications', Notification.getAppointments);
 	app.get('/api/notifications/:notificationID', Notification.getNotification);
@@ -48,15 +53,13 @@ module.exports = function(app) {
 	app.get('/api/notifications/:userID', Notification.getUserNotifications);
 	app.get('/api/notifications/:groupID', Notification.getUserNotifications);
 
-/*
+*/
 
-	var Invitation = require('./api/invitation.controller')(app)
+	var Invitation = require('./api/userAppointment.controller')(app)
 	app.get('/api/invitations', Invitation.getInvitations);
 	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
-	app.get('/api/invitations/:userID', Invitation.getUserInvitations);
-	app.post('/api/invitations/:invitationID', Invitation.updateInvitation);
-
-*/
+	app.get('/api/invitations/user/:userID', Invitation.getUserInvitations);
+	app.put('/api/invitations/:invitationID', Invitation.updateInvitation);
 
 
 
