@@ -8,6 +8,8 @@ module.exports = function(app){
     var crypto = require('crypto');
     var UserAppointment = require('./userAppointment.model')(app);
     var Appointment = require('./appointment.model')(app);
+    var Group = require('./group.model')(app);
+    var UserGroup = require('./userGroup.model')(app);
 
     /**
 	* crypto Methods
@@ -54,7 +56,10 @@ module.exports = function(app){
 	  	tableName: 'User',
 	  	appointments: function() {
 		    return this.belongsToMany(Appointment).through(UserAppointment);
-		  }
+		},
+		groups: function() {
+		    return this.belongsToMany(Group).through(UserGroup);
+		}
 	},
 	{
 

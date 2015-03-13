@@ -7,8 +7,7 @@ module.exports = function(app){
     var Appointment = require('../models/appointment.model')(app);
     var UserAppointment = require('../models/userAppointment.model')(app);
     var User = require('../models/user.model')(app);
-
-    console.log("update");
+    
     return {
             getAppointments: function(req, res){
                 new Appointment().fetchAll()
@@ -31,7 +30,6 @@ module.exports = function(app){
                 });
             },
             getUserAppointments: function(req, res){
-                console.log(req.params);
                 new User({UserID: req.params.userID}).related('appointments').fetch()
                     .then(function(appointments){
                         if(!appointments) return res.json(400, {error: 'appointments not found'});
