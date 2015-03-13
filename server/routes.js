@@ -33,7 +33,6 @@ module.exports = function(app) {
 	app.post('/api/rooms/:roomID', Room.updateRoom);
 	app.delete('/api/rooms/:roomID', Room.deleteRoom);
 
-
 	var Appointment = require('./api/appointment.controller')(app)
 	app.get('/api/appointments', Appointment.getAppointments);
 	app.get('/api/appointments/:appointmentID', Appointment.getAppointment);
@@ -45,24 +44,20 @@ module.exports = function(app) {
 	app.post('/api/appointments/:appointmentID', Appointment.updateAppointment);
 	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);
 
-/*
+	var AppointmentNotification = require('./api/appointmentNotification.controller')(app);
+	app.post('/api/AppointmentNotifications', AppointmentNotification.createAppointmentNotification);
+	app.get('/api/AppointmentNotifications/:userID', AppointmentNotification.getUserAppointmentNotifications);
 
 	var Notification = require('./api/notification.controller')(app)
-	app.get('/api/notifications', Notification.getAppointments);
-	app.get('/api/notifications/:notificationID', Notification.getNotification);
-	app.put('/api/notifications/:notificationID', Notification.updateNotification);
 	app.get('/api/notifications/:userID', Notification.getUserNotifications);
-	app.get('/api/notifications/:groupID', Notification.getUserNotifications);
-
-*/
+	app.put('/api/notifications/appointment/:notificationID', Notification.updateAppointmentNotification);
+	app.put('/api/notifications/group/:notificationID', Notification.updateGroupNotification);
 
 	var Invitation = require('./api/userAppointment.controller')(app)
 	app.get('/api/invitations', Invitation.getInvitations);
 	app.get('/api/invitations/:invitationID', Invitation.getInvitation);
 	app.get('/api/invitations/user/:userID', Invitation.getUserInvitations);
 	app.put('/api/invitations/:invitationID', Invitation.updateInvitation);
-
-
 
 	var Session = require('./api/session.controller')(app)
 	app.post('/api/session', Session.login);

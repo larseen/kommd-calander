@@ -48,7 +48,7 @@ module.exports = function(app){
 		deleteGroupNotification: function(req, res) {
 			new GroupNotification({groupNotificationID: req.params.groupNotificationID}).fetch()
 			.then(function(groupNotification) {
-				if(!groupNotification) return res.json(400, {error: 'groupNotification not found'}):
+				if(!groupNotification) return res.json(400, {error: 'groupNotification not found'});
 				groupNotification.destroy()
 				.then(function() {
 					return res.send(200);

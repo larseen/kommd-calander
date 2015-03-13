@@ -1,11 +1,10 @@
-module.exports = function(app){
+module.exports = function(app, Appointment){
+
 
 	var bookshelf = app.get('bookshelf');
-	var Appointment = require('./appointment.model')(app);
 
-	var AppointmentNotification = bookshelf.model.extend(
-		{
-			idAttribute: 'AppointmentNotificationID',
+	var AppointmentNotification = bookshelf.Model.extend({
+			idAttribute: 'NotificationID',
 			tableName: 'AppointmentNotification',
 			appointmentID: function() {
 				return this.belongsTo(Appointment);
