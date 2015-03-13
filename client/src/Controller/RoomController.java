@@ -38,7 +38,7 @@ public class RoomController implements Initializable {
     	System.out.println(id);
     	
     	//UBER MESS, FIX!!
-    	TempRc.update();
+    	roomsController.update();
     }
     
     public void setData(Room room){
