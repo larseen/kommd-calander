@@ -10,12 +10,12 @@ module.exports = function(app, User, UserAppointment){
     {
 		idAttribute: 'AppointmentID',
 		tableName: 'Appointment',
-		appointments: function() {
-			return this.belongsToMany(AppointmentNotification);
+		appointmentNotifications: function() {
+			return this.hasMany(AppointmentNotification);
 		},
 		users: function() {
 		    return this.belongsToMany(User).through(UserAppointment);
-		},
+		}
 	});
 
     return Appointment ;

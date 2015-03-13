@@ -9,8 +9,11 @@ module.exports = function(app){
 		tableName: 'GroupNotification',
 		users: function() {
 			return this.belongsToMany(User).through(UserGroupNotification);
-			},
-		});
+		},
+		group: function() {
+			return this.belongsTo(Group);
+		}
+	});
 
 	return GroupNotification;
 
