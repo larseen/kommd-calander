@@ -43,6 +43,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO Initialize
         showView("../View/Home.fxml");
+        userMenu.setText(currentUser.getName());
     }    
 
     private Initializable showView(String view){
