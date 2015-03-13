@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
+module.exports = function(app, User, UserAppointment){
 
     var bookshelf = app.get('bookshelf');
 
@@ -9,7 +9,10 @@ module.exports = function(app){
     var Appointment = bookshelf.Model.extend(
     {
 		idAttribute: 'AppointmentID',
-		tableName: 'Appointment'
+		tableName: 'Appointment',
+		users: function() {
+		    return this.belongsToMany(User).through(UserAppointment);
+		},
 	});
 
     return Appointment ;
