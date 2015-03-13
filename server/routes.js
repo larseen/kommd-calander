@@ -11,6 +11,7 @@ module.exports = function(app) {
 	var User = require('./api/user.controller')(app)
 	app.get('/api/users', User.getUsers);
 	app.get('/api/users/:userID', User.getUser);
+	app.get('/api/users/groups/:userID', User.getGroups);
 	app.post('/api/users', User.createUser);
 	app.post('/api/users/:userID', User.updateUser);
 	app.put('/api/users/:userID', User.changePassword);
@@ -19,10 +20,9 @@ module.exports = function(app) {
 	var Group = require('./api/group.controller')(app)
 	app.get('/api/groups', Group.getGroups);
 	app.get('/api/groups/:groupID', Group.getGroup);
-	app.get('/api/groups/user/:userID', Group.getUserGroups);
-	app.post('/api/groups', Group.createGroup);
-	app.post('/api/groups/user', Group.addUsers);
-	app.put('/api/groups/user', Group.removeUsers);
+	app.get('/api/groups/users/:groupID', Group.getUsers);
+	app.post('/api/groups/users', Group.addUsers);
+	app.put('/api/groups/users', Group.removeUsers);
 	app.post('/api/groups/:groupID', Group.updateGroup);
 	app.delete('/api/groups/:groupID', Group.deleteGroup);
 
@@ -37,9 +37,10 @@ module.exports = function(app) {
 	var Appointment = require('./api/appointment.controller')(app)
 	app.get('/api/appointments', Appointment.getAppointments);
 	app.get('/api/appointments/:appointmentID', Appointment.getAppointment);
-	app.get('/api/appointments/user/:userID', Appointment.getUserAppointments);
-	app.post('/api/appointments/user', Appointment.addUsers);
-	app.put('/api/appointments/user', Appointment.removeUsers);
+	app.get('/api/appointments/users/:userID', Appointment.getUserAppointments);
+	app.get('/api/appointments/users/:appointmentID', Appointment.getUsers);
+	app.post('/api/appointments/users', Appointment.addUsers);
+	app.put('/api/appointments/users', Appointment.removeUsers);
 	app.post('/api/appointments', Appointment.createAppointment);
 	app.post('/api/appointments/:appointmentID', Appointment.updateAppointment);
 	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);

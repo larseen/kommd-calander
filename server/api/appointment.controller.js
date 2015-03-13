@@ -4,9 +4,9 @@
 module.exports = function(app){
 
     var async = require('async');
-    var Appointment = require('../models/appointment.model')(app);
     var UserAppointment = require('../models/userAppointment.model')(app);
     var User = require('../models/user.model')(app);
+    var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
     
     return {
             getAppointments: function(req, res){
@@ -29,8 +29,22 @@ module.exports = function(app){
                     return res.send(500, {error:err.toString()});
                 });
             },
+            getUsers: function(req, res){
+                new Appointment({'AppointmentID': req.params.appointmentID}).fetch({
+                    withRelated: ['users']
+                })
+                .then(function(appointment) {
+                    if(!appointment) return res.json(400, {error: 'appointment not found'})
+                    res.send(appointment.toJSON());
+                })
+                .catch(function(err){
+                    return res.send(500, {error:err.toString()});
+                });
+            },
             getUserAppointments: function(req, res){
-                new User({UserID: req.params.userID}).related('appointments').fetch()
+                new User({UserID: req.params.userID}).fetch({
+                        withRelated: ['appointments']
+                    })
                     .then(function(appointments){
                         if(!appointments) return res.json(400, {error: 'appointments not found'});
                         res.send(appointments.toJSON());
