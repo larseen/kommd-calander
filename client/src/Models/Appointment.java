@@ -3,6 +3,7 @@ package Models;
 import Controller.CalendarController;
 import Controller.MainController;
 import javafx.scene.control.DatePicker;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -327,4 +328,31 @@ public class Appointment extends Model{
     public void setRoom(Room room) {
         this.room = room;
     }
+	public static ArrayList<Appointment> getAppointmentsByCalendar(GregorianCalendar gc) {
+	        //System.out.println("Getting user " + user.getId().toString());
+	        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+	        JSONObject response = Appointment.get("/api/appointments/user/" + MainController.getCurrentUser().getId().toString());
+	        try {
+	            JSONArray appointments_json = (JSONArray)response.get("response");
+	            for(int i = 0 ; i < appointments_json.length(); i++ ){
+	                JSONObject appointment =(JSONObject) appointments_json.get(i);
+	                Appointment a = Appointment.JSONtoAppointment(appointment);
+	                if(a.from.get(Calendar.YEAR) == gc.get(Calendar.YEAR) && a.from.get(Calendar.MONTH) == gc.get(Calendar.MONTH) && a.from.get(Calendar.DAY_OF_MONTH) == gc.get(Calendar.DAY_OF_MONTH)) 
+	                	appointments.add(a);
+	                
+	            }
+	        }
+	        catch (Exception e){
+	            System.out.println(e);
+	        }
+	        return appointments;
+	    }
+
+	public String toString(){
+		String hour = String.valueOf(this.from.get(Calendar.HOUR_OF_DAY));
+		String min = String.valueOf(this.from.get(Calendar.MINUTE));
+		
+		return new String(hour+":"+min+" - "+this.title);
+	}
 }
+
