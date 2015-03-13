@@ -36,11 +36,11 @@
                   <Font size="20.0" />
                </font>
             </TextField>
-            <TextField fx:id="password" prefHeight="50.0" prefWidth="251.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <PasswordField fx:id="password" prefHeight="50.0" prefWidth="251.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="20.0" />
                </font>
-            </TextField>
+            </PasswordField>
             <Button fx:id="settings" mnemonicParsing="false" onAction="#onSettings" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('http://icons.iconarchive.com/icons/aha-soft/desktop-buffet/128/Pizza-icon.png');" />

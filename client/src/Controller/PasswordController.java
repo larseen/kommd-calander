@@ -54,7 +54,6 @@ public class PasswordController implements Initializable, Controller {
     @FXML
     private void onCancel(ActionEvent event) {
         //TODO Cancel
-        System.out.println("cancel");
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     @FXML
@@ -67,7 +66,6 @@ public class PasswordController implements Initializable, Controller {
         if( newPassword.equals( reNewPassword )){
             if( user.getId() == null  ){
                 user.setPassword(newPassword);
-                System.out.println("new user");
 
                 ((Node) event.getSource()).getScene().getWindow().hide();
 

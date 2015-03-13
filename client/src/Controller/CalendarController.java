@@ -1,7 +1,8 @@
 package Controller;
 
+import Interfaces.Controller;
 import Models.*;
-import Models.Calendar;
+import Models.KVOMMDCalendar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 import java.util.*;
@@ -17,64 +20,39 @@ import static javafx.application.Application.launch;
 
 import java.net.URL;
 
-public class CalendarController implements Initializable {
+public class CalendarController implements Initializable, Controller {
     @FXML
-    private AnchorPane calendarMonth;
+    private AnchorPane week_mon_col;
+
     @FXML
-    private AnchorPane calendarWeek;
+    private AnchorPane week_tue_col;
     @FXML
-    private AnchorPane calendarDay;
+    private AnchorPane week_wed_col;
     @FXML
-    private Pane calendarContent;
+    private AnchorPane week_thu_col;
     @FXML
-    private Pane week_mon_col;
+    private AnchorPane week_fri_col;
     @FXML
-    private Pane day_col;
+    private AnchorPane week_sat_col;
+    @FXML
+    private AnchorPane  week_sun_col;
     @FXML
     private AnchorPane root;
+    @FXML
+    private Label weekNumber;
 
-    private AnchorPane ap;
+    @FXML
+    private Button nWeek;
+    @FXML
+    private Button tWeek;
+    @FXML
+    private Button pWeek;
 
-    private AppointmentController dayController;
-
-    private ArrayList<AppointmentController> week;
-
-    ArrayList<AppointmentController> appointmentControllers;
-
+    private KVOMMDCalendar calendar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO Initialize
-
-        ap = new AnchorPane();
-
-        week_mon_col.getChildren().addAll(ap);
-
-        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
-        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,14,00,00), new GregorianCalendar(2015,03,03,16,45,00), "Møte", "der", new Room(), new User()));
-        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte", "der", new Room(), new User()));
-        appointments.add(new Appointment(null, new GregorianCalendar(2015,03,03,17,30,00), new GregorianCalendar(2015,03,03,18,00,00), "Møte", "der", new Room(), new User()));
-
-        Models.Calendar calendar = new Calendar(appointments);
-        appointments = calendar.getDaysAppointments();
-        appointmentControllers = new ArrayList<AppointmentController>();
-
-        for( Appointment appointment : appointments ){
-            try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Appointment.fxml"));
-                Parent root = fxmlLoader.load();
-                AppointmentController appointmentController = fxmlLoader.getController();
-                appointmentController.setData(appointment);
-                appointmentControllers.add(appointmentController);
-
-
-                ap.getChildren().addAll(root);
-            }
-            catch (Exception e){
-                System.out.println(e);
-            }
-        }
-
+        this.update();
 
         root.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
@@ -84,9 +62,7 @@ public class CalendarController implements Initializable {
     }
 
     private void redraw(){
-        for( AppointmentController appointmentController : appointmentControllers){
-            appointmentController.setWidth(root.getWidth()/8);
-        }
+        this.calendar.redraw( root.getWidth()/8 );
 
 
     }
@@ -97,8 +73,39 @@ public class CalendarController implements Initializable {
         //TODO CreateEvent
     }
 
-    public void wr(String r){
-        System.out.println(r);
+    @FXML
+    private void onTWeek(ActionEvent event) {
+        //TODO CreateEvent
     }
-    
+    @FXML
+    private void onNWeek(ActionEvent event) {
+        //TODO CreateEvent
+    }
+    @FXML
+    private void onPWeek(ActionEvent event) {
+        //TODO CreateEvent
+    }
+
+
+    @Override
+    public void update() {
+        week_mon_col.getChildren().removeAll(week_mon_col.getChildren());
+        week_tue_col.getChildren().removeAll(week_tue_col.getChildren());
+        week_wed_col.getChildren().removeAll(week_wed_col.getChildren());
+        week_thu_col.getChildren().removeAll(week_thu_col.getChildren());
+        week_fri_col.getChildren().removeAll(week_fri_col.getChildren());
+        week_sat_col.getChildren().removeAll(week_sat_col.getChildren());
+        week_sun_col.getChildren().removeAll(week_sun_col.getChildren());
+
+        this.calendar = new KVOMMDCalendar( MainController.getCurrentUser(), new GregorianCalendar(), this);
+
+        week_mon_col.getChildren().addAll(this.calendar.getMondayAppointments());
+        week_tue_col.getChildren().addAll(this.calendar.getTuesdayAppointments());
+        week_wed_col.getChildren().addAll(this.calendar.getWednesdayAppointments());
+        week_thu_col.getChildren().addAll(this.calendar.getThursdayAppointments());
+        week_fri_col.getChildren().addAll(this.calendar.getFridayAppointments());
+        week_sat_col.getChildren().addAll(this.calendar.getSaturdayAppointments());
+        week_sun_col.getChildren().addAll(this.calendar.getSundayAppointments());
+
+    }
 }

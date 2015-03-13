@@ -8,12 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by Dag Frode on 02.03.2015.
  */
-public class Group {
+public class Group extends Model {
 
     private Integer id;
     private String name;
     private String description;
-    private Group parent;
 
     public Group() {
     }
@@ -27,7 +26,6 @@ public class Group {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.parent = parent;
     }
 
     /*
@@ -43,9 +41,7 @@ DELETE /api/groups/userID*/
         try {
             if( this.id != null )json.put("GroupId", this.id.toString());
             json.put("name", this.name.toString());
-            if( this.description != null ) json.put("Description", this.description.toString());
-            if( this.parent != null ) json.put("Parent", this.parent.getId().toString());
-
+            if( this.description != null ) json.put("description", this.description.toString());
 
         }
         catch (Exception e){
@@ -68,20 +64,22 @@ DELETE /api/groups/userID*/
 
         JSONObject json = this.toJSON();
         if( this.id != null){
-            System.out.println("update");
-            System.out.println(User.post("/api/rooms/" + this.id, json.toString()));
+            User.post("/api/groups/" + this.id, json.toString());
         }
         else {
-            System.out.println("create");
-            System.out.println(User.post("/api/rooms", json.toString()));
+            User.post("/api/groups", json.toString());
         }
         return true;
+    }
+
+    public void addMember( User user ){
+
     }
 
 
     //DELETE /api/groups/groupID
     public boolean delete( ){
-        Model.delete("/api/rooms/" + this.id.toString());
+        Model.delete("/api/groups/" + this.id.toString());
         return true;
     }
 
@@ -103,6 +101,7 @@ DELETE /api/groups/userID*/
         return groups;
     }
 
+
     private static Group JSONtoGroup(JSONObject json){
         Group group = new Group();
         try {
@@ -117,6 +116,56 @@ DELETE /api/groups/userID*/
         return group;
     }
 
+    public void addUser( User user ){
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(user);
+        this.addUsers(users);
+    }
+
+    public void addUsers(ArrayList<User> users ){
+        ArrayList<Integer> userIDs = new ArrayList<Integer>();
+        for( User user : users ){
+            if( user.getId() != null)
+                userIDs.add(user.getId());
+
+        }
+        JSONObject json = new JSONObject();
+        try {
+            json.put("group", this.id);
+            json.put("users", userIDs);
+        }
+        catch (Exception e){
+            System.out.println("Could not convert to json");
+            System.out.println(e);
+        }
+        Group.post("/api/groups/user", json.toString());
+    }
+
+    public void removeUser( User user ){
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(user);
+        this.removeUsers(users);
+    }
+
+    public void removeUsers(ArrayList<User> users ){
+        ArrayList<Integer> userIDs = new ArrayList<Integer>();
+        for( User user : users ){
+            if( user.getId() != null)
+                userIDs.add(user.getId());
+
+        }
+        JSONObject json = new JSONObject();
+        try {
+            json.put("group", this.id);
+            json.put("users", userIDs);
+        }
+        catch (Exception e){
+            System.out.println("Could not convert to json");
+            System.out.println(e);
+        }
+        Group.put("/api/groups/user", json.toString());
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -125,9 +174,6 @@ DELETE /api/groups/userID*/
         this.description = description;
     }
 
-    public void setParent(Group parent) {
-        this.parent = parent;
-    }
 
     public Integer getId() {
 
@@ -142,7 +188,4 @@ DELETE /api/groups/userID*/
         return description;
     }
 
-    public Group getParent() {
-        return parent;
-    }
 }

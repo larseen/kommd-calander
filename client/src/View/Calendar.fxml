@@ -11,12 +11,12 @@
 <AnchorPane fx:id="root" minHeight="200" minWidth="400" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CalendarController">
    <children>
       <TabPane prefHeight="609.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Day">
-            <content>
-              <AnchorPane id="calendarDay" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Day">
+               <content>
+                  <AnchorPane id="calendarDay" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <StackPane>
+                        <StackPane prefHeight="580.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <GridPane>
                                  <children>
@@ -368,22 +368,22 @@
                            </children>
                         </StackPane>
                      </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Week">
-            <content>
-              <AnchorPane id="calendarWeek" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               </content>
+            </Tab>
+            <Tab text="Week">
+               <content>
+                  <AnchorPane id="calendarWeek" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints percentWidth="100" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints percentHeight="10" />
-                                  <RowConstraints percentHeight="90" />
-                                </rowConstraints>
+                                 <columnConstraints>
+                                    <ColumnConstraints percentWidth="100" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints percentHeight="10" />
+                                    <RowConstraints percentHeight="90" />
+                                 </rowConstraints>
                                  <children>
                                     <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
@@ -399,18 +399,18 @@
                                                    </rowConstraints>
                                                    <children>
                                                       <GridPane GridPane.columnIndex="1">
-                                                        <columnConstraints>
+                                                         <columnConstraints>
                                                             <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
                                                             <ColumnConstraints hgrow="SOMETIMES" percentWidth="13.5" />
                                                             <ColumnConstraints hgrow="SOMETIMES" percentWidth="13.5" />
                                                             <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
                                                             <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                          <RowConstraints percentHeight="100" />
-                                                        </rowConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" percentWidth="14.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints percentHeight="100" />
+                                                         </rowConstraints>
                                                          <children>
                                                             <Label id="week_tue_label" text="Thu" GridPane.columnIndex="1" GridPane.valignment="TOP" />
                                                             <Label id="week__wed_label" text="Wen" GridPane.columnIndex="2" GridPane.valignment="TOP" />
@@ -430,17 +430,17 @@
                                     <StackPane style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.rowIndex="1">
                                        <children>
                                           <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <content>
-                                              <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <content>
+                                                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
                                                       <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                        <columnConstraints>
-                                                          <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                          <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
-                                                        </rowConstraints>
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="NEVER" minWidth="100.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints percentHeight="-Infinity" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
                                                          <children>
                                                             <VBox styleClass="fake_head">
                                                                <children>
@@ -761,7 +761,7 @@
                                                       </GridPane>
                                                    </children>
                                                 </AnchorPane>
-                                            </content>
+                                             </content>
                                           </ScrollPane>
                                        </children>
                                     </StackPane>
@@ -771,14 +771,14 @@
                         </StackPane>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Month">
-              <content>
-                <AnchorPane id="calendarMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               </content>
             </Tab>
-        </tabs>
+            <Tab text="Month">
+               <content>
+                  <AnchorPane id="calendarMonth" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
       </TabPane>
    </children>
    <stylesheets>

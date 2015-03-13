@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Interfaces.Controller;
 import Models.Appointment;
 import Models.Notification;
 import Models.Request;
@@ -23,14 +24,16 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class HomeController implements Initializable {
+public class HomeController implements Initializable, Controller {
 	@FXML
 	private AnchorPane root;
 	@FXML
@@ -91,8 +94,22 @@ public class HomeController implements Initializable {
 	}
 
 	@FXML
-	private void onCreate(ActionEvent event) {
-		// TODO CreateEvent
+	private void onCreate(ActionEvent event) throws Exception{
+		this.showEditAppointmentDialog();
+	}
+
+	private Controller showEditAppointmentDialog(  )throws Exception{
+
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/EditAppointment.fxml"));
+		Parent root = fxmlLoader.load();
+		EditAppointmentController editAppointmentController = fxmlLoader.getController();
+		editAppointmentController.setMainController(this);
+		editAppointmentController.setData(new Appointment());
+		Stage stage = new Stage();
+		stage.setTitle("New Appointment");
+		stage.setScene(new Scene(root));
+		stage.show();
+		return editAppointmentController;
 	}
 	
 	private void setTime(){
@@ -167,5 +184,10 @@ public class HomeController implements Initializable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void update() {
+
 	}
 }
