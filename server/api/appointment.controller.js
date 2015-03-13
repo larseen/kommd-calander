@@ -5,9 +5,11 @@ module.exports = function(app){
 
     var async = require('async');
     var UserAppointment = require('../models/userAppointment.model')(app);
-    var User = require('../models/user.model')(app);
+    var User = require('../models/user.model')(app, UserAppointment);
     var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
-    
+    var appointmentNotification = require('./appointmentNotification.controller')(app, Appointment);
+
+
     return {
             getAppointments: function(req, res){
                 new Appointment().fetchAll()

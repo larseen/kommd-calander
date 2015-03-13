@@ -1,10 +1,9 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
+module.exports = function(app, User, Appointment){
     
     var bookshelf = app.get('bookshelf');
-    var Appointment = require('./appointment.model')(app);
 
     var UserAppointment = bookshelf.Model.extend(
 	    {

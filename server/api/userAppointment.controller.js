@@ -3,8 +3,10 @@
 */
 module.exports = function(app){
 
-    var UserAppointment = require('../models/userAppointment.model')(app);
     var User = require('../models/user.model')(app);
+    var Appointment = require('../models/user.model')(app);
+    var UserAppointment = require('../models/userAppointment.model')(app, User, Appointment);
+    
     
     return {
             getInvitations: function(req, res){

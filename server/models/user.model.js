@@ -1,17 +1,11 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
+module.exports = function(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserAppointment, UserAppointmentNotification){
     
     var bookshelf = app.get('bookshelf');
     var Promise  = require('bluebird');
     var crypto = require('crypto');
-    var UserAppointment = require('./userAppointment.model')(app);
-	var AppointmentNotification = require('./userAppointmentNotification.model')(app);
-    var Appointment = require('./appointment.model')(app);
-    var Group = require('./group.model')(app);
-	var GroupNotifications = require('./groupNotificaiton.model')(app);
-    var UserGroup = require('./userGroup.model')(app);
 
     /**
 	* crypto Methods
@@ -61,10 +55,10 @@ module.exports = function(app){
 		},
 		groups: function() {
 		    return this.belongsToMany(Group).through(UserGroup);
-		}
+		},
 		appointmentNotifications: function() {
 			return this.belongsToMany(AppointmentNotification).through(UserAppointmentNotification);
-		}
+		},
 		groupNotifications: function() {
 			return this.belongsToMany(GroupNotifications);
 		}
