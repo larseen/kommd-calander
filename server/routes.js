@@ -37,7 +37,7 @@ module.exports = function(app) {
 	app.get('/api/appointments', Appointment.getAppointments);
 	app.get('/api/appointments/:appointmentID', Appointment.getAppointment);
 	app.get('/api/appointments/users/:userID', Appointment.getUserAppointments);
-	app.get('/api/appointments/users/:appointmentID', Appointment.getUsers);
+	app.get('/api/appointments/users/invited/:appointmentID', Appointment.getUsers);
 	app.post('/api/appointments/users', Appointment.addUsers);
 	app.put('/api/appointments/users', Appointment.removeUsers);
 	app.post('/api/appointments', Appointment.createAppointment);
