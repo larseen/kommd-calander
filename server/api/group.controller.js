@@ -7,7 +7,7 @@ module.exports = function(app){
     var async = require('async');
     var User = require('../models/user.model')(app);
     var UserGroup = require('../models/userGroup.model')(app, User);
-	var GroupNotification = require('../models.groupNotification.model');
+	var GroupNotification = require('../models/groupNotification.model');
     var Group = require('../models/group.model')(app, User, UserGroup, GroupNotification);
 
     return {
