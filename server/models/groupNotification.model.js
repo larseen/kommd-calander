@@ -1,4 +1,4 @@
-module.exports = function(app, User, GroupNotification){
+module.exports = function(app, User, Group, UserGroupNotification){
 
 	var bookshelf = app.get('bookshelf');
 
