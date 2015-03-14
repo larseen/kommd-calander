@@ -36,8 +36,6 @@ require('./config/express')(app);
 require('./routes')(app);
 
 
-
-
 // Start server
 server.listen(nconf.get('port'), nconf.get('hostname'), function () {
     console.log('Express server listening on %d, in %s mode', nconf.get('port'), app.get('env'));

@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 module.exports = function(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, User, UserAppointment, UserAppointmentNotification){
-    
+
     var bookshelf = app.get('bookshelf');
     var Promise  = require('bluebird');
     var crypto = require('crypto');

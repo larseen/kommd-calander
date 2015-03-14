@@ -1,7 +1,8 @@
 module.exports = function(app){
 
 	var User = require('../models/user.model')(app);
-	var AppointmentNotification = require('../models/appointmentNotification.model')(app);
+	var Appointment = require('../models/appointment.model');
+	var AppointmentNotification = require('../models/appointmentNotification.model')(app, User, Appointmen, User, Appointment);
 	var UserAppointmentNotification = require('../models/UserAppointmentNotification.model')(app, User, AppointmentNotification);
 
 	return {

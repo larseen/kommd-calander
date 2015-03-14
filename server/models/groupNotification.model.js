@@ -1,7 +1,6 @@
-module.exports = function(app){
+module.exports = function(app, User, GroupNotification){
 
 	var bookshelf = app.get('bookshelf');
-	var UserGroupNotification = require('./userGroupNotification.model')(app);
 
 	var GroupNotification = bookshelf.Model.extend(
 	{

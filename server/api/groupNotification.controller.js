@@ -1,9 +1,12 @@
 module.exports = function(app){
 
-	var GroupNotification = require('../models/groupNotification.model')(app);
+	var User = require('../models/user.model')(app);
+	var GroupNotification = require('../models/userGroupNotification.model')(app);
+	var UserGroupNotification = require('../models/groupNotification.model')(app, User, GroupNotification);
 
 	return {
 		createGroupNotification: function(req, res) {
+			GroupNotification.forge({
 			GroupNotification.forge({
 				Message: req.body.message,
 				Viewstatus: req.body.viewstatus,
