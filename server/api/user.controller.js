@@ -48,6 +48,7 @@ module.exports = function(app){
                 });
             },
             createUser : function(req, res){
+				console.log(req.body);
                 User.create(req.body.Email, req.body.Password, req.body.Name, req.body.Phone, req.body.Title)
                 .then(function(user) {
                     res.send({UserID: user.attributes.UserID, Name: user.attributes.Name, Phone: user.attributes.Phone, Title: user.attributes.Title, Admin: user.attributes.Admin, Email: user.attributes.Email});

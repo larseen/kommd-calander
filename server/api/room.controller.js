@@ -24,7 +24,7 @@ module.exports = function(app){
                 })
                 .catch(function(err){
                     return res.send(500, {error: err.toString()});
-                });     
+                });
             },
             createRoom : function(req, res){
                 Room.forge({
@@ -38,15 +38,15 @@ module.exports = function(app){
                 })
                 .catch(function(err){
                     return res.send(500, {error: err.toString()});
-                }); 
+                });
             },
             updateRoom : function(req, res){
                 new Room({RoomID: req.params.roomID}).fetch()
                 .then(function(room){
                     if(!room) return res.json(400, {error: 'room not found'});
                     room.save({
-                        Name: req.body.name || room.get('Name'), 
-                        Description: req.body.description || room.get('Description'), 
+                        Name: req.body.name || room.get('Name'),
+                        Description: req.body.description || room.get('Description'),
                         Location: req.body.location || room.get('Location'),
                         Size: req.body.size || room.get('Size')
                     })

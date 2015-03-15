@@ -45,8 +45,8 @@ module.exports = function(app) {
 	app.delete('/api/appointments/:appointmentID', Appointment.deleteAppointment);
 
 	var AppointmentNotification = require('./api/appointmentNotification.controller')(app);
-	app.post('/api/AppointmentNotifications', AppointmentNotification.createAppointmentNotification);
-	app.get('/api/AppointmentNotifications/:userID', AppointmentNotification.getUserAppointmentNotifications);
+	app.post('/api/appointmentnotifications', AppointmentNotification.createAppointmentNotification);
+	app.get('/api/appointmentnotifications/:userID', AppointmentNotification.getUserAppointmentNotifications);
 
 	var Notification = require('./api/notification.controller')(app)
 	app.get('/api/notifications/:userID', Notification.getUserNotifications);

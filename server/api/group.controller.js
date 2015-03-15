@@ -32,7 +32,6 @@ module.exports = function(app){
                 });     
             },
             getUsers : function(req, res){
-                console.log(req.params);
                 new Group({GroupID: req.params.groupID}).fetch({
                     withRelated: ['users']
                 })
