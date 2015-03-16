@@ -32,8 +32,6 @@ module.exports = function(app){
                 });
             },
             getUsers: function(req, res){
-/*				console.log("HELLOH");
-				console.log(req.body);*/
                 new Appointment({'AppointmentID': req.params.appointmentID}).fetch({
                     withRelated: ['users']
                 })
@@ -56,7 +54,7 @@ module.exports = function(app){
             },
             addUsers: function(req, res){
                 var response = [];
-                async.forEach(req.body.users, function (user, callback){ 
+                async.forEach(req.body.users, function (user, callback){
                     UserAppointment.forge({
                         Appointment_AppointmentID: req.body.appointment,
                         User_UserID: user,
@@ -74,11 +72,11 @@ module.exports = function(app){
                 }, function(err) {
                     if(err) return res.send(err);
                     return res.send(response);
-                }); 
+                });
             },
             removeUsers: function(req, res){
                 var response = [];
-                async.forEach(req.body.users, function (user, callback){ 
+                async.forEach(req.body.users, function (user, callback){
                     new UserAppointment().where({Appointment_AppointmentID: req.body.appointment, User_UserID: user}).fetch()
                     .then(function(userAppointment) {
                         if(!userAppointment) return res.json(400, {error: 'userAppointment not found'})
@@ -97,7 +95,7 @@ module.exports = function(app){
                 }, function(err) {
                     if(err) return res.send(err);
                     return res.send(200);
-                }); 
+                });
             },
             createAppointment: function(req, res){
 				Appointment.forge({
