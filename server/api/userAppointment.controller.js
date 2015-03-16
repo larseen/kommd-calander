@@ -4,7 +4,7 @@
 module.exports = function(app){
 
     var User = require('../models/user.model')(app);
-    var Appointment = require('../models/user.model')(app);
+    var Appointment = require('../models/appointment.model')(app);
     var UserAppointment = require('../models/userAppointment.model')(app, User, Appointment);
 
 
