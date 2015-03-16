@@ -24,21 +24,34 @@
           <RowConstraints maxHeight="478.0" minHeight="10.0" prefHeight="451.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="addUser" mnemonicParsing="false" onAction="#onAddUser" prefHeight="60.0" prefWidth="150.0" text="Add user" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <GridPane GridPane.columnIndex="3">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ComboBox fx:id="usersCombo" prefHeight="25.0" prefWidth="192.0" />
+                  <Button fx:id="addUser" mnemonicParsing="false" onAction="#onAddUser" prefHeight="18.0" prefWidth="76.0" text="Add user" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+               </children>
+            </GridPane>
             <Button fx:id="removeUser" mnemonicParsing="false" onAction="#onRemoveUser" prefHeight="60.0" prefWidth="150.0" text="Remove user" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
             <ListView fx:id="groupList" onMouseClicked="#onMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ListView fx:id="userList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ListView fx:id="userList" onMouseClicked="#onUserSelected" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <GridPane fx:id="userInfo" GridPane.columnIndex="5" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="263.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="280.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="263.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="331.0" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="selectedUserName" prefHeight="53.0" prefWidth="267.0" textFill="#2ec929" GridPane.rowIndex="1">
@@ -51,7 +64,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="53.0" prefWidth="284.0" text="Selected user's groups" GridPane.rowIndex="4">
+                  <Label prefHeight="62.0" prefWidth="240.0" text="Selected user's groups" GridPane.rowIndex="4">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -59,7 +72,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <ListView fx:id="usersGroupsList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
+                  <ListView fx:id="usersGroupsList" prefHeight="193.0" prefWidth="250.0" GridPane.rowIndex="5" />
                   <Label text="Selected user name">
                      <font>
                         <Font size="24.0" />
@@ -76,6 +89,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
+                  <Button fx:id="viewProfile" mnemonicParsing="false" onAction="#onViewProfile" prefHeight="60.0" prefWidth="250.0" text="View profile" GridPane.rowIndex="6" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="1">

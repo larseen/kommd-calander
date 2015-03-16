@@ -4,8 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import org.codehaus.jettison.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import Controller.MainController;
 
@@ -18,16 +18,18 @@ public class Invitation extends Model {
 	private boolean viewStatus;
 	private Integer id;
 	private Integer appointmentId;
+	private Appointment appointment;
 	
 	
 	
 	public Invitation(Integer userID, boolean participantStatus,
-			boolean viewStatus, Integer id, Integer appointmentId) {
+					  boolean viewStatus, Integer id, Integer appointmentId, Appointment appointment) {
 		this.userID = userID;
 		this.participantStatus = participantStatus;
 		this.viewStatus = viewStatus;
 		this.id = id;
 		this.appointmentId = appointmentId;
+		this.appointment = appointment;
 	}
 
 	public static ArrayList<Invitation> getInvitationsByUserId(Integer userID){
@@ -46,14 +48,15 @@ public class Invitation extends Model {
 	}
 
 	private static Invitation JSONtoInvitation(JSONObject invitation) {
-		//{"Appointment_AppointmentID":122,"User_UserID":62,"ParticipantStatus":0,"ViewStatus":0,"id":97,"Group_has_GroupID":null,"Appointment":{"AppointmentID":122,"DateTimeFrom":"2015-04-03T14:00:00.000Z","DateTimeTo":"2015-04-03T16:45:00.000Z","Description":"bes","Location":"der","Room_RoomID":null,"AppointmentAdmin":62,"Title":"Møte"}
+		//{"Appointment_AppointmentID":122,"User_UserID":62,"ParticipantStatus":0,"ViewStatus":0,"id":97,"Group_has_GroupID":null,"Appointment":{"AppointmentID":122,"DateTimeFrom":"2015-04-03T14:00:00.000Z","DateTimeTo":"2015-04-03T16:45:00.000Z","Description":"bes","Location":"der","Room_RoomID":null,"AppointmentAdmin":62,"Title":"Mï¿½te"}
 		try{
 			Integer userID = invitation.getInt("User_UserID");
-			boolean participantStatus = invitation.getBoolean("ParticipantStatus");
-			boolean viewStatus = invitation.getBoolean("ViewStatus");
+			boolean participantStatus = invitation.getInt("ParticipantStatus") > 0 ? true : false;
+			boolean viewStatus = invitation.getInt("ViewStatus") > 0 ? true : false;
 			Integer id = invitation.getInt("id");
 			Integer appointmentId = invitation.getInt("Appointment_AppointmentID");
-			return new Invitation(userID, participantStatus, viewStatus, id, appointmentId);
+			Appointment appointment = Appointment.JSONtoAppointment((JSONObject) invitation.get("Appointment"));
+			return new Invitation(userID, participantStatus, viewStatus, id, appointmentId, appointment);
 		}catch(Exception e){
 			System.out.println(e);
 		}
@@ -84,6 +87,13 @@ public class Invitation extends Model {
 
 	public void decline() {
 		this.participantStatus = false;
+		this.viewStatus = true;
+		this.save();
+	}
+
+	public void accept() {
+		this.participantStatus = true;
+		this.viewStatus = true;
 		this.save();
 	}
 
@@ -92,7 +102,7 @@ public class Invitation extends Model {
         JSONObject response = new JSONObject();
         if( this.id != null){
             System.out.println("update");
-            response = Appointment.post("/api/appointments/" + this.id, json.toString());
+            response = Appointment.put("/api/invitations/" + this.id, json.toString());
         }
         return true;
     }
@@ -101,9 +111,9 @@ public class Invitation extends Model {
         JSONObject json = new JSONObject();
         try {
             if( this.userID != null ) json.put("User_UserID", this.userID.toString());
-            json.put("ParticipantStatus", String.valueOf(this.participantStatus));
+            json.put("ParticipantStatus", this.participantStatus ? 1 : 0);
             if( this.id != null ) json.put("id", this.id.toString());
-            json.put("ViewStatus", String.valueOf(this.viewStatus));
+            json.put("ViewStatus", this.viewStatus ? 1 : 0);
             if( this.appointmentId != null ) json.put("Appointment_AppointmentID", this.appointmentId.toString());
         }
         catch (Exception e){
@@ -113,7 +123,8 @@ public class Invitation extends Model {
         return json;
 
     }
-	
-	
-	
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
 }

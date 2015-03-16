@@ -32,6 +32,7 @@ public class ViewUserController implements Initializable, Controller {
     @FXML
     private Label profileName;
     private MainController mainController;
+    private MainController parentController;
 
     private User user;
 
@@ -39,11 +40,16 @@ public class ViewUserController implements Initializable, Controller {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO Initialize
         this.setUser(MainController.getCurrentUser());
+        if( !MainController.getCurrentUser().isAdmin()) newUser.setVisible(false);
+    }
+
+    public void setParentController( MainController parentController){
+        this.parentController = parentController;
     }
 
     @FXML
     private void viewCalendar(ActionEvent event) {
-        //TODO ViewCalendar
+        parentController.showCalendarByUser( user );
     }
 
     @FXML
@@ -53,7 +59,7 @@ public class ViewUserController implements Initializable, Controller {
 
     @FXML
     private void editUser(ActionEvent event) throws Exception{
-        showEditUserDialog( MainController.getCurrentUser() );
+        showEditUserDialog( this.user );
     }
 
     private Controller showEditUserDialog( User user )throws Exception{

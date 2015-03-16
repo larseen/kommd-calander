@@ -34,6 +34,7 @@ public class RequestController implements Initializable {
     @FXML
     private void onAccept(ActionEvent event) {
     	System.out.println("Notify: Accepted!");
+        this.invitation.accept();
     	root.getChildren().clear();
     }
 
@@ -47,6 +48,6 @@ public class RequestController implements Initializable {
     
     public void setData(Invitation request){
     	this.invitation = request;
-    	text.setText(Appointment.getAppointmentById(request.getAppointmentId()).getTitle());
+    	text.setText(this.invitation.getAppointment().getTitle());
     }
 }

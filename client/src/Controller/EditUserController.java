@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,6 +32,8 @@ public class EditUserController implements Initializable, Controller {
     private Button editUser;
     @FXML
     private TextField nameDisplay;
+    @FXML
+    private CheckBox admin;
 
     private User user;
     private Controller parentController;
@@ -70,6 +73,7 @@ public class EditUserController implements Initializable, Controller {
         phoneDisplay.setText(phone);
         titleDisplay.setText(jobTitle);
         emailDisplay.setText(email);
+        admin.setSelected(user.isAdmin());
     }
 
     @FXML
@@ -85,6 +89,7 @@ public class EditUserController implements Initializable, Controller {
         user.setPhone(phoneDisplay.getText());
         user.setJobTitle(titleDisplay.getText());
         user.setEmail(emailDisplay.getText());
+        user.setAdmin(admin.isSelected());
         user.save();
         parentController.update();
         
@@ -93,6 +98,7 @@ public class EditUserController implements Initializable, Controller {
 
     @Override
     public void update() {
+
         editUser();
     }
 

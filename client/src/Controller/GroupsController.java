@@ -4,10 +4,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import Interfaces.ManageUser;
 import Interfaces.Controller;
 import Models.Group;
 import Models.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
-public class GroupsController implements Initializable, Controller, ManageUser {
+public class GroupsController implements Initializable, Controller {
     @FXML
     private AnchorPane root;
     @FXML
@@ -44,22 +46,30 @@ public class GroupsController implements Initializable, Controller, ManageUser {
     private ListView<?> usersGroupsList;
     @FXML
     private GridPane userInfo;
+    @FXML
+    private ComboBox usersCombo;
 
     private ArrayList<Group> groups;
+    private ArrayList<User> users;
     private Group activeGroup;
+    private ArrayList<User> activeGroupUsers;
+    private User activeUser;
+    private MainController parentController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO Initialize
-        this.addUser.setVisible(false);
-        this.userList.setVisible(false);
-        this.userInfo.setVisible(false);
-        this.removeUser.setVisible(false);
         this.update();
     }
 
 
     public void update(){
+        users = User.getUsers();
+        usersCombo.getItems().removeAll(usersCombo.getItems());
+        for( User user : users){
+            usersCombo.getItems().add(user.getName().toString());
+        }
+
         groups = Group.getGroups();
         groupList.getItems().removeAll(groupList.getItems());
         for( Group group : groups){
@@ -89,34 +99,63 @@ public class GroupsController implements Initializable, Controller, ManageUser {
 
     @FXML
     private void onMouseClicked(MouseEvent event){
+        updateUsersList();
+    }
+
+    private void updateUsersList(){
         Integer selectedIndex = Integer.parseInt(groupList.getSelectionModel().getSelectedIndices().get(0).toString());
         this.activeGroup = groups.get(selectedIndex);
-        addUser.setVisible(true);
-        userList.setVisible(true);
+
+        userList.getItems().removeAll(userList.getItems());
+        ArrayList<String> ul = new ArrayList<String>();
+        this.activeGroupUsers = this.activeGroup.getUsers();
+        for( User user : this.activeGroupUsers){
+            ul.add(user.getName().toString());
+        }
+
+        ObservableList obListTime = FXCollections.observableList(ul);
+        userList.getItems().clear();
+        userList.setItems(obListTime);
+    }
+
+    @FXML
+    private void onUserSelected(MouseEvent event){
+
+        Integer selectedIndex = userList.getSelectionModel().getSelectedIndex();
+        this.activeUser = activeGroupUsers.get(selectedIndex);
+
+        this.selectedUserName.setText(this.activeUser.getName());
+        this.selectedUserTitle.setText(this.activeUser.getJobTitle());
+
+    }
+
+    @FXML
+    private void onViewProfile( ActionEvent event){
+        this.parentController.showUserProfile(this.activeUser);
     }
 
     @FXML
     private void onAddUser(ActionEvent event)throws Exception {
-    	this.showManageUserDialog();
+    	Integer selectedUserID = usersCombo.getSelectionModel().getSelectedIndex();
+        User user = users.get(selectedUserID);
+        activeGroupUsers.add(user);
+        this.activeGroup.addUser(user);
+        ObservableList ul = userList.getItems();
+        ul.add(user.getName());
+        userList.setItems(ul);
     }
 
     @FXML
     private void onRemoveUser(ActionEvent event) {
-    	//TODO RemoveUser
+        Integer selectedUserID = userList.getSelectionModel().getSelectedIndex();
+        User user = activeGroupUsers.get(selectedUserID);
+        System.out.println(user.getName());
+        this.activeGroup.removeUser(user);
+
+        updateUsersList();
     }
 
-    private Controller showManageUserDialog(  )throws Exception{
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/ManageUser.fxml"));
-        Parent root = fxmlLoader.load();
-        ManageUserController manageUserController = fxmlLoader.getController();
-        manageUserController.setMainController(this);
-        Stage stage = new Stage();
-        stage.setTitle("Add User");
-        stage.setScene(new Scene(root));
-        stage.show();
-        return manageUserController;
-    }
 
     private Controller showEditGroupDialog( Group group )throws Exception{
 
@@ -133,20 +172,8 @@ public class GroupsController implements Initializable, Controller, ManageUser {
     }
 
 
-    @Override
-    public void addUser(User user) {
-        if( activeGroup != null){
-            activeGroup.addUser(user);
-        }
-        this.update();
-    }
 
-    @Override
-    public void removeUser(User user) {
-        if( activeGroup != null){
-            activeGroup.removeUser(user);
-        }
-        this.update();
-
+    public void setParentController(Controller parentController) {
+        this.parentController = (MainController)parentController;
     }
 }
