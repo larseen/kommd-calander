@@ -45,12 +45,15 @@ module.exports = function(app){
             },
             getUserAppointments: function(req, res){
                 new User({UserID: req.params.userID}).fetch({
-                        withRelated: ['appointments']
-                    })
-                    .then(function(appointments){
-                        if(!appointments) return res.json(400, {error: 'appointments not found'});
-                        res.send(appointments.toJSON());
-                    })
+					withRelated: ['appointments']
+				})
+				.then(function(appointments){
+					if(!appointments) return res.json(400, {error: 'appointments not found'});
+					res.send(appointments.toJSON());
+				})
+				.catch(function(err) {
+					return res.send(500, {error:err.toString()});
+				});
             },
             addUsers: function(req, res){
                 var response = [];
