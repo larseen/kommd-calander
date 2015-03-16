@@ -20,7 +20,6 @@ module.exports = function(app){
          * Login
          */
         login : function (req, res, next) {
-            console.log(req);
             passport.authenticate('local', function(err, user, info) {
                 var error = err || info;
                 if (error) return res.json(401, error);

@@ -32,7 +32,8 @@ module.exports = function(app){
                 });
             },
             getUsers: function(req, res){
-				console.log(req.body);
+/*				console.log("HELLOH");
+				console.log(req.body);*/
                 new Appointment({'AppointmentID': req.params.appointmentID}).fetch({
                     withRelated: ['users']
                 })
