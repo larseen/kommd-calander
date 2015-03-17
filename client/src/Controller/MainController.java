@@ -42,11 +42,10 @@ public class MainController implements Initializable, Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO Initialize
         showView("../View/Home.fxml");
         if( !currentUser.isAdmin()) rooms.setVisible(false);
         userMenu.setText(currentUser.getName());
-    }    
+    }
 
     private Initializable showView(String view){
         try {
@@ -69,28 +68,23 @@ public class MainController implements Initializable, Controller {
 
     @FXML
     private void onHome(ActionEvent event) {
-    	//TODO Home
         showView("../View/Home.fxml");
     }
 
     @FXML
     private void onCalendar(ActionEvent event) {
-    	//TODO Calendar
-
         showCalendarByUser(MainController.getCurrentUser());
 
     }
 
     @FXML
     private void onGroups(ActionEvent event) {
-    	//TODO Groups
         GroupsController groupsController =(GroupsController) showView("../View/Groups.fxml");
         groupsController.setParentController(this);
     }
 
     @FXML
     private void onRooms(ActionEvent event) {
-    	//TODO Rooms
     	showView("../View/Rooms.fxml");
     }
 

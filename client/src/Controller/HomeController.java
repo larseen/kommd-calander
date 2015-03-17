@@ -53,29 +53,7 @@ public class HomeController implements Initializable, Controller {
 	public void initialize(URL url, ResourceBundle rb) {
 		setTime();
 		update();
-		
-		// list with notifications
-		ArrayList<Notification> notificationsList = new ArrayList<Notification>();
-		notificationsList.add(new Notification(12, "1 Some text"));
-		notificationsList.add(new Notification(13, "2 Some other text"));
-		notificationsList.add(new Notification(14, "3 Some other text"));
-		notificationsList.add(new Notification(14, "4 Some other text"));
-		notificationsList.add(new Notification(14, "5 Some other text"));
-		notificationsList.add(new Notification(14, "6 Some other text"));
-		notificationsList.add(new Notification(14, "7 Some other text"));
-		notificationsList.add(new Notification(14, "8 Some other text"));
-		notificationsList.add(new Notification(14, "9 Some other text"));
-		notificationsList.add(new Notification(14, "10 Some other text"));
-		notificationsList.add(new Notification(14, "11 Some other text"));
-		notificationsList.add(new Notification(14, "12 Some other text"));
-		notificationsList.add(new Notification(14, "13 Some other text"));
-		notificationsList.add(new Notification(14, "14 Some other text"));
-		notificationsList.add(new Notification(14, "15 Some other text"));
-		notificationsList.add(new Notification(14, "16 Some other text"));
-		notificationsList.add(new Notification(14, "17 Some other text"));
-		notificationsList.add(new Notification(14, "18 Some other text"));
 
-		fillNotifications(notificationsList);
 		
 		
 	}
@@ -185,8 +163,7 @@ public class HomeController implements Initializable, Controller {
 			appointmentList.add(appointment.toString());
 		}
 		fillAppointments(appointmentList);
-		ArrayList<Invitation> invitations = Invitation
-				.getInvitationsByUserId(MainController.getCurrentUser().getId());
+		ArrayList<Invitation> invitations = Invitation.getInvitationsByUserId(MainController.getCurrentUser().getId());
 
 		// list with requests
 		ArrayList<Invitation> invitationList = new ArrayList<Invitation>();
@@ -196,5 +173,11 @@ public class HomeController implements Initializable, Controller {
 		}
 
 		fillRequests(invitationList);
+
+
+		// list with notifications
+		ArrayList<Notification> notificationsList = new ArrayList<Notification>();
+		notificationsList = Notification.getNotificationsByUserId(MainController.getCurrentUser().getId());
+		fillNotifications(notificationsList);
 	}
 }

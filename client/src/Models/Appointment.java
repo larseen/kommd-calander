@@ -121,14 +121,20 @@ public class Appointment extends Model{
     }
 
     public static Appointment JSONtoAppointment(JSONObject json){
-
         //
         //public Appointment( Integer id, Calendar from, Calendar to, String title, String description, String location, Room room, User admin) {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         //cal.setTime(dateFormat.parse("Mon Mar 14 16:02:37 GMT 2011"));// all done 2015-04-03T16:45:00.000Z
        try {
-           Integer aID = Integer.parseInt(json.get("AppointmentID").toString());
+           Integer aID;
+           if(json.has("AppointmentID")) {
+               aID = Integer.parseInt(json.get("AppointmentID").toString());
+           }
+           else{
+               aID = Integer.parseInt(json.get("Appointment_AppointmentID").toString());
+
+           }
 
            Calendar aDTF = new GregorianCalendar();
            Date from = dateFormat.parse(json.get("DateTimeFrom").toString());
