@@ -7,6 +7,7 @@ import javafx.scene.control.DatePicker;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.security.PublicKey;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -119,15 +120,21 @@ public class Appointment extends Model{
 
     }
 
-    private static Appointment JSONtoAppointment(JSONObject json){
-
+    public static Appointment JSONtoAppointment(JSONObject json){
         //
         //public Appointment( Integer id, Calendar from, Calendar to, String title, String description, String location, Room room, User admin) {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         //cal.setTime(dateFormat.parse("Mon Mar 14 16:02:37 GMT 2011"));// all done 2015-04-03T16:45:00.000Z
        try {
-           Integer aID = Integer.parseInt(json.get("AppointmentID").toString());
+           Integer aID;
+           if(json.has("AppointmentID")) {
+               aID = Integer.parseInt(json.get("AppointmentID").toString());
+           }
+           else{
+               aID = Integer.parseInt(json.get("Appointment_AppointmentID").toString());
+
+           }
 
            Calendar aDTF = new GregorianCalendar();
            Date from = dateFormat.parse(json.get("DateTimeFrom").toString());
@@ -224,10 +231,10 @@ public class Appointment extends Model{
     public void uninviteUser( User user ){
         ArrayList<User> users = new ArrayList<User>();
         users.add(user);
-        this.uninviteUser(users);
+        this.uninviteUsers(users);
     }
 
-    public void uninviteUser( ArrayList<User> users ){
+    public void uninviteUsers( ArrayList<User> users ){
         ArrayList<Integer> userIDs = new ArrayList<Integer>();
         for( User user : users ){
             if( user.getId() != null)
@@ -333,7 +340,7 @@ public class Appointment extends Model{
 	        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
 	        JSONObject response = Appointment.get("/api/appointments/users/" + MainController.getCurrentUser().getId().toString());
 	        try {
-	            JSONArray appointments_json = (JSONArray)response.get("apointments");
+	            JSONArray appointments_json = (JSONArray)response.get("appointments");
 	            for(int i = 0 ; i < appointments_json.length(); i++ ){
 	                JSONObject appointment =(JSONObject) appointments_json.get(i);
 	                Appointment a = Appointment.JSONtoAppointment(appointment);
@@ -354,5 +361,28 @@ public class Appointment extends Model{
 		
 		return new String(hour+":"+min+" - "+this.title);
 	}
+
+    public static ArrayList<User> getInvitedUsersByAppointmentId(Integer appointmentId ){
+        ArrayList<User> invitedUsers = new ArrayList<User>();
+        JSONObject response = Appointment.get("/api/appointments/users/invited/" + appointmentId.toString());
+        try {
+            JSONArray appointments_json = (JSONArray)response.get("appointments");
+            for(int i = 0 ; i < appointments_json.length(); i++ ){
+
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return invitedUsers;
+    }
+
+    public ArrayList<User>getInvitedUsers(){
+        return Appointment.getInvitedUsersByAppointmentId(this.id);
+    }
+
+    //app.get('/api/appointments/users/:appointmentID', Appointment.getUsers);
+    //app.post('/api/appointments/users', Appointment.addUsers);
+    //app.put('/api/appointments/users', Appointment.removeUsers);
 }
 

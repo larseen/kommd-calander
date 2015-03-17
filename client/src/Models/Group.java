@@ -72,9 +72,7 @@ DELETE /api/groups/userID*/
         return true;
     }
 
-    public void addMember( User user ){
 
-    }
 
 
     //DELETE /api/groups/groupID
@@ -138,7 +136,7 @@ DELETE /api/groups/userID*/
             System.out.println("Could not convert to json");
             System.out.println(e);
         }
-        Group.post("/api/groups/user", json.toString());
+        Group.post("/api/groups/users/", json.toString());
     }
 
     public void removeUser( User user ){
@@ -163,7 +161,7 @@ DELETE /api/groups/userID*/
             System.out.println("Could not convert to json");
             System.out.println(e);
         }
-        Group.put("/api/groups/user", json.toString());
+        Group.put("/api/groups/users/", json.toString());
     }
 
     public void setName(String name) {
@@ -188,4 +186,25 @@ DELETE /api/groups/userID*/
         return description;
     }
 
+    public static ArrayList<User> getGroupUsersByGroupId( Integer groupId){
+        JSONObject response = Group.get("/api/groups/users/" + groupId.toString());
+        ArrayList<User> users = new ArrayList<User>();
+        try {
+            JSONArray users_json = (JSONArray) response.get("users");
+            for(int i = 0 ; i < users_json.length(); i++ ){
+                JSONObject user =(JSONObject) users_json.get(i);
+                users.add(User.JSONtoUser(user));
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+        return users;
+    }
+
+    public ArrayList<User> getUsers(){
+        return Group.getGroupUsersByGroupId( this.id );
+    }
+
 }
+

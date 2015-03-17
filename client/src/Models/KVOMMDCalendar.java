@@ -27,10 +27,11 @@ public class KVOMMDCalendar extends Model{
     public KVOMMDCalendar(User user, Calendar calendar, Controller parentController){
         this.parentController = parentController;
         this.user = user;
-        if( calendar != null) this.calendar = calendar;
+        this.calendar = calendar;
+        System.out.println(this.calendar.get(Calendar.WEEK_OF_YEAR));
 
 
-        ArrayList<Appointment> tmpAppointments = Appointment.getAppointmentsByUser(MainController.getCurrentUser());
+        ArrayList<Appointment> tmpAppointments = Appointment.getAppointmentsByUser(user);
 
 
         for( Appointment appointment : tmpAppointments ){
@@ -47,7 +48,6 @@ public class KVOMMDCalendar extends Model{
                     AnchorPane root = fxmlLoader.load();
                     AppointmentController appointmentController = fxmlLoader.getController();
                     appointmentController.setData(appointment);
-                    System.out.println("print");
                     appointmentControllers.add(appointmentController);
                     appointmentController.setParentController(this.parentController);
 

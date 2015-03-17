@@ -1,10 +1,11 @@
 package Controller;
 
-import Interfaces.ManageUser;
 import Interfaces.Controller;
 import Models.Appointment;
 import Models.Room;
 import Models.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Dag Frode on 04.03.2015.
  */
-public class EditAppointmentController implements Initializable, Controller, ManageUser {
+public class EditAppointmentController implements Initializable, Controller {
 
     @FXML
     private TextField title;
@@ -47,9 +48,17 @@ public class EditAppointmentController implements Initializable, Controller, Man
     @FXML
     private ComboBox rooms;
     private ArrayList<Room> roomList;
+    private ArrayList<User> users;
+    @FXML
+    private ComboBox usersCombo;
+    @FXML
+    private ListView userList;
 
     private Appointment appointment;
     private Controller parentController;
+    private ArrayList<User> usersToInvite = new ArrayList<User>();
+    private ArrayList<User> usersToRemove = new ArrayList<User>();
+    private ArrayList<User> usersInList = new ArrayList<User>();
 
 
     @Override
@@ -71,10 +80,6 @@ public class EditAppointmentController implements Initializable, Controller, Man
      parentController = controller;
  }
 
-    @FXML
-    private void onManageInvites(ActionEvent event) throws Exception{
-        this.showManageUserDialog();
-    }
 
     @FXML
     private void onCancel(ActionEvent event) {
@@ -107,6 +112,8 @@ public class EditAppointmentController implements Initializable, Controller, Man
             appointment.setAdmin(MainController.getCurrentUser());
         }
         appointment.save();
+        appointment.inviteUsers(usersToInvite);
+        appointment.uninviteUsers(usersToRemove);
         parentController.update();
 
         ((Node) event.getSource()).getScene().getWindow().hide();
@@ -117,44 +124,74 @@ public class EditAppointmentController implements Initializable, Controller, Man
         if( appointment.getId() != null){
             title.setText(appointment.getTitle());
             description.setText(appointment.getDescription());
-            roomList = Room.getRooms();
             date.setValue(appointment.getFrom().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            rooms.getItems().removeAll(rooms.getItems());
-            for( Room room : roomList){
-                rooms.getItems().add(room.getName() + " : " + room.getSize().toString());
-            }
             fromHour.setText(String.valueOf(appointment.getFrom().get(Calendar.HOUR_OF_DAY)));
             fromMin.setText(String.valueOf(appointment.getFrom().get(Calendar.MINUTE)));
             toHour.setText(String.valueOf(appointment.getTo().get(Calendar.HOUR_OF_DAY)));
             toMin.setText(String.valueOf(appointment.getTo().get(Calendar.MINUTE)));
             location.setText(appointment.getLocation());
+            for( User u : appointment.getInvitedUsers()){
+
+            }
         }
-    }
+        else{
+            Calendar cal = Calendar.getInstance();
+            date.setValue(cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            fromHour.setText(String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)));
+            fromMin.setText(String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)));
+            cal.add(Calendar.MINUTE, 30);
+            toHour.setText(String.valueOf(cal.get(Calendar.HOUR_OF_DAY)));
+            toMin.setText(String.valueOf(cal.get(Calendar.MINUTE)));
 
-    @Override
-    public void addUser(User user) {
-        if( appointment != null){
-            appointment.inviteUser( user );
         }
-    }
 
-    @Override
-    public void removeUser(User user) {
-        if( appointment != null){
-            appointment.uninviteUser(user);
+
+        users = User.getUsers();
+        usersCombo.getItems().removeAll(usersCombo.getItems());
+        for( User user : users){
+            usersCombo.getItems().add(user.getName().toString());
         }
+
+        roomList = Room.getRooms();
+        rooms.getItems().removeAll(rooms.getItems());
+        for( Room room : roomList){
+            rooms.getItems().add(room.getName() + " : " + room.getSize().toString());
+        }
+
     }
 
-    private Controller showManageUserDialog(  )throws Exception{
+    @FXML
+    private void onAddUser(ActionEvent event)throws Exception {
+        Integer selectedUserID = usersCombo.getSelectionModel().getSelectedIndex();
+        User user = users.get(selectedUserID);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/ManageUser.fxml"));
-        Parent root = fxmlLoader.load();
-        ManageUserController manageUserController = fxmlLoader.getController();
-        manageUserController.setMainController(this);
-        Stage stage = new Stage();
-        stage.setTitle("Manage Users");
-        stage.setScene(new Scene(root));
-        stage.show();
-        return manageUserController;
+        this.usersToInvite.add(user);
+        this.usersInList.add(user);
+
+        ObservableList ul = userList.getItems();
+        ul.add(user.getName());
+        userList.setItems(ul);
     }
+
+    @FXML
+    private void onRemoveUser(ActionEvent event) {
+        Integer selectedUserID = userList.getSelectionModel().getSelectedIndex();
+        User user = usersInList.get(selectedUserID);
+
+        usersInList.remove(user);
+        usersToInvite.remove(user);
+        usersToRemove.add(user);
+        ArrayList<String> ul = new ArrayList<String>();
+
+        for( User u : this.usersInList){
+            ul.add(u.getName().toString());
+        }
+
+        ObservableList obListTime = FXCollections.observableList(ul);
+        userList.getItems().clear();
+        userList.setItems(obListTime);
+    }
+
+
+
 }

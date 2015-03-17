@@ -15,7 +15,7 @@ public class User extends Model{
     logout
     DELETE /api/session
 
-    getUsers
+
     GET /api/users
     getUser(id)
     GET /api/users/userID
@@ -34,17 +34,19 @@ public class User extends Model{
     private String phone;
     private String jobTitle;
     private String password;
+    private Boolean admin = false;
 
     public User(){
 
     }
 
-    public User(Integer id, String name, String email, String phone, String jobTitle) {
+    public User(Integer id, String name, String email, String phone, String jobTitle, boolean admin) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.jobTitle = jobTitle;
+        this.admin = admin;
     }
 
     public static User getUserById( Object userID ){
@@ -68,9 +70,9 @@ public class User extends Model{
         return users;
     }
 
-    private static User JSONtoUser(JSONObject json){
+    public static User JSONtoUser(JSONObject json){
         try {
-            User user = new User(Integer.parseInt(json.get("UserID").toString()),json.get("Name").toString(),json.get("Email").toString(),json.get("Phone").toString(),json.get("Title").toString());
+            User user = new User(Integer.parseInt(json.get("UserID").toString()),json.get("Name").toString(),json.get("Email").toString(),json.get("Phone").toString(),json.get("Title").toString(), json.getInt("Admin") == 0 ? false : true);
             return user;
         }
         catch (Exception e){
@@ -106,6 +108,7 @@ public class User extends Model{
             if( this.phone != null ) json.put("Phone", this.phone.toString());
             if( this.jobTitle != null ) json.put("Title", this.jobTitle.toString());
             if( this.password != null ) json.put("Password", this.password.toString());
+            json.put("Admin", this.admin ? 1 : "false" );
 
 
         }
@@ -210,4 +213,11 @@ public class User extends Model{
     }
 
 
+    public boolean isAdmin(){
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
 }

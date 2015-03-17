@@ -41,19 +41,27 @@ public class CalendarController implements Initializable, Controller {
     @FXML
     private Label weekNumber;
 
+    private User user;
+
     @FXML
-    private Button nWeek;
+    private Button nextWeek;
     @FXML
-    private Button tWeek;
+    private Button thisWeek;
     @FXML
-    private Button pWeek;
+    private Button previousWeek;
 
     private KVOMMDCalendar calendar;
+    private Calendar cal = new GregorianCalendar();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.update();
 
+
+    }
+
+    public void setUser( User user ){
+        this.user = user;
+        this.update();
         root.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                 redraw();
@@ -63,8 +71,6 @@ public class CalendarController implements Initializable, Controller {
 
     private void redraw(){
         this.calendar.redraw( root.getWidth()/8 );
-
-
     }
 
 
@@ -74,16 +80,19 @@ public class CalendarController implements Initializable, Controller {
     }
 
     @FXML
-    private void onTWeek(ActionEvent event) {
-        //TODO CreateEvent
+    private void onThisWeek(ActionEvent event) {
+        cal = new GregorianCalendar();
+        update();
     }
     @FXML
-    private void onNWeek(ActionEvent event) {
-        //TODO CreateEvent
+    private void onNextWeek(ActionEvent event) {
+        cal.add(Calendar.WEEK_OF_YEAR, 1);
+        update();
     }
     @FXML
-    private void onPWeek(ActionEvent event) {
-        //TODO CreateEvent
+    private void onPreviousweek(ActionEvent event) {
+        cal.add(Calendar.WEEK_OF_YEAR, -1);
+        update();
     }
 
 
@@ -97,7 +106,7 @@ public class CalendarController implements Initializable, Controller {
         week_sat_col.getChildren().removeAll(week_sat_col.getChildren());
         week_sun_col.getChildren().removeAll(week_sun_col.getChildren());
 
-        this.calendar = new KVOMMDCalendar( MainController.getCurrentUser(), new GregorianCalendar(), this);
+        this.calendar = new KVOMMDCalendar( this.user, cal, this);
 
         week_mon_col.getChildren().addAll(this.calendar.getMondayAppointments());
         week_tue_col.getChildren().addAll(this.calendar.getTuesdayAppointments());
@@ -106,6 +115,6 @@ public class CalendarController implements Initializable, Controller {
         week_fri_col.getChildren().addAll(this.calendar.getFridayAppointments());
         week_sat_col.getChildren().addAll(this.calendar.getSaturdayAppointments());
         week_sun_col.getChildren().addAll(this.calendar.getSundayAppointments());
-
+        redraw();
     }
 }
