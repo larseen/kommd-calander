@@ -4,11 +4,15 @@
 module.exports = function(app){
 
     var async = require('async');
-    var UserAppointment = require('../models/userAppointment.model')(app);
-    var User = require('../models/user.model')(app, UserAppointment);
     var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
-    var appointmentNotification = require('./appointmentNotification.controller')(app, Appointment);
-
+    var AppointmentNotification = require('./appointmentNotification.controller')(app, Appointment);
+    var Group = require('../models/group.model')(app);
+    var GroupNotification = require('../models/groupNotification.model')(app);
+    var UserGroup = require('../models/userGroup.model')(app);
+	var UserGroupNotification = require('../models/userGroupNotification.model');
+    var UserAppointment = require('../models/userAppointment.model')(app);
+    var UserAppointmentNotification = require('../models/userAppointmentNotification.model')(app);
+    var User = require('../models/user.model')(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, UserAppointment, UserAppointmentNotification);
 
     return {
             getAppointments: function(req, res){
@@ -44,7 +48,7 @@ module.exports = function(app){
                 });
             },
             getUserAppointments: function(req, res){
-                new User({UserID: req.params.userID}).fetch({
+                new User({'UserID': req.params.userID}).fetch({
 					withRelated: ['appointments']
 				})
 				.then(function(appointments){
