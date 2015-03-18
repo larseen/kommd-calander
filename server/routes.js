@@ -22,6 +22,7 @@ module.exports = function(app) {
 	app.get('/api/groups/:groupID', Group.getGroup);
 	app.get('/api/groups/users/:groupID', Group.getUsers);
 	app.post('/api/groups/users', Group.addUsers);
+	app.post('/api/groups/user/:userID', Group.getUserGroups);
 	app.put('/api/groups/users', Group.removeUsers);
 	app.post('/api/groups/:groupID', Group.updateGroup);
 	app.delete('/api/groups/:groupID', Group.deleteGroup);
