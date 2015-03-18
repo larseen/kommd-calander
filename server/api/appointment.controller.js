@@ -14,8 +14,7 @@ module.exports = function(app){
     var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
     var User = require('../models/user.model')(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, UserAppointment, UserAppointmentNotification);
 
-	// TODO: Fix this.
-	// This is horrible, but works ATM.
+	// TODO: Fix this horrible mess.
     var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
 
     return {
