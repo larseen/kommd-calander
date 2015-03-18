@@ -118,7 +118,7 @@ public class AppointmentController implements Initializable, Controller {
     @Override
     public void update() {
 
-        appointmentContainer.setStyle("-fx-background-color: white;");
+        appointmentContainer.setStyle("-fx-background-color: #ccc;");
         appointmentContainer.setLayoutY(this.getLayoutY());
         appointmentContainer.setPrefHeight(this.getHeight());
         appointmentLabel.setText(appointment.getTitle());

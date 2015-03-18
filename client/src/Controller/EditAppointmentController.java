@@ -96,6 +96,7 @@ public class EditAppointmentController implements Initializable, Controller {
         appointment.getFrom().set(Calendar.HOUR_OF_DAY, Integer.parseInt(fromHour.getText()));
         appointment.getFrom().set(Calendar.MINUTE, Integer.parseInt(fromMin.getText()));
 
+
         appointment.getTo().set(Calendar.HOUR_OF_DAY, Integer.parseInt(toHour.getText()));
         appointment.getTo().set(Calendar.MINUTE, Integer.parseInt(toMin.getText()));
 
@@ -131,7 +132,7 @@ public class EditAppointmentController implements Initializable, Controller {
             toMin.setText(String.valueOf(appointment.getTo().get(Calendar.MINUTE)));
             location.setText(appointment.getLocation());
             for( User u : appointment.getInvitedUsers()){
-
+                userList.getItems().add(u.getName());
             }
         }
         else{

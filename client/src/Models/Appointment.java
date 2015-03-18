@@ -363,12 +363,15 @@ public class Appointment extends Model{
 	}
 
     public static ArrayList<User> getInvitedUsersByAppointmentId(Integer appointmentId ){
+        //{"AppointmentID":195,"DateTimeFrom":"2015-03-17T07:12:58.000Z","DateTimeTo":"2015-03-17T11:42:58.000Z","Description":"ad","Location":"null","Room_RoomID":null,"AppointmentAdmin":62,"Title":"hey you","users":[{"UserID":62,"PasswordHash":"vJ40uZjZAMxKUBczTX3UMFU9IjGoQ80kAAkf6nEwfHTS+KbfY611eZdAbb01s9gxtYNvFsjV16bGwu8tDQIEpA==","Salt":"78YQ3AIGC3Eb0++pgtmDZA==","Name":"Dag Frode","Email":"dfs@live.no","Phone":2147483647,"Title":"Test","Admin":1,"_pivot_id":122,"_pivot_Appointment_AppointmentID":195,"_pivot_User_UserID":62}]}
+
         ArrayList<User> invitedUsers = new ArrayList<User>();
         JSONObject response = Appointment.get("/api/appointments/users/invited/" + appointmentId.toString());
         try {
-            JSONArray appointments_json = (JSONArray)response.get("appointments");
+            JSONArray appointments_json = (JSONArray)response.get("users");
             for(int i = 0 ; i < appointments_json.length(); i++ ){
-
+                JSONObject u = (JSONObject)appointments_json.get(i);
+                invitedUsers.add(User.JSONtoUser(u));
             }
         }
         catch (Exception e){

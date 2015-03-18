@@ -58,6 +58,7 @@ public class RoomsController implements Initializable,Controller {
 				RoomController roomController = fxmlLoader
 						.getController();
 				roomController.setData(room);
+				roomController.setRoomsController(this);
 
 				roomControllers.add(roomController);
 
@@ -73,7 +74,9 @@ public class RoomsController implements Initializable,Controller {
     private void onCreate(ActionEvent event) {
     	
     	String nameField = name.getText();
-    	int sizeField = Integer.parseInt(size.getText());
+		int sizeField = 0;
+		if( size.getText() != "")
+			sizeField = Integer.parseInt(size.getText());
     	String locationField = location.getText();
     	String descriptionField = description.getText();
     	

@@ -60,10 +60,6 @@
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Button>
-                  <CheckBox fx:id="keepLoggedIn" mnemonicParsing="false" prefHeight="16.0" prefWidth="148.0" text="Keep me logged in" GridPane.columnIndex="2">
-                     <font>
-                        <Font size="13.0" />
-                     </font></CheckBox>
                </children>
             </GridPane>
             <Label fx:id="errorMsg" prefHeight="35.0" prefWidth="508.0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="4">

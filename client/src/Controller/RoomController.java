@@ -36,8 +36,6 @@ public class RoomController implements Initializable {
     	root.getChildren().clear();
     	
     	System.out.println(id);
-    	
-    	//UBER MESS, FIX!!
     	roomsController.update();
     }
     
@@ -48,5 +46,8 @@ public class RoomController implements Initializable {
     	this.roomsController = room.getRoomsController();
     	this.room = room;
     }
-    
+
+    public void setRoomsController(RoomsController roomsController) {
+        this.roomsController = roomsController;
+    }
 }

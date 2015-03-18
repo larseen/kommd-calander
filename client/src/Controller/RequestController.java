@@ -3,6 +3,7 @@ package Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Interfaces.Controller;
 import Models.Appointment;
 import Models.Invitation;
 import Models.Request;
@@ -24,6 +25,7 @@ public class RequestController implements Initializable {
     private Button decline;
     
     private Invitation invitation;
+    private HomeController parentController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,12 +44,16 @@ public class RequestController implements Initializable {
     private void onDecline(ActionEvent event) {
     	this.invitation.decline();
     	System.out.println("Notify: Declined!");
-    	root.getChildren().clear();
+    	this.parentController.update();
     	
     }
     
     public void setData(Invitation request){
     	this.invitation = request;
     	text.setText(this.invitation.getAppointment().getTitle());
+    }
+
+    public void setParentController(HomeController parentController) {
+        this.parentController = parentController;
     }
 }
