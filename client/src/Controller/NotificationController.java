@@ -22,23 +22,22 @@ public class NotificationController implements Initializable {
     private String desc;
 
     private HomeController homeController;
-    
+    private Notification notification;
     private int id;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO init
     	text.setText(this.desc);
     }    
 
     @FXML
     private void onSeen(ActionEvent event) {
-    	//TODO button
-    	homeController.removeNotification(root);
-    	notifySeen();
+        this.notification.save();
+    	homeController.update();
     }
     
     public void setData(Notification notification, HomeController homeController){
+        this.notification = notification;
         this.homeController = homeController;
     	this.id = notification.getId();
         this.setText(notification.getText());
@@ -48,8 +47,5 @@ public class NotificationController implements Initializable {
         this.desc = desc;
         text.setText(desc);
     }
-    
-    private void notifySeen(){
-    	System.out.println("Notify!" + desc);
-    }
+
 }

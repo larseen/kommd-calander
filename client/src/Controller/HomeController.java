@@ -118,22 +118,13 @@ public class HomeController implements Initializable, Controller {
 		appointments.setItems(obListTime);
 	}
 
-	public void removeNotification(AnchorPane notification){
-		notifications.getChildren().remove(notification);
-		this.redrawNotifications();
-	}
 
-	private void redrawNotifications(){
-		ArrayList tmpNotifications = new ArrayList(this.notifications.getChildren());
-		notifications.getChildren().removeAll(notifications.getChildren());
-		notifications.getChildren().addAll(tmpNotifications);
-	}
 
 	private void fillRequests(ArrayList<Invitation> requestList) {
 		
 		// list for controllers
 		ArrayList<RequestController> requestControllers = new ArrayList<RequestController>();
-
+		requests.getChildren().removeAll(requests.getChildren());
 		for (Invitation request : requestList) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -142,6 +133,7 @@ public class HomeController implements Initializable, Controller {
 				RequestController requestController = fxmlLoader
 						.getController();
 				requestController.setData(request);
+				requestController.setParentController(this);
 
 				requestControllers.add(requestController);
 				requests.getChildren().addAll(root);
@@ -163,6 +155,7 @@ public class HomeController implements Initializable, Controller {
 			appointmentList.add(appointment.toString());
 		}
 		fillAppointments(appointmentList);
+
 		ArrayList<Invitation> invitations = Invitation.getInvitationsByUserId(MainController.getCurrentUser().getId());
 
 		// list with requests
@@ -174,10 +167,10 @@ public class HomeController implements Initializable, Controller {
 
 		fillRequests(invitationList);
 
+		/*notifications.getChildren().removeAll(notifications.getChildren());
 
-		// list with notifications
 		ArrayList<Notification> notificationsList = new ArrayList<Notification>();
 		notificationsList = Notification.getNotificationsByUserId(MainController.getCurrentUser().getId());
-		fillNotifications(notificationsList);
+		fillNotifications(notificationsList);*/
 	}
 }
