@@ -4,7 +4,6 @@
 module.exports = function(app){
 
     var async = require('async');
-    var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
     var AppointmentNotification = require('./appointmentNotification.controller')(app, Appointment);
     var Group = require('../models/group.model')(app);
     var GroupNotification = require('../models/groupNotification.model')(app);
@@ -12,7 +11,12 @@ module.exports = function(app){
 	var UserGroupNotification = require('../models/userGroupNotification.model');
     var UserAppointment = require('../models/userAppointment.model')(app);
     var UserAppointmentNotification = require('../models/userAppointmentNotification.model')(app);
+    var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
     var User = require('../models/user.model')(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, UserAppointment, UserAppointmentNotification);
+
+	// TODO: Fix this.
+	// This is horrible, but works ATM.
+    var Appointment = require('../models/appointment.model')(app, User, UserAppointment);
 
     return {
             getAppointments: function(req, res){

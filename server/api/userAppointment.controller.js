@@ -30,7 +30,7 @@ module.exports = function(app){
                     });
             },
             getUserInvitations: function(req, res){
-                new UserAppointment().where({User_UserID: req.params.userID}).fetchAll({withRelated: ['Appointment']})
+                new UserAppointment().where({User_UserID: req.params.userID, ViewStatus: false}).fetchAll({withRelated: ['Appointment']})
                     .then(function(userAppointments){
                         if(!userAppointments) return res.json(400, {error: 'userAppointments not found'});
                         res.send(userAppointments.toJSON());

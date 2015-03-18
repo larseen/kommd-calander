@@ -16,6 +16,9 @@ module.exports = function(app){
 				if(!appointmentNotifications) return res.json(400, {error: 'appointmentNotifications not found'});
 				res.send(appointmentNotifications.toJSON());
 			})
+			.catch(function(err) {
+				return res.send(500, {error: err.toString()});
+			}
 
 		},
 

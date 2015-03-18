@@ -30,7 +30,7 @@ module.exports = function(app){
 		},
 
 		getUserAppointmentNotifications : function(req, res){
-			UserAppointmentNotification.where({User_UserID: req.params.userID}).fetchAll({
+			UserAppointmentNotification.where({User_UserID: req.params.userID, SeenStatus: false}).fetchAll({
 				withRelated: ['NotificationID']
 			})
 				.then(function(notification) {
