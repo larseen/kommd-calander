@@ -3,11 +3,18 @@
 */
 module.exports = function(app){
 
-    var User = require('../models/user.model')(app);
+    var Appointment = require('../models/appointment.model')(app);
+    var Group = require('../models/group.model')(app);
+    var AppointmentNotification = require('../models/appointmentNotification.model')(app);
+    var GroupNotification = require('../models/groupNotification.model')(app);
+    var UserGroup = require('../models/userGroup.model')(app);
+    var UserAppointment = require('../models/userAppointment.model')(app);
+    var UserAppointmentNotification = require('../models/userAppointmentNotification.model')(app);
+    var User = require('../models/user.model')(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserAppointment, UserAppointmentNotification);
 
     return {
             getUsers : function(req, res){
-                new User().fetchAll({columns: ['UserID', 'Navn', 'Title', 'Phone', 'Email']})
+                new User().fetchAll({columns: ['UserID', 'Name', 'Title', 'Phone', 'Email', 'Admin']})
                 .then(function(users) {
                     if(!users) return res.json(400, {error: 'no users not found'});
                     res.send(users.toJSON());
@@ -17,7 +24,7 @@ module.exports = function(app){
                 });
             },
             getUser : function(req, res){
-                new User({'UserID': req.params.userID}).fetch({columns: ['UserID','Navn', 'Title', 'Phone', 'Email']})
+                new User({'UserID': req.params.userID}).fetch({columns: ['UserID','Name', 'Title', 'Phone', 'Email', 'Admin']})
                 .then(function(user) {
                     if(!user) return res.json(400, {error: 'user not found'})
                     res.send(user.toJSON());
@@ -26,24 +33,39 @@ module.exports = function(app){
                     return res.send(500, {error: err.toString()});
                 });     
             },
-            createUser : function(req, res){
-                User.create(req.body.email, req.body.password, req.body.name, req.body.phone, req.body.title)
+            getGroups : function(req, res){
+                new User({'UserID': req.params.userID}).fetch({
+                    columns: ['UserID','Name', 'Title', 'Phone', 'Email', 'Admin'],
+                    withRelated: ['groups']
+
+                })
                 .then(function(user) {
-                    res.send({userID: user.attributes.UserID, name: user.attributes.Navn, phone: user.attributes.Phone, title: user.attributes.Title, email: user.attributes.Email});
+                    if(!user) return res.json(400, {error: 'user not found'})
+                    res.send(user.toJSON());
+                })
+                .catch(function(err){
+                    return res.send(500, {error: err.toString()});
+                });
+            },
+            createUser : function(req, res){
+                User.create(req.body.Email, req.body.Password, req.body.Name, req.body.Phone, req.body.Title)
+                .then(function(user) {
+                    res.send({UserID: user.attributes.UserID, Name: user.attributes.Name, Phone: user.attributes.Phone, Title: user.attributes.Title, Admin: user.attributes.Admin, Email: user.attributes.Email});
                 })
                 .catch(function(err){
                     return res.send(500, {error: err.toString()});
                 });
             },
             updateUser : function(req, res){
-                new User({UserID: req.params.userID}).fetch({columns: ['UserID','Navn', 'Title', 'Phone', 'Email']})
+                new User({UserID: req.params.userID}).fetch({columns: ['UserID','Name', 'Title', 'Phone', 'Email', 'Admin']})
                 .then(function(user){
                     if(!user) return res.json(400, {error: 'no user not found'});
                     user.save({
-                        Navn: req.body.name || user.get('Navn'), 
-                        Phone: req.body.phone || user.get('Phone'), 
-                        Title: req.body.title || user.get('Title'), 
-                        Email: req.body.email || user.get('Email')
+                        Name: req.body.Name || user.get('Name'), 
+                        Phone: req.body.Phone || user.get('Phone'), 
+                        Title: req.body.Title || user.get('Title'), 
+                        Email: req.body.Email || user.get('Email'),
+                        Admin: req.body.Admin || user.get('Admin')
                     })
                     .then(function(updateUser){
                         res.send(updateUser.toJSON());
@@ -57,12 +79,13 @@ module.exports = function(app){
                 });
             },
             changePassword : function(req, res){
+		console.log(req.body)
                 new User({UserID: req.params.userID}).fetch()
                 .then(function(user){
-                    if(User.authenticate(req.body.oldPassword, user.Salt, user.PasswordHash)){
+                    if(User.authenticate(req.body.oldPassword, user.get('Salt'), user.get('PasswordHash'))){
                         User.newPassword(user, req.body.newPassword)
                         .then(function(user){
-                            res.send({userID: user.attributes.UserID, name: user.attributes.Navn, phone: user.attributes.Phone, title: user.attributes.Title, email: user.attributes.Email});
+                            res.send({UserID: user.get('UserID'), Name: user.get('Name'), Phone: user.get('Phone'), Title: user.get('Title'), Admin: user.get('Admin'), Email: user.get('Email')});
                         })
                         .catch(function(err){
                             return res.send(500, {error: err.toString()});

@@ -1,8 +1,8 @@
 /**
  * Module dependencies.
  */
-module.exports = function(app){
-    
+module.exports = function(app, Appointment, Group, AppointmentNotification, GroupNotification, UserGroup, UserGroupNotification, UserAppointment, UserAppointmentNotification){
+
     var bookshelf = app.get('bookshelf');
     var Promise  = require('bluebird');
     var crypto = require('crypto');
@@ -48,8 +48,22 @@ module.exports = function(app){
 
     var User = bookshelf.Model.extend(
     {
-    	idAttribute: 'UserID',
-	  	tableName: 'User'
+		idAttribute: 'UserID',
+		tableName: 'User',
+		appointments: function() {
+			console.log("HELLOH");
+		    return this.belongsToMany(Appointment).through(UserAppointment);
+		},
+		groups: function() {
+		    return this.belongsToMany(Group).through(UserGroup);
+		},
+		appointmentNotifications: function() {
+			return this.belongsToMany(AppointmentNotification).through(UserAppointmentNotification);
+		},
+		groupNotifications: function() {
+			return this.belongsToMany(GroupNotification).through(UserGroupNotification);
+		},
+
 	},
 	{
 
@@ -58,7 +72,7 @@ module.exports = function(app){
 		    var salt = cryptoMethods.makeSalt()
 		    return this.forge
 		    	({
-		    		Navn: name,
+		    		Name: name,
 		    		Email: email.toLowerCase(),
 		    		Phone: phone,
 		    		Title: title,

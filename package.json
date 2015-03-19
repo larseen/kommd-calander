@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "orm":	"*",
     "express": "~4.0.0",
     "nconf": "^0.6.9",
     "ejs": "*",
@@ -17,7 +18,8 @@
     "passport-local":   "*",
     "crypto":   "*",
     "cookie-parser": "*",
-    "express-session": "*"
+    "express-session": "*",
+    "async": "*"
   },
   "scripts": {
       "start": "nodemon server/app.js",
