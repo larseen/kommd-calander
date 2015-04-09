@@ -34,6 +34,8 @@ public class EditUserController implements Initializable, Controller {
     private TextField nameDisplay;
     @FXML
     private CheckBox admin;
+    @FXML
+    private Label adminLabel;
 
     private User user;
     private Controller parentController;
@@ -73,6 +75,10 @@ public class EditUserController implements Initializable, Controller {
         phoneDisplay.setText(phone);
         titleDisplay.setText(jobTitle);
         emailDisplay.setText(email);
+        if(!user.isAdmin()){
+            admin.setVisible(false);
+            adminLabel.setVisible(false);
+        }
         admin.setSelected(user.isAdmin());
     }
 

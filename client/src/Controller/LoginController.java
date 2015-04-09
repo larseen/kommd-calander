@@ -74,7 +74,7 @@ public class LoginController  extends Application implements Initializable  {
 
     @FXML
     private void onLogin(ActionEvent event) throws Exception{
-        if( User.login("dfs@live.no", "12345")){ //User.login(username.getText(), password.getText())  == true ){  //User.login("dfs@live.no", "12345")
+        if( User.login(username.getText(), password.getText())  == true ){  //User.login("dfs@live.no", "12345")
             ((Node)event.getSource()).getScene().getWindow().hide();
             login();
         }
